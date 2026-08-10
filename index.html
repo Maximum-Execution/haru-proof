@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haru Sign Proof</title>
+<style>
+
+  :root{
+    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E;
+    --text:#EEECE9; --muted:#959494;
+    --accent:#e41a1c; --accent-text:#EA5152;
+    --wordmark-invert:0;
+    --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  [data-theme="light"]{
+    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD;
+    --text:#000205; --muted:#595A5B;
+    --accent:#C4141C; --accent-text:#B3121A;
+    --wordmark-invert:1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--font-ui); font-size:19px; font-weight:400; line-height:1.55;
+    padding-bottom:150px;
+  }
+  .wrap{
+    max-width:660px; margin:0 auto; padding:18px;
+    padding-left:max(18px,env(safe-area-inset-left));
+    padding-right:max(18px,env(safe-area-inset-right));
+  }
+  @media (min-width:760px){ .wrap{max-width:1000px} }
+
+  .visually-hidden{
+    position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+  }
+  .skip{
+    position:absolute; left:-9999px; top:0; z-index:50;
+    background:var(--accent); color:#FFFFFF; padding:14px 20px; border-radius:0 0 12px 0;
+    font-size:19px; font-weight:500; text-decoration:none;
+  }
+  .skip:focus{left:0}
+
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .wordmark{height:26px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
+  h1{font-size:32px;line-height:1.14;margin:10px 0 4px;font-weight:700;letter-spacing:-0.005em}
+  .meta{color:var(--muted);font-size:16px;margin:0}
+  .toggle{
+    flex:none;min-height:48px;min-width:48px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer;
+  }
+
+  .howto{
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin:22px 0 0;
+  }
+  .howto h2{font-size:21px;margin:0 0 12px;font-weight:500;line-height:1.3}
+  .howto ol{margin:0;padding-left:26px}
+  .howto li{margin:0 0 10px;font-size:19px;line-height:1.5}
+  .howto li:last-child{margin-bottom:0}
+
+  .summary{margin:26px 0 0;padding:0}
+  .summary h2{font-size:21px;margin:0 0 12px;font-weight:500;line-height:1.3}
+  .summary ul{margin:0;padding-left:24px}
+  .summary li{margin:0 0 11px;font-size:18px;line-height:1.5;color:var(--text)}
+  .summary li:last-child{margin-bottom:0}
+
+  .ref{margin-top:40px}
+  .ref h2{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2}
+  .eyebrow{color:var(--muted);font-size:15px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;margin:0}
+  .note{color:var(--muted);font-size:17px;margin:8px 0 0;line-height:1.5}
+  .ref-grid{display:grid;gap:16px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:640px){ .ref-grid{grid-template-columns:1fr 1fr} }
+  .ref-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .ref-card img{width:100%;height:auto;display:block}
+  .ref-card p{margin:0;padding:14px 16px;font-size:18px;font-weight:500}
+
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  .part{margin-top:44px}
+  h2.part-title{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2}
+  .group-label{
+    font-size:17px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+    margin:30px 0 0;padding-bottom:8px;border-bottom:2px solid var(--accent);
+  }
+  .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:16px}
+  @media (min-width:640px){ .grid{grid-template-columns:1fr 1fr} }
+
+  .option{display:block;position:relative;margin:0}
+  .option input{
+    position:absolute;width:1px;height:1px;margin:-1px;
+    clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;border:0;padding:0;
+  }
+  .card{
+    display:block;background:var(--surface);
+    border:2px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .option input:checked + .card{border-color:var(--accent);border-width:3px;transform:translateY(-2px)}
+  .option input:focus-visible + .card{outline:3px solid var(--accent-text);outline-offset:3px}
+  .card img{width:100%;height:auto;display:block;background:var(--line)}
+  .card-body{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:56px}
+  .num{
+    flex:none;font-family:var(--font-ui);font-weight:500;font-size:24px;line-height:1;
+    min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--line);border-radius:12px;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
+  }
+  .option input:checked + .card .num{
+    background:var(--accent);border-color:var(--accent);color:#FFFFFF;
+    animation:pop .26s cubic-bezier(.25,1,.5,1);
+  }
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+  .cap{font-size:18px;line-height:1.4}
+  .badge{
+    display:none;margin-left:auto;font-weight:500;color:var(--accent-text);
+    font-size:17px;white-space:nowrap;
+  }
+  .option input:checked + .card .badge{display:inline;animation:fadein .26s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+
+  .bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:var(--surface);border-top:1px solid var(--line);
+    padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  }
+  .bar-inner{max-width:660px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  @media (min-width:760px){ .bar-inner{max-width:1000px} }
+  .picks{font-family:var(--font-mono);font-size:20px;font-weight:400;letter-spacing:.02em}
+  .picks .ok{color:var(--accent-text)}
+  .picks .todo{color:var(--muted)}
+  .send{
+    margin-left:auto;min-height:56px;padding:14px 26px;
+    background:var(--accent);color:#FFFFFF;border:none;border-radius:14px;
+    font-family:var(--font-ui);font-size:24px;font-weight:500;line-height:1;cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .send.ready.nudge{animation:nudge .5s cubic-bezier(.25,1,.5,1)}
+  @keyframes nudge{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .send:active{transform:translateY(2px)}
+  .send:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .bar-msg{flex-basis:100%;font-size:17px;color:var(--accent-text);font-weight:500;margin:0}
+  .bar-msg:empty{display:none}
+  .bar-done{flex-basis:100%;font-size:17px;color:var(--muted);margin:0}
+  .bar-done:empty{display:none}
+
+  :focus{scroll-margin-bottom:190px;scroll-margin-top:20px}
+
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:22px}
+  .signoff{font-size:19px;margin:0 0 18px;line-height:1.5}
+  .code{font-family:var(--font-mono);font-size:19px;color:var(--accent-text)}
+  .calllink{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    min-height:60px;padding:16px 20px;margin:0 0 16px;
+    border:2px solid var(--line);border-radius:14px;background:var(--surface);
+    color:var(--text);font-size:19px;font-weight:500;text-decoration:none;text-align:center;
+  }
+  .calllink:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .calllink .tel{font-family:var(--font-mono);color:var(--accent-text)}
+  .alt-contact{font-size:18px;margin:0 0 16px;line-height:1.5}
+  .maillink{
+    display:inline-block;min-height:44px;padding:10px 0;
+    color:var(--text);font-weight:500;text-decoration-color:var(--accent-text);text-underline-offset:3px;
+  }
+  .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
+  .fine a{color:inherit}
+
+  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      transition-duration:.01ms!important;
+      animation-duration:.01ms!important;
+      animation-iteration-count:1!important;
+    }
+    .option input:checked + .card{transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#choices">Skip to the choices</a>
+<div class="wrap">
+  <header class="reveal">
+    <div>
+      <img class="wordmark" src="img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
+      <h1>Haru Sign Proof</h1>
+      <p class="meta">3030 W Cary St &middot; August 10, 2026</p>
+    </div>
+    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+  </header>
+
+  <section class="howto reveal" style="animation-delay:.06s" aria-labelledby="howH">
+    <h2 id="howH">How to use this page</h2>
+    <ol>
+      <li>Tap the photo you like best.</li>
+      <li>Do this three times: Part A, Part B, and Part C.</li>
+      <li>Tap the red <strong>Send</strong> button at the bottom.</li>
+    </ol>
+  </section>
+
+  <section class="summary reveal" style="animation-delay:.12s" aria-labelledby="sumH">
+    <h2 id="sumH">These are starting ideas. Nothing is final yet.</h2>
+    <ul>
+      <li>The side wall on Belmont Ave is not here on purpose. We choose the front and the corner first. Then Spencer designs the side to match.</li>
+      <li>Nothing is placed randomly. Every size lines up with the building: the windows, the corners, and the trim.</li>
+      <li>All the signs sit lower on the wall, the way you asked.</li>
+      <li>The front photos do not show the Japanese and Korean letters yet. Spencer adds those after these first choices.</li>
+      <li>If you do not like any of them, pick the closest one and tell Spencer what to change.</li>
+    </ul>
+  </section>
+
+  <!-- LOGO REFERENCE -->
+  <section class="ref" aria-labelledby="refH">
+    <p class="eyebrow">Your logo</p>
+    <h2 id="refH">Two ways to paint it</h2>
+    <p class="note">Same logo, with or without the orange triangle. The front photos are sorted into these two groups.</p>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <img src="img/style_no_triangle.jpg" width="1200" height="620" alt="The Haru logo in white on a green panel. Wordmark only, no triangle.">
+        <p>Without the triangle</p>
+      </div>
+      <div class="ref-card">
+        <img src="img/style_with_triangle.jpg" width="1200" height="620" alt="The Haru logo in white on a green panel with the orange triangle above the H." loading="lazy">
+        <p>With the triangle</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART A -->
+  <section class="part" id="choices" aria-labelledby="hA">
+    <fieldset>
+      <legend class="visually-hidden">Part A. The front sign. Pick one of six photos.</legend>
+      <p class="eyebrow">Part A</p>
+      <h2 class="part-title" id="hA">The Front Sign</h2>
+      <p class="note">W. Cary St, above the door. Pick <strong>one</strong> photo from either group.</p>
+
+      <h3 class="group-label">Without the triangle</h3>
+      <div class="grid">
+        <label class="option">
+          <input type="radio" name="a" value="1">
+          <span class="card">
+            <img src="img/front_nt_side.jpg" width="1200" height="1009" alt="Front of the building. Large Haru logo, no triangle, on the right side of the white wall next to the 3030." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">1</span>
+              <span class="cap">Big, on the right next to the 3030.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="a" value="2">
+          <span class="card">
+            <img src="img/front_nt_window.jpg" width="1200" height="1009" alt="Front of the building. Medium Haru logo, no triangle, lined up with the window below it." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">2</span>
+              <span class="cap">Medium, lined up with the window.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="a" value="3">
+          <span class="card">
+            <img src="img/front_nt_higher.jpg" width="1200" height="1009" alt="Front of the building. Smaller Haru logo, no triangle, sitting a little higher on the wall." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">3</span>
+              <span class="cap">Smaller, a little higher.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+      </div>
+
+      <h3 class="group-label">With the triangle</h3>
+      <div class="grid">
+        <label class="option">
+          <input type="radio" name="a" value="4">
+          <span class="card">
+            <img src="img/front_wt_side.jpg" width="1200" height="1009" alt="Front of the building. Large Haru logo with the orange triangle, on the right side next to the 3030." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">4</span>
+              <span class="cap">Big, on the right next to the 3030.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="a" value="5">
+          <span class="card">
+            <img src="img/front_wt_window.jpg" width="1200" height="1009" alt="Front of the building. Smaller Haru logo with the orange triangle, lined up with the window below it." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">5</span>
+              <span class="cap">Smaller, lined up with the window.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="a" value="6">
+          <span class="card">
+            <img src="img/front_wt_low.jpg" width="1200" height="1009" alt="Front of the building. Medium Haru logo with the orange triangle, sitting lower on the wall." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">6</span>
+              <span class="cap">Medium, lower on the wall.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- PART B -->
+  <section class="part" aria-labelledby="hB">
+    <fieldset>
+      <legend class="visually-hidden">Part B. The corner sign. Pick one of six photos.</legend>
+      <p class="eyebrow">Part B</p>
+      <h2 class="part-title" id="hB">Corner Sign</h2>
+      <p class="note">"Curated Japanese &amp; Korean Market" on the corner. The orange is your Haru Sunrise color.</p>
+      <div class="grid">
+        <label class="option">
+          <input type="radio" name="b" value="1">
+          <span class="card">
+            <img src="img/haru-corner-1.jpg" width="835" height="1200" alt="Corner of the building. Green box with white letters, smaller size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">1</span>
+              <span class="cap">Green box, white letters. Smaller.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="b" value="2">
+          <span class="card">
+            <img src="img/haru-corner-2.jpg" width="835" height="1200" alt="Corner of the building. Green box with white letters, bigger size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">2</span>
+              <span class="cap">Green box, white letters. Bigger.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="b" value="3">
+          <span class="card">
+            <img src="img/haru-corner-3.jpg" width="835" height="1200" alt="Corner of the building. White box with green letters, smaller size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">3</span>
+              <span class="cap">White box, green letters. Smaller.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="b" value="4">
+          <span class="card">
+            <img src="img/haru-corner-4.jpg" width="835" height="1200" alt="Corner of the building. White box with green letters, bigger size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">4</span>
+              <span class="cap">White box, green letters. Bigger.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="b" value="5">
+          <span class="card">
+            <img src="img/haru-corner-5.jpg" width="835" height="1200" alt="Corner of the building. Orange Haru Sunrise box with white letters, bigger size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">5</span>
+              <span class="cap">Orange box, white letters. Bigger.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="b" value="6">
+          <span class="card">
+            <img src="img/haru-corner-6.jpg" width="835" height="1200" alt="Corner of the building. Orange Haru Sunrise box with white letters, smaller size." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">6</span>
+              <span class="cap">Orange box, white letters. Smaller.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- PART C -->
+  <section class="part" aria-labelledby="hC">
+    <fieldset>
+      <legend class="visually-hidden">Part C. The letters by the window. Pick one of two photos.</legend>
+      <p class="eyebrow">Part C</p>
+      <h2 class="part-title" id="hC">Letters by the Window</h2>
+      <p class="note">You already approved the letters. This is only the colors.</p>
+      <div class="grid">
+        <label class="option">
+          <input type="radio" name="c" value="1">
+          <span class="card">
+            <img src="img/haru-charcters-1.jpg" width="760" height="1200" alt="By the window: the word haru in Japanese and Korean letters, green letters on a white box." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">1</span>
+              <span class="cap">White box, green letters.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="c" value="2">
+          <span class="card">
+            <img src="img/haru-charcters-2.jpg" width="760" height="1200" alt="By the window: the word haru in Japanese and Korean letters, white letters painted on the green wall." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">2</span>
+              <span class="cap">White letters on the green wall.</span>
+              <span class="badge">&#10003; Picked</span>
+            </span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </section>
+
+  <footer>
+    <p class="signoff">Take your time. Nothing here is final, and we can change anything.</p>
+    <a class="calllink" href="tel:+12054518061">Call or text Spencer <span class="tel">(205)&nbsp;451-8061</span></a>
+    <p class="alt-contact">You can also just send the three numbers, like <span class="code">A4, B5, C1</span></p>
+    <p class="alt-contact"><a class="maillink" href="haru-sign-proof.pdf">Save a paper copy (PDF)</a></p>
+    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a class="maillink" href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
+    <p class="fine">These pictures are digital previews. Painted color and texture may vary slightly. This is hand-painted work.</p>
+    <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
+  </footer>
+</div>
+
+<div class="bar" role="region" aria-label="Your choices so far">
+  <div class="bar-inner">
+    <span class="picks" id="picks" aria-hidden="true"><span class="todo">A&ndash;</span> <span class="todo">B&ndash;</span> <span class="todo">C&ndash;</span></span>
+    <span class="visually-hidden" id="picksSR" aria-live="polite">Nothing picked yet.</span>
+    <button type="button" class="send" id="send">Send</button>
+    <p class="bar-msg" id="barMsg" role="alert"></p>
+    <p class="bar-done" id="barDone"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var doc = document.documentElement;
+  var params = new URLSearchParams(location.search);
+  var toggle = document.getElementById('themeToggle');
+
+  function applyTheme(t){
+    doc.setAttribute('data-theme', t);
+    toggle.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
+    toggle.textContent = t === 'light' ? 'Dark' : 'Light';
+  }
+  var saved = params.get('theme');
+  try { saved = saved || localStorage.getItem('haru-theme'); } catch(e){}
+  applyTheme(saved === 'light' ? 'light' : 'dark');
+  toggle.addEventListener('click', function(){
+    applyTheme(doc.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    try { localStorage.setItem('haru-theme', doc.getAttribute('data-theme')); } catch(e){}
+  });
+
+  var KEYS = ['a','b','c'];
+  var NAMES = {a:'Part A, the front sign', b:'Part B, the corner sign', c:'Part C, the letters by the window'};
+  var state = {a:null,b:null,c:null};
+  var picks = document.getElementById('picks');
+  var picksSR = document.getElementById('picksSR');
+  var barMsg = document.getElementById('barMsg');
+  var barDone = document.getElementById('barDone');
+  var send = document.getElementById('send');
+  var celebrated = false;
+
+  function missing(){ return KEYS.filter(function(k){ return !state[k]; }); }
+
+  function update(){
+    while (picks.firstChild) picks.removeChild(picks.firstChild);
+    KEYS.forEach(function(k,i){
+      if (i>0) picks.appendChild(document.createTextNode(' '));
+      var s = document.createElement('span');
+      s.textContent = k.toUpperCase() + (state[k] ? state[k] : '–');
+      s.className = state[k] ? 'ok' : 'todo';
+      picks.appendChild(s);
+    });
+
+    var done = KEYS.filter(function(k){ return state[k]; });
+    picksSR.textContent = done.length === 0
+      ? 'Nothing picked yet.'
+      : 'Picked so far: ' + done.map(function(k){ return k.toUpperCase() + state[k]; }).join(', ') + '.';
+
+    var ready = missing().length === 0;
+    send.classList.toggle('ready', ready);
+    if (ready){
+      barMsg.textContent = '';
+      barDone.textContent = 'All three picked. Tap Send.';
+      if (!celebrated){
+        celebrated = true;
+        send.classList.add('nudge');
+        setTimeout(function(){ send.classList.remove('nudge'); }, 600);
+      }
+    } else {
+      barDone.textContent = '';
+      celebrated = false;
+    }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('input[type=radio]'), function(r){
+    r.addEventListener('change', function(){ state[r.name] = r.value; update(); });
+  });
+
+  send.addEventListener('click', function(){
+    var left = missing();
+    if (left.length){
+      barMsg.textContent = 'Still need to pick: ' + left.map(function(k){ return NAMES[k]; }).join(', ') + '.';
+      var first = document.querySelector('input[name=' + left[0] + ']');
+      if (first) first.closest('.part').scrollIntoView({block:'start', behavior:'smooth'});
+      return;
+    }
+    var code = KEYS.map(function(k){ return k.toUpperCase() + state[k]; }).join(', ');
+    location.href = 'sms:+12054518061&body=' + encodeURIComponent('Haru sign choices: ' + code);
+  });
+
+  if (params.get('demo') === '1'){
+    [['a','4'],['b','5'],['c','1']].forEach(function(p){
+      var el = document.querySelector('input[name=' + p[0] + '][value="' + p[1] + '"]');
+      if (el){ el.checked = true; state[p[0]] = p[1]; }
+    });
+    update();
+  } else { update(); }
+})();
+</script>
+</body>
+</html>
