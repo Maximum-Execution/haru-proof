@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haru - The 3030 Address</title>
+<style>
+  :root{
+    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E;
+    --text:#EEECE9; --muted:#959494;
+    --accent:#e41a1c; --accent-text:#EA5152;
+    --wordmark-invert:0;
+    --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  [data-theme="light"]{
+    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD;
+    --text:#000205; --muted:#595A5B;
+    --accent:#C4141C; --accent-text:#B3121A;
+    --wordmark-invert:1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.55;
+    padding-bottom:150px;
+  }
+  .wrap{
+    max-width:660px;margin:0 auto;padding:18px;
+    padding-left:max(18px,env(safe-area-inset-left));
+    padding-right:max(18px,env(safe-area-inset-right));
+  }
+  @media (min-width:760px){ .wrap{max-width:1000px} }
+  .visually-hidden{
+    position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+  }
+  .skip{
+    position:absolute;left:-9999px;top:0;z-index:50;background:var(--accent);color:#FFFFFF;
+    padding:14px 20px;border-radius:0 0 12px 0;font-size:19px;font-weight:600;text-decoration:none;
+  }
+  .skip:focus{left:0}
+
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .wordmark{height:26px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
+  h1{font-size:32px;line-height:1.14;margin:10px 0 4px;font-weight:700;letter-spacing:-0.005em}
+  .meta{color:var(--muted);font-size:16px;margin:0}
+  .toggle{
+    flex:none;min-height:48px;min-width:48px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer;
+  }
+
+  .lead{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:22px 0 0}
+  .lead h2{font-size:23px;margin:0 0 12px;font-weight:700;line-height:1.25}
+  .lead p{margin:0 0 12px;font-size:19px;line-height:1.55}
+  .lead p:last-child{margin-bottom:0}
+
+  .together{margin:26px 0 0;font-size:18px;line-height:1.55;color:var(--muted)}
+  .together strong{color:var(--text)}
+
+  .sec{margin-top:40px}
+  .eyebrow{color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0}
+  h2.sec-title{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2}
+  .note{color:var(--muted);font-size:17px;margin:8px 0 0;line-height:1.5}
+
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:640px){ .grid{grid-template-columns:1fr 1fr} }
+
+  .option{display:block;position:relative;margin:0}
+  .option input{
+    position:absolute;width:1px;height:1px;margin:-1px;
+    clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;border:0;padding:0;
+  }
+  .card{
+    display:block;background:var(--surface);
+    border:2px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;
+    transition:border-color .18s ease, transform .18s ease;
+  }
+  .option input:checked + .card{border-color:var(--accent);border-width:3px;transform:translateY(-2px)}
+  .option input:focus-visible + .card{outline:3px solid var(--accent-text);outline-offset:3px}
+  .card img{width:100%;height:auto;display:block;background:var(--line)}
+  .card-body{display:flex;align-items:flex-start;gap:14px;padding:15px 16px;min-height:56px}
+  .num{
+    flex:none;font-family:var(--font-ui);font-weight:600;font-size:24px;line-height:1;
+    min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--line);border-radius:12px;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease;
+  }
+  .option input:checked + .card .num{
+    background:var(--accent);border-color:var(--accent);color:#FFFFFF;
+    animation:pop .26s cubic-bezier(.25,1,.5,1);
+  }
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+  .cap{font-size:18px;line-height:1.4}
+  .cap b{display:block;font-weight:600;margin-bottom:2px}
+  .badge{margin-left:auto;font-weight:600;color:var(--accent-text);font-size:17px;white-space:nowrap}
+  .option input:checked + .card .badge::after{content:"\2713 Picked";display:inline-block;animation:fadein .26s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+
+  .next{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .next h2{font-size:21px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .next p{margin:0;font-size:18px;line-height:1.5}
+
+  .bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:var(--surface);border-top:1px solid var(--line);
+    padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));
+  }
+  .bar-inner{max-width:660px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  @media (min-width:760px){ .bar-inner{max-width:1000px} }
+  .picks{font-family:var(--font-mono);font-size:19px}
+  .picks .ok{color:var(--accent-text)}
+  .picks .todo{color:var(--muted)}
+  .send{
+    margin-left:auto;min-height:56px;padding:14px 24px;
+    background:var(--accent);color:#FFFFFF;border:none;border-radius:14px;
+    font-family:var(--font-ui);font-size:21px;font-weight:600;line-height:1.1;cursor:pointer;
+    transition:transform .12s ease;
+  }
+  .send.ready.nudge{animation:nudge .5s cubic-bezier(.25,1,.5,1)}
+  @keyframes nudge{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .send:active{transform:translateY(2px)}
+  .send:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .bar-msg{flex-basis:100%;font-size:17px;color:var(--accent-text);font-weight:600;margin:0}
+  .bar-msg:empty{display:none}
+  .bar-done{flex-basis:100%;font-size:17px;color:var(--muted);margin:0}
+  .bar-done:empty{display:none}
+  :focus{scroll-margin-bottom:190px;scroll-margin-top:20px}
+
+  .btn-call{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    min-height:66px;padding:16px 20px;margin-top:26px;
+    border:2px solid var(--line);border-radius:14px;background:transparent;
+    color:var(--text);font-size:18px;font-weight:500;text-decoration:none;text-align:center;line-height:1.35;
+  }
+  .btn-call:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .btn-call .tel{font-family:var(--font-mono);color:var(--accent-text)}
+
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:20px}
+  .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
+  .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
+
+  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+    .option input:checked + .card{transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#choices">Skip to the pictures</a>
+<div class="wrap">
+  <header class="reveal">
+    <div>
+      <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
+      <h1>The 3030 Address</h1>
+      <p class="meta">Haru &middot; 3030 W Cary St</p>
+    </div>
+    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+  </header>
+
+  <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
+    <h2 id="leadH">You were right about the number.</h2>
+    <p>You told me the 3030 was hard to see. It is. I painted it white, and white almost disappears on a white wall.</p>
+    <p>Here is why I made it quiet, and then you decide. The big Haru sign is what people see from the street. That sign is what tells them they found you. Most people drive here with their phone, and the phone already knows the address. So the number only has to agree with the phone. It does not have to do the hard work.</p>
+    <p>But it is your building. If you want the number to be easy to see, we will make it easy to see. Here are four ways it can look.</p>
+  </section>
+
+  <p class="together">These pictures show the <strong>whole front, all together</strong>: the Haru sign, the corner sign, and the Japanese and Korean letters. Everything is the way you already picked it. The only thing that changes from picture to picture is the number.</p>
+
+  <section class="sec" id="choices" aria-labelledby="pickH">
+    <fieldset>
+      <legend class="visually-hidden">The 3030 address. Pick one of four colors.</legend>
+      <p class="eyebrow">Pick one</p>
+      <h2 class="sec-title" id="pickH">Four ways to paint the number</h2>
+      <p class="note">Tap the one you like. Then tap the red button at the bottom.</p>
+      <div class="grid">
+        <label class="option">
+          <input type="radio" name="addr" value="1">
+          <span class="card">
+            <img src="../img/addr-1-black.jpg" width="1200" height="1009" alt="The front of the building with the address 3030 painted in black on the white wall.">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">1</span>
+              <span class="cap"><b>Black</b>Easy to read from across the street. This one stands out the most.</span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="addr" value="2">
+          <span class="card">
+            <img src="../img/addr-2-green.jpg" width="1200" height="1009" alt="The front of the building with the address 3030 painted in the same green as the store." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">2</span>
+              <span class="cap"><b>Green</b>The same green as your store. Clear up close. Softer from far away.</span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="addr" value="3">
+          <span class="card">
+            <img src="../img/addr-3-white.jpg" width="1200" height="1009" alt="The front of the building with the address 3030 painted in white, the version shown before." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">3</span>
+              <span class="cap"><b>White</b>This is the one you saw before. It is the hardest one to see.</span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="addr" value="4">
+          <span class="card">
+            <img src="../img/addr-4-blue.jpg" width="1200" height="1009" alt="The front of the building with the address 3030 painted in a soft blue from the Haru brand colors." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">4</span>
+              <span class="cap"><b>Blue</b>A soft blue from your brand colors. Quiet, but you can still find it.</span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </section>
+
+  <section class="next" aria-labelledby="nextH">
+    <h2 id="nextH">What happens next</h2>
+    <p>This is the last choice for the front. After you pick, I will design the Belmont Ave side of the building so it matches. Then I will show you that side.</p>
+  </section>
+
+  <a class="btn-call" href="tel:+12054518061">
+    <span>Want to talk about it first? Call me.</span>
+    <span class="tel">(205)&nbsp;451-8061</span>
+  </a>
+
+  <footer>
+    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
+    <p class="fine">These pictures are digital previews. Painted color and texture may vary slightly. This is hand-painted work.</p>
+    <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
+  </footer>
+</div>
+
+<div class="bar" role="region" aria-label="Your choice">
+  <span class="visually-hidden" id="picksSR" aria-live="polite">No color picked yet.</span>
+  <div class="bar-inner">
+    <span class="picks" id="picks" aria-hidden="true"><span class="todo">Number &ndash;</span></span>
+    <button type="button" class="send" id="send">Send to Spencer</button>
+    <p class="bar-msg" id="barMsg" role="alert"></p>
+    <p class="bar-done" id="barDone"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var doc=document.documentElement, params=new URLSearchParams(location.search), toggle=document.getElementById('themeToggle');
+  function applyTheme(t){
+    doc.setAttribute('data-theme',t);
+    toggle.setAttribute('aria-pressed', t==='light'?'true':'false');
+    toggle.textContent = t==='light'?'Dark':'Light';
+  }
+  var saved=params.get('theme');
+  try{ saved = saved || localStorage.getItem('haru-theme'); }catch(e){}
+  applyTheme(saved==='light'?'light':'dark');
+  toggle.addEventListener('click',function(){
+    applyTheme(doc.getAttribute('data-theme')==='light'?'dark':'light');
+    try{ localStorage.setItem('haru-theme', doc.getAttribute('data-theme')); }catch(e){}
+  });
+
+  var NAMES={'1':'black','2':'green','3':'white','4':'blue'};
+  var picked=null, celebrated=false;
+  var picks=document.getElementById('picks'), picksSR=document.getElementById('picksSR');
+  var barMsg=document.getElementById('barMsg'), barDone=document.getElementById('barDone'), send=document.getElementById('send');
+
+  function update(){
+    while(picks.firstChild) picks.removeChild(picks.firstChild);
+    var s=document.createElement('span');
+    s.textContent = picked ? ('Number ' + picked) : 'Number –';
+    s.className = picked ? 'ok' : 'todo';
+    picks.appendChild(s);
+    picksSR.textContent = picked ? ('You picked number ' + picked + ', ' + NAMES[picked] + '.') : 'No color picked yet.';
+    send.classList.toggle('ready', !!picked);
+    if(picked){
+      barMsg.textContent='';
+      barDone.textContent='You picked ' + NAMES[picked] + '. Now tap Send to Spencer.';
+      if(!celebrated){ celebrated=true; send.classList.add('nudge'); setTimeout(function(){ send.classList.remove('nudge'); },600); }
+    } else { barDone.textContent=''; celebrated=false; }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=addr]'), function(r){
+    r.addEventListener('change', function(){ picked=r.value; update(); });
+  });
+
+  send.addEventListener('click', function(){
+    if(!picked){
+      barMsg.textContent='Please tap one of the four pictures first.';
+      document.getElementById('choices').scrollIntoView({block:'start', behavior:'smooth'});
+      return;
+    }
+    location.href='sms:+12054518061&body=' + encodeURIComponent('Haru: for the 3030 address I pick number ' + picked + ', the ' + NAMES[picked] + ' one.');
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
