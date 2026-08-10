@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haru Sign Proof - Your Choices</title>
+<style>
+  :root{
+    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E;
+    --text:#EEECE9; --muted:#959494;
+    --accent:#e41a1c; --accent-text:#EA5152;
+    --ok:#4daf4a; --ok-text:#69C466;
+    --wordmark-invert:0;
+    --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  [data-theme="light"]{
+    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD;
+    --text:#000205; --muted:#595A5B;
+    --accent:#C4141C; --accent-text:#B3121A;
+    --ok:#3D8B3A; --ok-text:#2F7A2C;
+    --wordmark-invert:1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--text);
+    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.55;
+    padding-bottom:40px;
+  }
+  .wrap{
+    max-width:660px;margin:0 auto;padding:18px;
+    padding-left:max(18px,env(safe-area-inset-left));
+    padding-right:max(18px,env(safe-area-inset-right));
+  }
+  @media (min-width:760px){ .wrap{max-width:1000px} }
+  .visually-hidden{
+    position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;
+  }
+
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .wordmark{height:26px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
+  h1{font-size:32px;line-height:1.14;margin:10px 0 4px;font-weight:700;letter-spacing:-0.005em}
+  .meta{color:var(--muted);font-size:16px;margin:0}
+  .toggle{
+    flex:none;min-height:48px;min-width:48px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer;
+  }
+
+  .lead{
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin:22px 0 0;
+  }
+  .lead h2{font-size:22px;margin:0 0 10px;font-weight:700;line-height:1.3}
+  .lead p{margin:0 0 10px;font-size:19px;line-height:1.5}
+  .lead p:last-child{margin-bottom:0}
+  .code{font-family:var(--font-mono);color:var(--accent-text);font-size:20px;letter-spacing:.03em}
+
+  .sec{margin-top:40px}
+  .eyebrow{color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0}
+  h2.sec-title{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2}
+  .note{color:var(--muted);font-size:17px;margin:8px 0 0;line-height:1.5}
+
+  .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:640px){ .grid{grid-template-columns:1fr 1fr} }
+
+  .card{background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden}
+  .card img{width:100%;height:auto;display:block;background:var(--line)}
+  .card-body{display:flex;align-items:flex-start;gap:14px;padding:15px 16px}
+  .tag{
+    flex:none;font-family:var(--font-mono);font-weight:600;font-size:19px;line-height:1;
+    min-width:52px;min-height:44px;display:flex;align-items:center;justify-content:center;
+    background:var(--accent);color:#FFFFFF;border-radius:12px;
+  }
+  .cap{font-size:18px;line-height:1.4}
+  .cap b{display:block;font-weight:600;margin-bottom:2px}
+
+  .compare{display:grid;gap:18px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:640px){ .compare{grid-template-columns:1fr 1fr;align-items:start} }
+  .shot{background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden}
+  .shot.now{border-color:var(--ok)}
+  .shot img{width:100%;height:auto;display:block;background:var(--line)}
+  .shot p{margin:0;padding:13px 16px;font-size:18px;font-weight:600}
+  .shot.now p{color:var(--ok-text)}
+  .shot.before p{color:var(--muted)}
+
+  .confirm{
+    margin-top:44px;background:var(--surface);border:1px solid var(--line);
+    border-radius:16px;padding:22px 20px;
+  }
+  .confirm h2{font-size:24px;margin:0 0 8px;font-weight:700;line-height:1.25}
+  .confirm p{margin:0 0 18px;font-size:18px;color:var(--muted);line-height:1.5}
+  .btn-yes{
+    display:flex;align-items:center;justify-content:center;
+    min-height:62px;padding:16px 22px;width:100%;
+    background:var(--accent);color:#FFFFFF;border:none;border-radius:14px;
+    font-family:var(--font-ui);font-size:22px;font-weight:600;line-height:1.2;
+    text-decoration:none;cursor:pointer;transition:transform .12s ease;
+  }
+  .btn-yes:active{transform:translateY(2px)}
+  .btn-yes:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .btn-call{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    min-height:60px;padding:16px 20px;margin-top:14px;
+    border:2px solid var(--line);border-radius:14px;background:transparent;
+    color:var(--text);font-size:19px;font-weight:500;text-decoration:none;text-align:center;
+  }
+  .btn-call:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .btn-call .tel{font-family:var(--font-mono);color:var(--accent-text)}
+
+  .backlink{display:inline-block;min-height:44px;padding:11px 0;margin-top:26px;
+    color:var(--text);font-size:18px;text-decoration-color:var(--accent-text);text-underline-offset:3px}
+
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:20px}
+  .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
+  .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
+
+  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="reveal">
+    <div>
+      <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
+      <h1>Your Choices</h1>
+      <p class="meta">Haru &middot; 3030 W Cary St</p>
+    </div>
+    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+  </header>
+
+  <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
+    <h2 id="leadH">Thank you, Kim.</h2>
+    <p>You picked <span class="code">A1, B2, C2</span></p>
+    <p>Here they are. Please look and tell me if I understood you.</p>
+  </section>
+
+  <section class="sec" aria-labelledby="picksH">
+    <p class="eyebrow">What you picked</p>
+    <h2 class="sec-title" id="picksH">Three choices</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="../img/front_nt_side.jpg" width="1200" height="1009" alt="Front of the building. Large Haru logo with no triangle, on the right side of the white wall next to the 3030.">
+        <div class="card-body">
+          <span class="tag">A1</span>
+          <span class="cap"><b>The front sign</b>Big, on the right next to the 3030. No triangle.</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../img/haru-corner-2.jpg" width="835" height="1200" alt="Corner of the building. Green box with white letters, bigger size." loading="lazy">
+        <div class="card-body">
+          <span class="tag">B2</span>
+          <span class="cap"><b>The corner sign</b>Green box, white letters. Bigger. You asked for one change, below.</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="../img/haru-charcters-2.jpg" width="760" height="1200" alt="By the window: the word haru in Japanese and Korean letters, white letters painted on the green wall." loading="lazy">
+        <div class="card-body">
+          <span class="tag">C2</span>
+          <span class="cap"><b>Letters by the window</b>White letters on the green wall.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="changeH">
+    <p class="eyebrow">Your change</p>
+    <h2 class="sec-title" id="changeH">The corner sign</h2>
+    <p class="note">You asked me to take out the <strong>&amp;</strong> and line up the words on the left. Here is the new one. The size and the colors are the same as the one you picked.</p>
+    <div class="compare">
+      <div class="shot before">
+        <img src="../img/haru-corner-2.jpg" width="835" height="1200" alt="The corner sign before the change. The text reads Curated, Japanese, ampersand Korean, Market." loading="lazy">
+        <p>Before</p>
+      </div>
+      <div class="shot now">
+        <img src="../img/corner-revised.jpg" width="835" height="1200" alt="The corner sign after the change. The text reads Curated, Japanese, Korean, Market, with no ampersand and all lines starting at the left." loading="lazy">
+        <p>&#10003; New</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="confirm" aria-labelledby="confH">
+    <h2 id="confH">Is this right?</h2>
+    <p>If it all looks correct, tap the red button. It will send me a text.</p>
+    <a class="btn-yes" id="yesBtn" href="#">Yes, this is right</a>
+    <a class="btn-call" href="tel:+12054518061">Something is not right. Call Spencer <span class="tel">(205)&nbsp;451-8061</span></a>
+  </section>
+
+  <a class="backlink" href="../">See all the choices again</a>
+
+  <footer>
+    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
+    <p class="fine">These pictures are digital previews. Painted color and texture may vary slightly. This is hand-painted work.</p>
+    <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var doc=document.documentElement, params=new URLSearchParams(location.search), toggle=document.getElementById('themeToggle');
+  function applyTheme(t){
+    doc.setAttribute('data-theme',t);
+    toggle.setAttribute('aria-pressed', t==='light'?'true':'false');
+    toggle.textContent = t==='light'?'Dark':'Light';
+  }
+  var saved=params.get('theme');
+  try{ saved = saved || localStorage.getItem('haru-theme'); }catch(e){}
+  applyTheme(saved==='light'?'light':'dark');
+  toggle.addEventListener('click',function(){
+    applyTheme(doc.getAttribute('data-theme')==='light'?'dark':'light');
+    try{ localStorage.setItem('haru-theme', doc.getAttribute('data-theme')); }catch(e){}
+  });
+
+  document.getElementById('yesBtn').setAttribute('href',
+    'sms:+12054518061&body=' + encodeURIComponent('Haru: yes, A1 B2 C2 is right. The new corner sign looks good.'));
+})();
+</script>
+</body>
+</html>
