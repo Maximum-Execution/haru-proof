@@ -92,6 +92,10 @@
   }
   .confirm h2{font-size:24px;margin:0 0 8px;font-weight:700;line-height:1.25}
   .confirm p{margin:0 0 18px;font-size:18px;color:var(--muted);line-height:1.5}
+  .next{border-top:1px solid var(--line);padding-top:16px;margin:0 0 20px}
+  .next-h{margin:0 0 6px!important;font-size:17px;font-weight:700;color:var(--text)!important;
+    letter-spacing:.02em}
+  .next-b{margin:0!important;font-size:18px;line-height:1.5;color:var(--text)!important}
   .btn-yes{
     display:flex;align-items:center;justify-content:center;
     min-height:62px;padding:16px 22px;width:100%;
@@ -178,6 +182,10 @@
   <section class="confirm" aria-labelledby="confH">
     <h2 id="confH">Is this right?</h2>
     <p>If it all looks correct, tap the red button. It will send me a text.</p>
+    <div class="next">
+      <p class="next-h">What happens next</p>
+      <p class="next-b">I will design the other side of the building on Belmont Ave so it matches the front. Then I will send you one more set of pictures. That set will show all of the outside signs together.</p>
+    </div>
     <a class="btn-yes" id="yesBtn" href="#">Yes, this is right</a>
     <a class="btn-call" href="tel:+12054518061">
       <span>Something is not right. Call me.</span>
