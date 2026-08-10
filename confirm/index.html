@@ -78,14 +78,13 @@
   .cap{font-size:18px;line-height:1.4}
   .cap b{display:block;font-weight:600;margin-bottom:2px}
 
-  .compare{display:grid;gap:18px;grid-template-columns:1fr;margin-top:18px}
-  @media (min-width:640px){ .compare{grid-template-columns:1fr 1fr;align-items:start} }
-  .shot{background:var(--surface);border:2px solid var(--line);border-radius:18px;overflow:hidden}
-  .shot.now{border-color:var(--ok)}
-  .shot img{width:100%;height:auto;display:block;background:var(--line)}
-  .shot p{margin:0;padding:13px 16px;font-size:18px;font-weight:600}
-  .shot.now p{color:var(--ok-text)}
-  .shot.before p{color:var(--muted)}
+  .changed{
+    margin-top:28px;background:var(--surface);
+    border:1px solid var(--line);border-left:5px solid var(--ok);
+    border-radius:14px;padding:18px 20px;
+  }
+  .changed h2{font-size:21px;margin:0 0 8px;font-weight:700;line-height:1.3;color:var(--ok-text)}
+  .changed p{margin:0;font-size:18px;line-height:1.5}
 
   .confirm{
     margin-top:44px;background:var(--surface);border:1px solid var(--line);
@@ -103,10 +102,11 @@
   .btn-yes:active{transform:translateY(2px)}
   .btn-yes:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
   .btn-call{
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    min-height:60px;padding:16px 20px;margin-top:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    min-height:66px;padding:16px 20px;margin-top:14px;
     border:2px solid var(--line);border-radius:14px;background:transparent;
-    color:var(--text);font-size:19px;font-weight:500;text-decoration:none;text-align:center;
+    color:var(--text);font-size:18px;font-weight:500;text-decoration:none;text-align:center;
+    line-height:1.35;
   }
   .btn-call:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
   .btn-call .tel{font-family:var(--font-mono);color:var(--accent-text)}
@@ -154,10 +154,10 @@
         </div>
       </div>
       <div class="card">
-        <img src="../img/haru-corner-2.jpg" width="835" height="1200" alt="Corner of the building. Green box with white letters, bigger size." loading="lazy">
+        <img src="../img/corner-revised.jpg" width="835" height="1200" alt="Corner of the building. Green box with white letters, bigger size. The text reads Curated, Japanese, Korean, Market, with no ampersand and every line starting at the left." loading="lazy">
         <div class="card-body">
           <span class="tag">B2</span>
-          <span class="cap"><b>The corner sign</b>Green box, white letters. Bigger. You asked for one change, below.</span>
+          <span class="cap"><b>The corner sign</b>Green box, white letters. Bigger. This one has your change already.</span>
         </div>
       </div>
       <div class="card">
@@ -170,27 +170,19 @@
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="changeH">
-    <p class="eyebrow">Your change</p>
-    <h2 class="sec-title" id="changeH">The corner sign</h2>
-    <p class="note">You asked me to take out the <strong>&amp;</strong> and line up the words on the left. Here is the new one. The size and the colors are the same as the one you picked.</p>
-    <div class="compare">
-      <div class="shot before">
-        <img src="../img/haru-corner-2.jpg" width="835" height="1200" alt="The corner sign before the change. The text reads Curated, Japanese, ampersand Korean, Market." loading="lazy">
-        <p>Before</p>
-      </div>
-      <div class="shot now">
-        <img src="../img/corner-revised.jpg" width="835" height="1200" alt="The corner sign after the change. The text reads Curated, Japanese, Korean, Market, with no ampersand and all lines starting at the left." loading="lazy">
-        <p>&#10003; New</p>
-      </div>
-    </div>
+  <section class="changed" aria-labelledby="changeH">
+    <h2 id="changeH">&#10003; Your change is done</h2>
+    <p>You asked me to take out the <strong>&amp;</strong> and line up the words on the left. That is already in the corner sign above. The size and the colors did not change.</p>
   </section>
 
   <section class="confirm" aria-labelledby="confH">
     <h2 id="confH">Is this right?</h2>
     <p>If it all looks correct, tap the red button. It will send me a text.</p>
     <a class="btn-yes" id="yesBtn" href="#">Yes, this is right</a>
-    <a class="btn-call" href="tel:+12054518061">Something is not right. Call Spencer <span class="tel">(205)&nbsp;451-8061</span></a>
+    <a class="btn-call" href="tel:+12054518061">
+      <span>Something is not right. Call me.</span>
+      <span class="tel">(205)&nbsp;451-8061</span>
+    </a>
   </section>
 
   <a class="backlink" href="../">See all the choices again</a>
