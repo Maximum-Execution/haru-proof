@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haru - The Corner Sign</title>
+<link rel="stylesheet" href="../type.css">
+<style>
+  /* Natural Layout Formula adapted for a scrolling page: the 1:1.15
+     top-to-bottom asymmetry is kept everywhere, while the side-margin size is
+     scaled down from the literal 15-17% so the pictures stay large on a phone. */
+  :root{
+    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E;
+    --text:#EEECE9; --muted:#959494;
+    --accent:#e41a1c; --accent-text:#F5787A;
+    --ground:#26272B;
+    --wordmark-invert:0;
+    --font-ui:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:"Geist Mono",ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --m: clamp(20px, 5.4vw, 40px);
+    --m-b: calc(var(--m) * 1.15);
+    --card-m: clamp(20px, 6.2%, 30px);
+    --card-m-b: calc(var(--card-m) * 1.15);
+  }
+  [data-theme="light"]{
+    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD;
+    --text:#000205; --muted:#595A5B;
+    --accent:#C4141C; --accent-text:#B3121A;
+    --ground:#F6F5F3;
+    --wordmark-invert:1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;color:var(--text);
+    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.55;
+    padding-bottom:150px;
+    background:var(--bg);
+    background-image:radial-gradient(125% 70% at 50% -5%, var(--ground) 0%, var(--bg) 58%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:660px;margin:0 auto;
+    padding:var(--m) max(var(--m),env(safe-area-inset-right)) var(--m-b) max(var(--m),env(safe-area-inset-left));}
+  @media (min-width:760px){ .wrap{max-width:1000px} }
+  .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+  .skip{position:absolute;left:-9999px;top:0;z-index:50;background:var(--accent);color:#FFFFFF;
+    padding:14px 20px;border-radius:0 0 12px 0;font-size:19px;font-weight:600;text-decoration:none}
+  .skip:focus{left:0}
+
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .wordmark{height:26px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
+  h1{font-size:32px;line-height:1.14;margin:10px 0 4px;font-weight:700;letter-spacing:-0.005em;text-wrap:balance}
+  .meta{color:var(--muted);font-size:16px;margin:0}
+  .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer}
+
+  .lead{background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:var(--card-m) var(--card-m) var(--card-m-b);margin:calc(var(--m) * 1.3) 0 0}
+  .lead h2{font-size:23px;margin:0 0 12px;font-weight:700;line-height:1.25;text-wrap:balance}
+  .lead p{margin:0 0 12px;font-size:19px;line-height:1.55;max-width:60ch;text-wrap:pretty}
+  .lead p:last-child{margin-bottom:0}
+  .lead ol{margin:0;padding-left:24px}
+  .lead ol li{margin:0 0 8px;font-size:19px;line-height:1.5}
+
+  .sec{margin-top:calc(var(--m) * 1.6)}
+  .eyebrow{color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0}
+  h2.sec-title{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2;text-wrap:balance}
+  .note{color:var(--muted);font-size:17px;margin:8px 0 0;line-height:1.5;max-width:62ch;text-wrap:pretty}
+  .note strong{color:var(--text)}
+
+  /* Side-by-side compare. Stacked on a phone so neither picture gets squeezed. */
+  .cmp{display:grid;gap:18px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:620px){ .cmp{grid-template-columns:1fr 1fr} }
+  .cmp figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .cmp img{width:100%;height:auto;display:block}
+  .cmp figcaption{padding:14px 16px;font-size:17px;font-weight:600;color:var(--text)}
+
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:18px}
+  @media (min-width:620px){ .grid{grid-template-columns:1fr 1fr} }
+  .option{display:block;position:relative;margin:0}
+  .option input{position:absolute;width:1px;height:1px;margin:-1px;
+    clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;border:0;padding:0}
+  .card{display:block;background:var(--surface);border:2px solid var(--line);border-radius:18px;
+    overflow:hidden;cursor:pointer;transition:border-color .18s ease, transform .18s ease}
+  .option input:checked + .card{border-color:var(--accent);border-width:3px;transform:translateY(-2px)}
+  .option input:focus-visible + .card{outline:3px solid var(--accent-text);outline-offset:3px}
+  .card img{width:100%;height:auto;display:block;background:var(--line)}
+  .card-body{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:56px}
+  .num{flex:none;font-family:var(--font-ui);font-weight:600;font-size:24px;line-height:1;
+    min-width:48px;min-height:48px;display:flex;align-items:center;justify-content:center;
+    border:2px solid var(--line);border-radius:12px;
+    transition:background-color .18s ease,border-color .18s ease,color .18s ease}
+  .option input:checked + .card .num{background:var(--accent);border-color:var(--accent);color:#FFFFFF;
+    animation:pop .26s cubic-bezier(.25,1,.5,1)}
+  @keyframes pop{0%{transform:scale(1)}45%{transform:scale(1.14)}100%{transform:scale(1)}}
+  .cap{font-size:18px;line-height:1.4}
+  .cap small{display:block;color:var(--muted);font-size:16px;margin-top:3px}
+  .badge{margin-left:auto;font-weight:600;color:var(--accent-text);font-size:17px;white-space:nowrap}
+  .option input:checked + .card .badge::after{content:"\2713";display:inline-block;animation:fadein .26s ease both}
+  @keyframes fadein{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+  .rec{display:inline-block;font-size:15px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent-text)}
+
+  /* Plain answer buttons for the J question, no picture needed. */
+  .answers{display:grid;gap:14px;grid-template-columns:1fr;margin-top:18px}
+  .answers .card{display:flex;align-items:center;gap:14px;padding:16px;min-height:64px}
+  .answers .num{font-size:22px}
+  .answers .cap{font-size:19px}
+
+  /* The lesson */
+  .lesson{margin-top:calc(var(--m) * 1.6);background:var(--surface);
+    border:1px solid var(--line);border-radius:16px;
+    padding:var(--card-m) var(--card-m) var(--card-m-b)}
+  .lesson h2{font-size:23px;margin:0 0 12px;font-weight:700;line-height:1.25;text-wrap:balance}
+  .lesson p{margin:0 0 14px;font-size:19px;line-height:1.55;max-width:60ch;text-wrap:pretty}
+  .lesson strong{font-weight:600}
+  .counts{margin:18px 0;border-top:1px solid var(--line)}
+  .crow{display:flex;align-items:center;gap:14px;padding:12px 2px;border-bottom:1px solid var(--line)}
+  .cword{flex:1;font-size:19px;font-weight:500}
+  .cnum{font-family:var(--font-mono);font-weight:700;font-size:18px;
+    background:var(--text);color:var(--bg);padding:4px 12px;border-radius:8px;
+    font-variant-numeric:tabular-nums}
+  .clab{font-size:16px;color:var(--muted);width:7.5em}
+
+  .diagram{position:relative;margin:6px 0 12px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .diagram img{width:100%;height:auto;display:block}
+  .lline{position:absolute;width:3px;background:#000205;top:11%;height:74%;left:16.0%}
+  .vline{position:absolute;width:3px;background:var(--accent);top:11%;height:74%;left:84.0%}
+  .gap{position:absolute;background:rgba(228,26,28,.38);border:2px dashed var(--accent);border-left:none;
+    display:flex;align-items:center;justify-content:center;
+    color:#FFFFFF;font-family:var(--font-mono);font-weight:700;font-size:16px}
+  .legend{font-size:16px;color:var(--muted);line-height:1.5;margin:0}
+  .legend b{color:var(--text);font-weight:600}
+
+  .send-help{margin-top:calc(var(--m) * 1.6);border:1px dashed var(--line);border-radius:16px;
+    padding:var(--card-m) var(--card-m) var(--card-m-b)}
+  .send-help h2{font-size:19px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .send-help p{margin:0 0 10px;font-size:17px;line-height:1.5;color:var(--muted)}
+  .send-help p:last-child{margin:0}
+
+  .talk{margin-top:calc(var(--m) * 1.6);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:16px;background:var(--surface);padding:var(--card-m) var(--card-m) var(--card-m-b)}
+  .talk h2{font-size:21px;margin:0 0 10px;font-weight:700;line-height:1.25;text-wrap:balance}
+  .talk p{margin:0 0 12px;font-size:18px;line-height:1.5;max-width:60ch;text-wrap:pretty}
+  .talk p:last-child{margin-bottom:0}
+  .talk strong{color:var(--text);font-weight:600}
+
+  .next{margin-top:calc(var(--m) * 1.6);background:var(--surface);border:1px solid var(--line);
+    border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
+  .next h2{font-size:21px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .next p{margin:0 0 12px;font-size:18px;line-height:1.5;max-width:60ch}
+  .next p:last-child{margin-bottom:0}
+  .safety{font-weight:600;color:var(--text)!important}
+
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);
+    border-top:1px solid var(--line);
+    padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+  .bar-inner{max-width:660px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  @media (min-width:760px){ .bar-inner{max-width:1000px} }
+  .picks{font-family:var(--font-mono);font-size:18px;font-variant-numeric:tabular-nums}
+  .picks .ok{color:var(--accent-text)}
+  .picks .todo{color:var(--muted)}
+  .send{margin-left:auto;min-height:56px;padding:14px 24px;background:var(--accent);color:#FFFFFF;
+    border:none;border-radius:14px;font-family:var(--font-ui);font-size:21px;font-weight:700;
+    line-height:1.1;cursor:pointer;transition:transform .12s ease}
+  .send.ready.nudge{animation:nudge .5s cubic-bezier(.25,1,.5,1)}
+  @keyframes nudge{0%{transform:scale(1)}40%{transform:scale(1.05)}100%{transform:scale(1)}}
+  .send:active{transform:translateY(2px)}
+  .send:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .bar-msg{flex-basis:100%;font-size:17px;color:var(--accent-text);font-weight:600;margin:0}
+  .bar-msg:empty{display:none}
+  :focus{scroll-margin-bottom:190px;scroll-margin-top:20px}
+
+  .btn-call{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    min-height:66px;padding:16px 20px;margin-top:calc(var(--m) * 1.3);
+    border:2px solid var(--line);border-radius:14px;background:transparent;color:var(--text);
+    font-size:18px;font-weight:500;text-decoration:none;text-align:center;line-height:1.35}
+  .btn-call:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .btn-call .tel{font-family:var(--font-mono);color:var(--accent-text)}
+
+  footer{margin-top:calc(var(--m) * 1.6);border-top:1px solid var(--line);padding-top:20px}
+  .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
+  .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
+
+  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#partA">Skip to the pictures</a>
+<div class="wrap">
+  <header class="reveal">
+    <div>
+      <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
+      <h1>The Corner Sign</h1>
+      <p class="meta">Haru &middot; two things to look at</p>
+    </div>
+    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+  </header>
+
+  <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
+    <h2 id="leadH">You were right about both things</h2>
+    <p>Korean and Market do stop one letter before Curated. I measured it. And the J was not the shape you drew for me.</p>
+    <p>This page shows you both fixes. It also explains what I meant by the word <strong>flat</strong>, because that was my fault for using it without saying what it means.</p>
+    <ol>
+      <li>Look at the J, and tap your answer.</li>
+      <li>Read why the lines do not line up.</li>
+      <li>Tap the ending you like best.</li>
+      <li>Tap the red button at the bottom.</li>
+    </ol>
+  </section>
+
+  <!-- ===================== PART A : the J ===================== -->
+  <section class="sec" id="partA" aria-labelledby="jH">
+    <p class="eyebrow">First</p>
+    <h2 class="sec-title" id="jH">The J</h2>
+    <p class="note">You drew this for me. I turned your drawing the right way up, and I made the letter to match it.</p>
+
+    <div class="cmp">
+      <figure>
+        <img src="../img/kim-drawing-j.jpg" width="600" height="667" alt="The J you drew on paper, turned upright. It has a flat bar across the top that sticks out on both sides, a stem coming down from the middle, and a hook at the bottom.">
+        <figcaption>You drew this</figcaption>
+      </figure>
+      <figure>
+        <img src="../img/corner-j-new.png" width="600" height="680" alt="The new J for the sign. A flat bar across the top sticking out on both sides, a stem down the middle, and a hook at the bottom." loading="lazy">
+        <figcaption>I made this</figcaption>
+      </figure>
+    </div>
+
+    <fieldset>
+      <legend class="visually-hidden">Is the new J right? Pick one answer.</legend>
+      <p class="note" style="margin-top:18px"><strong>Is this right?</strong> Tap one.</p>
+      <div class="answers">
+        <label class="option">
+          <input type="radio" name="j" value="1">
+          <span class="card">
+            <span class="num" aria-hidden="true">1</span>
+            <span class="cap">Yes. This is right.</span>
+            <span class="badge"></span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="j" value="2">
+          <span class="card">
+            <span class="num" aria-hidden="true">2</span>
+            <span class="cap">Make the flat line on top <strong>longer</strong>.</span>
+            <span class="badge"></span>
+          </span>
+        </label>
+        <label class="option">
+          <input type="radio" name="j" value="3">
+          <span class="card">
+            <span class="num" aria-hidden="true">3</span>
+            <span class="cap">Make the flat line on top <strong>shorter</strong>.</span>
+            <span class="badge"></span>
+          </span>
+        </label>
+      </div>
+    </fieldset>
+  </section>
+
+  <!-- ===================== THE LESSON ===================== -->
+  <section class="lesson reveal" aria-labelledby="whyH">
+    <h2 id="whyH">Why the words do not line up</h2>
+    <p>In this style of letters, <strong>every letter takes up the same amount of room</strong>. A wide letter and a thin letter get the same space. That is what makes the sign look neat and even.</p>
+    <p>So the length of a line only depends on how many letters are in the word.</p>
+
+    <div class="counts">
+      <div class="crow"><span class="cword">Curated</span><span class="cnum">7</span><span class="clab">letters</span></div>
+      <div class="crow"><span class="cword">Japanese</span><span class="cnum">8</span><span class="clab">letters, longest</span></div>
+      <div class="crow"><span class="cword">Korean</span><span class="cnum">6</span><span class="clab">letters</span></div>
+      <div class="crow"><span class="cword">Market</span><span class="cnum">6</span><span class="clab">letters</span></div>
+    </div>
+
+    <div class="diagram">
+      <img src="../img/corner-align-1.png" width="526" height="550" alt="The corner sign as it is now. Every line starts in the same place on the left. On the right, Curated stops one letter early and Korean and Market stop two letters early." loading="lazy">
+      <div class="lline"></div>
+      <div class="vline"></div>
+      <div class="gap" style="left:75.1%;width:8.9%;top:14.7%;height:12.0%">1</div>
+      <div class="gap" style="left:66.5%;width:17.5%;top:52.5%;height:11.6%">2</div>
+      <div class="gap" style="left:66.3%;width:17.7%;top:70.4%;height:12.4%">2</div>
+    </div>
+    <p class="legend"><b>Black line:</b> where every line starts. <b>Red line:</b> where Japanese, the longest word, ends. The red boxes show how many letters short each line is. Korean and Market stop two letters early, which is one letter before Curated. That is the part you saw.</p>
+
+    <h2 style="margin-top:26px">What I meant by flat</h2>
+    <p><strong>Flat</strong> means the edge makes one straight line, up and down. Right now the <strong>left side is flat</strong>. Every line starts in the same place.</p>
+    <p><strong>Ragged</strong> is the opposite word. It means each line stops in a different place. Right now the <strong>right side is ragged</strong>.</p>
+    <p>A sign can be flat on one side, flat on both sides, or flat on neither. None of them is wrong. They just look different.</p>
+  </section>
+
+  <!-- ===================== PART B : the endings ===================== -->
+  <section class="sec" id="partB" aria-labelledby="alignH">
+    <fieldset>
+      <legend class="visually-hidden">Five ways to end the lines. Pick one.</legend>
+      <p class="eyebrow">Second &middot; pick one</p>
+      <h2 class="sec-title" id="alignH">Five ways we can do it</h2>
+      <p class="note">Same sign, five ways. Tap the one you like best.</p>
+      <div class="grid">
+
+        <label class="option">
+          <input type="radio" name="a" value="1">
+          <span class="card">
+            <img src="../img/corner-align-1.png" width="526" height="550" alt="Option 1. Flat on the left, ragged on the right. Every line starts together and stops in a different place." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">1</span>
+              <span class="cap">Flat left, ragged right.<small>This is what you have now.</small></span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="a" value="2">
+          <span class="card">
+            <img src="../img/corner-align-2.png" width="526" height="550" alt="Option 2. Ragged on the left, flat on the right. Every line stops together and starts in a different place." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">2</span>
+              <span class="cap">Ragged left, flat right.<small>Every line stops together.</small></span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="a" value="3">
+          <span class="card">
+            <img src="../img/corner-align-3.png" width="526" height="550" alt="Option 3. Each line sits in the middle. Both sides are ragged by the same amount." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">3</span>
+              <span class="cap">In the middle.<small>Both sides ragged, but even.</small></span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="a" value="4">
+          <span class="card">
+            <img src="../img/corner-align-4.png" width="526" height="550" alt="Option 4. Flat on both sides. All the letters stay the same size and the short words get more space between the letters." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">4</span>
+              <span class="cap">Flat on both sides, letters spread out. <span class="rec">My pick</span><small>Same letter size. More space between letters in the short words.</small></span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+
+        <label class="option">
+          <input type="radio" name="a" value="5">
+          <span class="card">
+            <img src="../img/corner-align-5.png" width="526" height="550" alt="Option 5. Flat on both sides. The short words are painted bigger to fill the space, so Korean and Market become the biggest words." loading="lazy">
+            <span class="card-body">
+              <span class="num" aria-hidden="true">5</span>
+              <span class="cap">Flat on both sides, short words bigger.<small>Korean and Market become the biggest words.</small></span>
+              <span class="badge"></span>
+            </span>
+          </span>
+        </label>
+
+      </div>
+    </fieldset>
+  </section>
+
+  <section class="talk reveal" aria-labelledby="pickH">
+    <h2 id="pickH">If you want my opinion</h2>
+    <p><strong>Number 4.</strong> It gives you exactly what you asked for. Both sides straight, and every letter stays the same size, so the sign still looks calm and even.</p>
+    <p>One honest thing about number 4. Standing close, you can see that the letters in Korean and Market sit farther apart than the letters in Japanese. From across the street you do not see that. You only see one clean block of writing.</p>
+    <p>You may like a different one. There is no wrong answer here.</p>
+  </section>
+
+  <section class="send-help" aria-labelledby="sendHelpH">
+    <h2 id="sendHelpH">What the red button does</h2>
+    <p>It opens a text message with your two answers already written. You can read it first and change it. Nothing is sent to me until you press send in your messages.</p>
+    <p>You can change your answers on this page as many times as you want.</p>
+  </section>
+
+  <section class="next" aria-labelledby="nextH">
+    <h2 id="nextH">What happens next</h2>
+    <p>Once the corner sign is settled, I paint your choices onto the real building in a new picture.</p>
+    <p>Then I design the Belmont Ave side so it matches the front.</p>
+    <p>After that I send you <strong>one picture with everything together</strong>, so you can finally see how it all lines up, the way you asked.</p>
+    <p class="safety">Nothing here is final. We can change anything.</p>
+  </section>
+
+  <a class="btn-call" href="tel:+12054518061">
+    <span>Rather talk it through? Call me any time.</span>
+    <span class="tel">(205)&nbsp;451-8061</span>
+  </a>
+
+  <footer>
+    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
+    <p class="fine">These pictures are digital previews. Painted color and texture may vary slightly. This is hand-painted work.</p>
+    <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
+  </footer>
+</div>
+
+<div class="bar" role="region" aria-label="Your answers">
+  <span class="visually-hidden" id="picksSR" aria-live="polite">Nothing picked yet.</span>
+  <div class="bar-inner">
+    <span class="picks" id="picks" aria-hidden="true"><span class="todo">J &ndash;</span> <span class="todo">Ends &ndash;</span></span>
+    <button type="button" class="send" id="send">Send to Spencer</button>
+    <p class="bar-msg" id="barMsg" role="alert"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var doc=document.documentElement,
+      params=new URLSearchParams(location.search),
+      toggle=document.getElementById('themeToggle');
+
+  function applyTheme(t){
+    doc.setAttribute('data-theme',t);
+    toggle.setAttribute('aria-pressed', t==='light'?'true':'false');
+    toggle.textContent = t==='light'?'Dark':'Light';
+  }
+  var saved=params.get('theme');
+  try{ saved = saved || localStorage.getItem('haru-theme'); }catch(e){}
+  applyTheme(saved==='light'?'light':'dark');
+  toggle.addEventListener('click',function(){
+    var t = doc.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+    applyTheme(t);
+    try{ localStorage.setItem('haru-theme',t); }catch(e){}
+  });
+
+  var JTEXT = {
+    '1':'the J is right',
+    '2':'make the flat line on top of the J longer',
+    '3':'make the flat line on top of the J shorter'
+  };
+  var ATEXT = {
+    '1':'flat left, ragged right (leave it as it is)',
+    '2':'ragged left, flat right',
+    '3':'in the middle',
+    '4':'flat on both sides, letters spread out',
+    '5':'flat on both sides, short words bigger'
+  };
+
+  var st={j:null,a:null},
+      picks=document.getElementById('picks'),
+      picksSR=document.getElementById('picksSR'),
+      send=document.getElementById('send'),
+      barMsg=document.getElementById('barMsg'),
+      celebrated=false;
+
+  function update(){
+    var a=picks.children[0], b=picks.children[1];
+    a.textContent = st.j ? ('J ' + st.j) : 'J –';
+    a.className   = st.j ? 'ok' : 'todo';
+    b.textContent = st.a ? ('Ends ' + st.a) : 'Ends –';
+    b.className   = st.a ? 'ok' : 'todo';
+
+    var done=[];
+    if(st.j) done.push('the J: ' + JTEXT[st.j]);
+    if(st.a) done.push('the line ends: option ' + st.a);
+    picksSR.textContent = done.length ? ('Picked ' + done.join(', ') + '.') : 'Nothing picked yet.';
+
+    var ready = st.j && st.a;
+    send.classList.toggle('ready', !!ready);
+    if(ready){
+      barMsg.textContent='';
+      if(!celebrated){
+        celebrated=true;
+        send.classList.add('nudge');
+        setTimeout(function(){ send.classList.remove('nudge'); },600);
+      }
+    }
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=j]'),function(r){
+    r.addEventListener('change', function(){ st.j=r.value; update(); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('input[name=a]'),function(r){
+    r.addEventListener('change', function(){ st.a=r.value; update(); });
+  });
+
+  send.addEventListener('click', function(){
+    if(!st.j || !st.a){
+      var need=[];
+      if(!st.j) need.push('the J');
+      if(!st.a) need.push('the line ends');
+      barMsg.textContent='Please pick ' + need.join(' and ') + ' first.';
+      var target = !st.j ? 'partA' : 'partB';
+      var el=document.getElementById(target);
+      if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      return;
+    }
+    location.href='sms:+12054518061&body=' + encodeURIComponent(
+      'Haru corner sign. The J: ' + JTEXT[st.j] + '. The line ends: option ' + st.a + ', ' + ATEXT[st.a] + '.'
+    );
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
