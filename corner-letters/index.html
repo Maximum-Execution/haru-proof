@@ -22,6 +22,7 @@
     --text:#EEECE9; --muted:#959494;
     --accent:#e41a1c; --accent-text:#F5787A;
     --ok:#4daf4a; --ok-text:#69C466;
+    --ground:#26272B;
     --wordmark-invert:0;
     --font-ui:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
     --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
@@ -38,15 +39,31 @@
     --text:#000205; --muted:#595A5B;
     --accent:#C4141C; --accent-text:#B3121A;
     --ok:#3D8B3A; --ok-text:#2F7A2C;
+    --ground:#F6F5F3;
     --wordmark-invert:1;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
   body{
-    margin:0;background:var(--bg);color:var(--text);
+    margin:0;color:var(--text);
     font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.55;
     padding-bottom:150px;
+    /* Middle Grey underpainting: a neutral ground lifted at the top,
+       settling to the base. Colorless, per the restraint doctrine. */
+    background:var(--bg);
+    background-image:radial-gradient(125% 70% at 50% -5%, var(--ground) 0%, var(--bg) 58%);
+    background-attachment:fixed;
   }
+  /* Grain glaze. Canvas tooth, not decoration: it gives the flat panels
+     the tooth of a painted surface. Overlay blend = glazing, per the
+     painterly translation rules. Kept at 3.5% so measured contrast is
+     unchanged. */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1}
   .wrap{
     max-width:660px;margin:0 auto;
     padding:var(--m) max(var(--m),env(safe-area-inset-right)) var(--m-b) max(var(--m),env(safe-area-inset-left));
@@ -142,6 +159,15 @@
   .idea h2{font-size:19px;margin:0 0 10px;font-weight:700;line-height:1.3;color:var(--muted)}
   .idea p{margin:0;font-size:17px;line-height:1.55;color:var(--muted)}
 
+  .send-help{
+    margin-top:calc(var(--m) * 1.6);
+    border:1px dashed var(--line);border-radius:16px;
+    padding:var(--card-m) var(--card-m) var(--card-m-b);
+  }
+  .send-help h2{font-size:19px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .send-help p{margin:0 0 10px;font-size:17px;line-height:1.5;color:var(--muted)}
+  .send-help p:last-child{margin:0}
+
   .next{margin-top:calc(var(--m) * 1.6);background:var(--surface);border:1px solid var(--line);border-radius:16px;
         padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .next h2{font-size:21px;margin:0 0 8px;font-weight:700;line-height:1.3}
@@ -209,9 +235,10 @@
   </header>
 
   <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
-    <h2 id="leadH">Two things to pick today.</h2>
+    <h2 id="leadH">Two things to pick. No rush.</h2>
     <p>You said the J still did not look right. Thank you for telling me. I looked for letters with a flat top, and the middle line centered under that top, the way you described. Here are three new ones.</p>
     <p>You also asked for a darker green box. I made one. It is below the letters.</p>
+    <p>Look whenever you have a minute. Tonight, tomorrow, or later this week is all fine.</p>
   </section>
 
   <section class="sec" id="choices" aria-labelledby="pickH">
@@ -312,6 +339,12 @@
   <section class="idea reveal" aria-labelledby="ideaH">
     <h2 id="ideaH">A small idea, only if it helps</h2>
     <p>You already have someone who made your colors and your logo. A designer usually finishes small details like this letter before it reaches a painter. If it is easier, you can send this page to your designer. They can tell me exactly what to change. This could save you time and save you money. There is no pressure at all. I am glad to keep helping you find the right letters.</p>
+  </section>
+
+  <section class="send-help" aria-labelledby="sendHelpH">
+    <h2 id="sendHelpH">What the red button does</h2>
+    <p>It opens a text message with your two picks already written. You can read it first and change it. Nothing is sent to me until you press send in your messages.</p>
+    <p>You can also change your picks on this page as many times as you want.</p>
   </section>
 
   <section class="next" aria-labelledby="nextH">
