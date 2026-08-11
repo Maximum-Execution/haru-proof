@@ -1,0 +1,68 @@
+/* ===========================================================
+   Untitled Mixed Media - client-facing type system
+   Geist (SIL OFL 1.1) as the interface face.
+
+   Why Geist here: it is the only face in the UMM stack that is
+   openly licensed, so it is the only one that can legally ship as
+   a webfont in a client deliverable. Gotham is desktop-licensed
+   only; Canela, Lyon and Berkeley Mono are trial files. See
+   fonts/OFL.txt for the license that travels with these files.
+
+   Variable fonts: one 68 KB file covers every weight, versus
+   134 KB for three static cuts.
+   =========================================================== */
+
+@font-face{
+  font-family:"Geist";
+  src:url("fonts/geist-variable.woff2") format("woff2-variations"),
+      url("fonts/geist-variable.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+@font-face{
+  font-family:"Geist Mono";
+  src:url("fonts/geist-mono-variable.woff2") format("woff2-variations"),
+      url("fonts/geist-mono-variable.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  /* Stacks. The system font stays directly behind Geist: it is
+     metric-adjacent, already loaded, and keeps the page readable
+     during the swap and if the font ever fails to load. */
+  --font-ui:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --font-mono:"Geist Mono",ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+
+  /* Type scale, in rem so it respects the reader's own text-size
+     setting. Values match the sizes already validated on these
+     pages for an older reader working in a second language:
+     nothing meaningful sits below 15px. */
+  --t-caption: 0.9375rem;  /* 15 */
+  --t-small:   1.0625rem;  /* 17 */
+  --t-body:    1.1875rem;  /* 19 */
+  --t-sub:     1.3125rem;  /* 21 */
+  --t-head:    1.5625rem;  /* 25 */
+  --t-display: 2rem;       /* 32 */
+
+  /* Weight roles. Geist is variable, so these are exact, not
+     synthesized. Never faux-bold. */
+  --w-body:400;
+  --w-medium:500;
+  --w-strong:600;
+  --w-heading:700;
+
+  /* Line heights: looser for reading, tighter as type gets larger. */
+  --lh-body:1.55;
+  --lh-tight:1.25;
+  --lh-display:1.14;
+}
+
+/* Numbers that get read aloud or compared should line up. */
+.picks,.tel,.code{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; }
+
+/* Geist has real kerning; let it work. */
+body{ font-kerning:normal; }
