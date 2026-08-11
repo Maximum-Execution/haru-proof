@@ -178,13 +178,17 @@
     display:block;padding:12px 15px;font-size:16px;font-weight:600;color:var(--muted);
   }
 
-  .idea{
+  .talk{
     margin-top:calc(var(--m) * 1.6);
-    background:transparent;border:1px dashed var(--line);border-radius:16px;
+    border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:16px;background:var(--surface);
     padding:var(--card-m) var(--card-m) var(--card-m-b);
   }
-  .idea h2{font-size:19px;margin:0 0 10px;font-weight:700;line-height:1.3;color:var(--muted)}
-  .idea p{margin:0;font-size:17px;line-height:1.55;color:var(--muted)}
+  .talk h2{font-size:var(--t-sub);margin:0 0 10px;font-weight:700;line-height:var(--lh-tight);
+    text-wrap:balance;max-width:34ch}
+  .talk p{margin:0 0 12px;font-size:var(--t-small);line-height:var(--lh-body);max-width:60ch;text-wrap:pretty}
+  .talk p:last-child{margin-bottom:0}
+  .talk strong{color:var(--text);font-weight:600}
 
   .send-help{
     margin-top:calc(var(--m) * 1.6);
@@ -241,6 +245,64 @@
   .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
   .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
 
+
+  /* ---------------- Typographic craft ----------------
+     Aims: readable in one glance, and readable deeply.
+     - measure capped in ch so no line outruns the eye's return sweep
+     - text-wrap:balance on headings kills orphaned last words
+     - text-wrap:pretty on body prevents single-word final lines
+     - a lede sets the opening apart by size and weight, not decoration
+     - the recommendation is marked by weight and a rule, not by color alone
+  */
+  h1{text-wrap:balance;max-width:16ch}
+  h2{text-wrap:balance;max-width:30ch}
+  p,li{text-wrap:pretty}
+
+  /* Body copy never exceeds a comfortable measure, even on desktop. */
+  .lead p,.talk p,.send-help p,.next p,.note,.together{max-width:62ch}
+
+  /* Lede: the first sentence of the page carries more weight than the
+     rest of the block, so the eye lands somewhere deliberate. */
+  .lead p:first-of-type{
+    font-size:var(--t-sub);
+    line-height:1.42;
+    font-weight:var(--w-body);
+    color:var(--text);
+  }
+
+  /* The recommendation. Marked three ways so it survives a glance:
+     a rule, a weight shift, and a small caps-style flag. */
+  .pick-line{
+    margin:16px 0 0!important;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    font-size:var(--t-small);
+    line-height:var(--lh-body);
+    max-width:60ch;
+  }
+  .pick-flag{
+    display:inline-block;
+    font-size:0.8125rem;
+    font-weight:var(--w-heading);
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--accent-text);
+    margin-right:.5em;
+  }
+  .pick-line strong{font-weight:var(--w-heading);color:var(--text)}
+
+  /* Same flag inside the chosen card, so the page and the card agree. */
+  .rec{
+    display:inline-block;margin-top:4px;
+    font-size:0.8125rem;font-weight:var(--w-heading);
+    letter-spacing:.06em;text-transform:uppercase;
+    color:var(--accent-text);
+  }
+  .option input:checked + .card .rec{color:var(--text)}
+
+  /* Numerals the client reads back should never wobble between states. */
+  .picks,.tel,.code,.num{font-variant-numeric:tabular-nums}
+
   .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
   @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   @media (prefers-reduced-motion:reduce){
@@ -266,6 +328,7 @@
     <p>You said the J still did not look right. Thank you for telling me. I looked for letters with a flat top, and the middle line centered under that top, the way you described. Here are three new ones.</p>
     <p>You also asked for the 3030 address number to be a little darker. I did that. It is below the letters.</p>
     <p>Look whenever you have a minute. Tonight, tomorrow, or later this week is all fine.</p>
+    <p class="pick-line"><span class="pick-flag">My pick</span> <strong>Number 2.</strong> Its J has a flat bar across the top, with the line coming straight down from the middle of it. That is exactly what you described. You may see it differently, and that is fine.</p>
   </section>
 
   <section class="sec" id="choices" aria-labelledby="pickH">
@@ -274,7 +337,7 @@
       <p class="eyebrow">Pick one</p>
       <h2 class="sec-title" id="pickH">Three new letters</h2>
       <p class="note">Tap the one you like best. Then tap the red button at the bottom.</p>
-      <p class="note swap-note">The green behind these letters is darker than the real sign. I made it darker <strong>only so the letters are easy to see</strong>. Here you are picking the shape of the letters. The green color is the next question, below.</p>
+      <p class="note swap-note">The green square behind these letters is not a paint color. It is only a background so the letters are easy to read on your phone. <strong>Here you are picking the shape of the letters, nothing else.</strong></p>
       <div class="grid">
         <label class="option">
           <input type="radio" name="j" value="1">
@@ -293,7 +356,7 @@
             <img src="../img/j-option-2.jpg" width="661" height="621" alt="Corner sign text option 2. A typewriter-style letter with a flat top J, centered stem. Curated, Japanese, Korean, Market in white on green." loading="lazy">
             <span class="card-body">
               <span class="num" aria-hidden="true">2</span>
-              <span class="cap">A typewriter-style letter.</span>
+              <span class="cap">A typewriter-style letter. <span class="rec">Spencer&#8217;s pick</span></span>
               <span class="badge"></span>
             </span>
           </span>
@@ -343,7 +406,7 @@
           </span>
         </label>
       </div>
-      <p class="note">One thing to know: the greens in these pictures are close guesses. Sun and weather change how paint looks in a photo. When I paint, I match your real brand green on the wall.</p>
+      <p class="note">One thing to know: photos of paint are never exact. Sun and weather change how a color looks in a picture. Before I start, I will bring you real paint samples so you can see the true color on your own wall.</p>
     </fieldset>
   </section>
 
@@ -364,9 +427,10 @@
     </div>
   </details>
 
-  <section class="idea reveal" aria-labelledby="ideaH">
-    <h2 id="ideaH">A small idea, only if it helps</h2>
-    <p>You already have someone who made your colors and your logo. A designer usually finishes small details like this letter before it reaches a painter. If it is easier, you can send this page to your designer. They can tell me exactly what to change. This could save you time and save you money. There is no pressure at all. I am glad to keep helping you find the right letters.</p>
+  <section class="talk reveal" aria-labelledby="talkH">
+    <h2 id="talkH">Letters are hard to describe in words</h2>
+    <p>You have told me twice what the J should look like, and both times I got it a little wrong. That is on me, not on you.</p>
+    <p>If none of these three are right, <strong>call me and we will look at this page together</strong>. You can point at what you see, and I will change it while we talk. Five minutes on the phone beats writing it out.</p>
   </section>
 
   <section class="send-help" aria-labelledby="sendHelpH">
