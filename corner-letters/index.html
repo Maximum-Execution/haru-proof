@@ -85,6 +85,10 @@
   .eyebrow{color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0}
   h2.sec-title{font-size:25px;margin:3px 0 0;font-weight:700;line-height:1.2}
   .note{color:var(--muted);font-size:17px;margin:8px 0 0;line-height:1.5}
+  .swap-note{
+    border-left:3px solid var(--line);padding-left:14px;margin-top:12px;
+  }
+  .swap-note strong{color:var(--text)}
 
   fieldset{border:0;margin:0;padding:0;min-width:0}
   .grid{display:grid;gap:20px;grid-template-columns:1fr;margin-top:18px}
@@ -216,6 +220,7 @@
       <p class="eyebrow">Pick one</p>
       <h2 class="sec-title" id="pickH">Three new letters</h2>
       <p class="note">Tap the one you like best. Then tap the red button at the bottom.</p>
+      <p class="note swap-note">The green behind these letters is darker than the real sign. I made it darker <strong>only so the letters are easy to see</strong>. Here you are picking the shape of the letters. The green color is the next question, below.</p>
       <div class="grid">
         <label class="option">
           <input type="radio" name="j" value="1">
