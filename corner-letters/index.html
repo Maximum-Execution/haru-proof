@@ -145,13 +145,37 @@
   .option input:checked + .card .badge::after{content:"\2713 Good pick";display:inline-block;animation:fadein .26s ease both}
   @keyframes fadein{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
 
-  /* reference (already-tried) items: visually quieted, never selectable */
-  .ref-grid{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:16px}
-  .ref-card{background:var(--surface);border:1px dashed var(--line);border-radius:16px;overflow:hidden}
+  /* Already-tried letters. Secondary to the decision, so collapsed by
+     default. Previously this was a hard 2-column grid at every width,
+     which squeezed two tall photos into ~165px each on a phone. */
+  .ref{
+    margin-top:calc(var(--m) * 1.6);
+    border:1px dashed var(--line);border-radius:16px;
+    padding:0 var(--card-m);
+  }
+  .ref summary{
+    display:block;cursor:pointer;list-style:none;
+    padding:18px 0;min-height:56px;
+  }
+  .ref summary::-webkit-details-marker{display:none}
+  .ref summary:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px;border-radius:10px}
+  .ref-sum-title{
+    display:block;font-size:18px;font-weight:600;color:var(--text);
+  }
+  .ref-sum-title::before{
+    content:"+";display:inline-block;width:1.35em;font-weight:700;color:var(--muted);
+  }
+  .ref[open] .ref-sum-title::before{content:"\2013"}
+  .ref-sum-hint{display:block;font-size:16px;color:var(--muted);margin-top:4px;padding-left:1.35em}
+  .ref-body{
+    display:grid;gap:20px;grid-template-columns:1fr;
+    padding-bottom:var(--card-m-b);
+  }
+  @media (min-width:760px){ .ref-body{grid-template-columns:1fr 1fr} }
+  .ref-card{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
   .ref-card img{width:100%;height:auto;display:block}
   .ref-tag{
-    display:block;padding:10px 14px;font-size:14px;font-weight:600;
-    color:var(--muted);letter-spacing:.02em;
+    display:block;padding:12px 15px;font-size:16px;font-weight:600;color:var(--muted);
   }
 
   .idea{
@@ -323,21 +347,22 @@
     </fieldset>
   </section>
 
-  <section class="sec" aria-labelledby="refH">
-    <p class="eyebrow">For reference only</p>
-    <h2 class="sec-title" id="refH">What we already tried</h2>
-    <p class="note">These are not choices. They are only here so you can see what changed.</p>
-    <div class="ref-grid">
+  <details class="ref">
+    <summary>
+      <span class="ref-sum-title">See the two we already tried</span>
+      <span class="ref-sum-hint">Only if you want to compare. These are not choices.</span>
+    </summary>
+    <div class="ref-body">
       <figure class="ref-card">
-        <img src="../img/haru-corner-2.jpg" width="835" height="1200" alt="The very first corner sign letters, before any changes." loading="lazy">
+        <img src="../img/ref-first-letters.jpg" width="1000" height="968" alt="The first corner sign letters, with the ampersand still in the text." loading="lazy">
         <figcaption class="ref-tag">The first letters</figcaption>
       </figure>
       <figure class="ref-card">
-        <img src="../img/corner-revised.jpg" width="835" height="1200" alt="The second attempt at the corner sign letters. You said this J still did not look right." loading="lazy">
-        <figcaption class="ref-tag">The second try &middot; not this one</figcaption>
+        <img src="../img/ref-second-letters.jpg" width="1000" height="968" alt="The second corner sign letters. The ampersand is gone, but you said this J still looked wrong." loading="lazy">
+        <figcaption class="ref-tag">The second try. You said the J was still wrong.</figcaption>
       </figure>
     </div>
-  </section>
+  </details>
 
   <section class="idea reveal" aria-labelledby="ideaH">
     <h2 id="ideaH">A small idea, only if it helps</h2>
