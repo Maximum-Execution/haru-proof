@@ -144,8 +144,8 @@
 
   /* reference (already-tried) items: visually quieted, never selectable */
   .ref-grid{display:grid;gap:16px;grid-template-columns:1fr 1fr;margin-top:16px}
-  .ref-card{background:var(--surface);border:1px dashed var(--line);border-radius:16px;overflow:hidden;opacity:.72}
-  .ref-card img{width:100%;height:auto;display:block;filter:saturate(.55)}
+  .ref-card{background:var(--surface);border:1px dashed var(--line);border-radius:16px;overflow:hidden}
+  .ref-card img{width:100%;height:auto;display:block}
   .ref-tag{
     display:block;padding:10px 14px;font-size:14px;font-weight:600;
     color:var(--muted);letter-spacing:.02em;
@@ -237,7 +237,7 @@
   <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
     <h2 id="leadH">Two things to pick. No rush.</h2>
     <p>You said the J still did not look right. Thank you for telling me. I looked for letters with a flat top, and the middle line centered under that top, the way you described. Here are three new ones.</p>
-    <p>You also asked for a darker green box. I made one. It is below the letters.</p>
+    <p>You also asked for the 3030 address number to be a little darker. I did that. It is below the letters.</p>
     <p>Look whenever you have a minute. Tonight, tomorrow, or later this week is all fine.</p>
   </section>
 
@@ -288,18 +288,18 @@
 
   <section class="sec" aria-labelledby="greenH">
     <fieldset>
-      <legend class="visually-hidden">The darker green box. Say yes or keep the first green.</legend>
-      <p class="eyebrow">The green box</p>
+      <legend class="visually-hidden">The 3030 address number in a darker green. Say yes or keep the first green.</legend>
+      <p class="eyebrow">The 3030 address</p>
       <h2 class="sec-title" id="greenH">A little darker, like you asked</h2>
-      <p class="note">This picture shows the whole front with the darker green box on the corner.</p>
+      <p class="note">You picked green for the 3030 number. You asked for it a little darker. This picture shows the whole front with the darker number.</p>
       <div class="grid green-grid">
         <label class="option">
           <input type="radio" name="g" value="darker">
           <span class="card">
-            <img src="../img/front-darker-green.jpg" width="1200" height="1009" alt="The whole front of the building with a slightly darker green box on the corner sign." loading="lazy">
+            <img src="../img/front-darker-green.jpg" width="1200" height="1009" alt="The whole front of the building with the 3030 address number in a slightly darker green." loading="lazy">
             <span class="card-body">
               <span class="num" aria-hidden="true">&#10003;</span>
-              <span class="cap">Yes, use this darker green.</span>
+              <span class="cap">Yes, this darker green is right.</span>
               <span class="badge"></span>
             </span>
           </span>
@@ -307,7 +307,7 @@
         <label class="option">
           <input type="radio" name="g" value="first">
           <span class="card">
-            <img src="../img/addr-2-green.jpg" width="1200" height="1009" alt="The whole front of the building with the first, brighter green box." loading="lazy">
+            <img src="../img/addr-2-green.jpg" width="1200" height="1009" alt="The whole front of the building with the 3030 address number in the first, brighter green." loading="lazy">
             <span class="card-body">
               <span class="num" aria-hidden="true">&#8617;</span>
               <span class="cap">No, keep the first green.</span>
@@ -316,7 +316,7 @@
           </span>
         </label>
       </div>
-      <p class="note">One thing to know: these greens are close guesses from photos. Sun and weather change how paint looks in a picture. When I paint, I match your real brand green on the wall.</p>
+      <p class="note">One thing to know: the greens in these pictures are close guesses. Sun and weather change how paint looks in a photo. When I paint, I match your real brand green on the wall.</p>
     </fieldset>
   </section>
 
@@ -349,7 +349,7 @@
 
   <section class="next" aria-labelledby="nextH">
     <h2 id="nextH">What happens next</h2>
-    <p>Once you pick the letters and the green, the corner sign is done. Then I keep working on the Belmont Ave side to match everything.</p>
+    <p>Once you pick the letters and the 3030 color, the front is done. Then I keep working on the Belmont Ave side to match everything.</p>
     <p class="safety">Nothing here is final. We can change anything.</p>
   </section>
 
@@ -368,7 +368,7 @@
 <div class="bar" role="region" aria-label="Your choice">
   <span class="visually-hidden" id="picksSR" aria-live="polite">No letters picked yet.</span>
   <div class="bar-inner">
-    <span class="picks" id="picks" aria-hidden="true"><span class="todo">Letters &ndash;</span> <span class="todo">Green &ndash;</span></span>
+    <span class="picks" id="picks" aria-hidden="true"><span class="todo">Letters &ndash;</span> <span class="todo">3030 &ndash;</span></span>
     <button type="button" class="send" id="send">Send to Spencer</button>
     <p class="bar-msg" id="barMsg" role="alert"></p>
     <p class="bar-done" id="barDone"></p>
@@ -405,7 +405,7 @@
     picks.appendChild(a);
     picks.appendChild(document.createTextNode(' '));
     var b=document.createElement('span');
-    b.textContent = st.g ? ('Green ' + (st.g==='darker'?'darker':'first')) : 'Green –';
+    b.textContent = st.g ? ('3030 ' + (st.g==='darker'?'darker':'first')) : '3030 –';
     b.className = st.g ? 'ok' : 'todo';
     picks.appendChild(b);
     var done=[];
@@ -432,13 +432,13 @@
     if(!st.j || !st.g){
       var need=[];
       if(!st.j) need.push('the letters');
-      if(!st.g) need.push('the green');
+      if(!st.g) need.push('the 3030 color');
       barMsg.textContent='Please pick ' + need.join(' and ') + ' first.';
       var target = !st.j ? 'choices' : 'greenH';
       document.getElementById(target).scrollIntoView({block:'start', behavior:'smooth'});
       return;
     }
-    location.href='sms:+12054518061&body=' + encodeURIComponent('Haru: letters option ' + st.j + '. Green: ' + (st.g==='darker'?'the darker one':'keep the first one') + '.');
+    location.href='sms:+12054518061&body=' + encodeURIComponent('Haru: letters option ' + st.j + '. 3030 address: ' + (st.g==='darker'?'the darker green':'keep the first green') + '.');
   });
 
   update();
