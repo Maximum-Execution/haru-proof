@@ -109,7 +109,12 @@
   .mathbox h3{font-size:19px;margin:0 0 10px;font-weight:700}
   .mathbox p{margin:0 0 12px;font-size:18px;line-height:1.55;max-width:54ch}
   .mathbox p:last-child{margin-bottom:0}
-  .mathbox .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+  /* Emphasise measurements without switching to the mono face. Monospace
+     gives the space character the same wide advance as a letter, so
+     "40 to 60 feet" gained three conspicuous gaps. Weight plus tabular
+     figures reads as a number in running prose; nowrap keeps a value and
+     its unit on one line. */
+  .mathbox .num{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 
   .files{margin-top:18px;background:var(--surface);border:2px solid var(--line);border-radius:16px;
     padding:var(--card-m) var(--card-m) var(--card-m-b)}
@@ -135,7 +140,7 @@
     min-height:68px;padding:16px 20px;border-radius:14px;text-decoration:none;text-align:center;line-height:1.3}
   .btn-primary{background:var(--accent);color:#FFFFFF;font-size:20px;font-weight:700}
   .btn-secondary{border:2px solid var(--line);color:var(--text);font-size:19px;font-weight:600;background:transparent}
-  .btn .sub{font-family:var(--font-mono);font-size:16px;font-weight:400;font-variant-numeric:tabular-nums}
+  .btn .sub{font-size:16px;font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
   .btn-primary .sub{color:#FFFFFF}
 
   footer{margin-top:calc(var(--m) * 1.8);border-top:1px solid var(--line);padding-top:20px}
@@ -214,9 +219,10 @@
 
   <!-- ============ 3. THE OUTLINE IDEA ============ -->
   <section class="sec" aria-labelledby="s3">
-    <p class="eyebrow">Your idea</p>
+    <p class="eyebrow">Another idea we tested</p>
     <h2 class="sec-title" id="s3">About drawing a line around the letters</h2>
-    <p>You asked about painting a thin dark line around the white letters, so they could sit right on the gray wall. That is a real sign painting method, and it was worth checking. Here is what we found.</p>
+    <p>When I showed your mom the problem with white on light gray, she asked a good question: could we paint a very thin dark line around the outside of the white letters, so the logo could sit right on the gray wall with no box behind it?</p>
+    <p>That is a real sign painting method, so it was worth testing properly. Here is what we found.</p>
 
     <h3>1. A line only fixes the edge</h3>
     <p>The line goes around the outside of each letter. The inside of the letter is still white, and the wall behind it is still light gray. From across the street, you would see a thin dark shape, but the letter itself would still blend into the wall. The green box fixes the whole letter, not just its edge.</p>
@@ -228,7 +234,7 @@
     <h3>3. It costs a lot more</h3>
     <p>Painting a clean line around every curve of every letter, by hand, is slow and difficult work. It would add many hours to the job. That is a large cost to fix a problem the green box already fixes.</p>
 
-    <p>So the line is possible, but it works less well than the green box and it costs much more. <strong>If you would like to see it as a picture anyway, just ask and I will make one.</strong> This is your family's building.</p>
+    <p>So the line is possible, but it works less well than the green box and it costs much more. It was still worth asking about, and testing it is how we knew the green box was the right answer. <strong>If you would like to see the line version as a picture anyway, just ask and I will make one.</strong> This is your family's building.</p>
   </section>
 
   <!-- ============ 4. THE TAGLINE ============ -->
@@ -383,8 +389,25 @@
   <section class="sec" aria-labelledby="s9">
     <p class="eyebrow">Still to come</p>
     <h2 class="sec-title" id="s9">The Belmont Avenue wall</h2>
-    <p>We are designing the side wall on South Belmont Avenue last, and this is on purpose. Once the front wall and the corner are finished, we design the side wall to match them. That way the whole building looks like one design from every side.</p>
+    <p>The side wall on South Belmont Avenue gets its own Haru logo sign, the same as the front. We are designing it last, and that is on purpose. Once the front wall and the corner are finished, we design the side wall to match them. That way the whole building looks like one design from every side.</p>
     <p>After that, you and your mom get one final set of pictures. They will show everything together: the front wall, the corner, the 3030, the Japanese and Korean writing, and the Belmont wall. <strong>Nothing gets painted until you have seen the whole building and said yes.</strong></p>
+    <p class="note">The inside of the shop is not part of this job. Your mom asked to finish the outside first. We can look at the inside later if you want it.</p>
+  </section>
+
+  <!-- ============ 9b. THE PAINTING PLAN ============ -->
+  <section class="sec" aria-labelledby="s9b">
+    <p class="eyebrow">The part after the drawings</p>
+    <h2 class="sec-title" id="s9b">How the painting actually happens</h2>
+    <p>These are hand-painted signs, not stickers or printed panels. Here is the real plan, so you know what the work looks like and how long it takes.</p>
+    <div class="mathbox">
+      <h3>About 5 to 6 working days of painting</h3>
+      <p><strong>1 day</strong> to prepare. I make a full size pattern of every letter before I touch the wall.</p>
+      <p><strong>3 to 4 hours</strong> to transfer the design onto the building, so the letters land in exactly the right place at the right size.</p>
+      <p><strong>3 days</strong> for the three main signs. <strong>1 day</strong> for the 3030 and the Japanese and Korean writing.</p>
+    </div>
+    <p>The transfer happens <strong>late at night, around 2:30am to 6am</strong> on a weekday. Cary Street is busy, and doing it at night keeps the sidewalk clear for your neighbors and their customers, and keeps my ladder out of everyone's way.</p>
+    <p>I am not renting a lift. A friend in the sign business is lending me a bucket truck for the few hours of transfer work, and the rest is painted from my own ladder. That keeps the equipment cost off your bill.</p>
+    <p class="note">Opening day is August 20. Those painting days have to fit somewhere before then, and they can only start once the design is approved and the job is on my calendar.</p>
   </section>
 
   <!-- ============ 10. THE ASK ============ -->
