@@ -128,6 +128,18 @@
   .fitem .t{font-size:18px;line-height:1.5}
   .fitem .t small{display:block;color:var(--muted);font-size:17px;margin-top:3px}
 
+  /* Jump menu. This page is long and it is being read by someone who wants
+     a specific answer fast. Letting her go straight to it also signals that
+     nothing here is being buried. */
+  .jump{margin-top:calc(var(--m) * 1.3);background:var(--surface);border:1px solid var(--line);
+    border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
+  .jump h2{font-size:19px;margin:0 0 10px;font-weight:700;line-height:1.3}
+  .jump ul{margin:0;padding-left:22px}
+  .jump li{margin:0;font-size:18px;line-height:1.45}
+  .jump a{color:var(--text);text-decoration:underline;text-underline-offset:3px;
+    display:inline-block;padding:9px 0}
+  h2[id]{scroll-margin-top:22px}
+
   .schedule{margin-top:calc(var(--m) * 1.8);background:var(--surface);border:1px solid var(--line);
     border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .schedule h2{font-size:22px;margin:0 0 12px;font-weight:700;line-height:1.3}
@@ -170,7 +182,8 @@
 
   <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
     <h2 id="leadH">Hi Lea. Here is everything.</h2>
-    <p>You asked good questions. Here are the full answers. This page shows every design step so far, all the choices we looked at, and the reason for each one.</p>
+    <p>You and your mom are opening a shop that people should be able to spot from down the block, and understand before they even reach the door. Every decision on this page is in service of that one thing.</p>
+    <p>You asked why the signs look different from your logo, and why I need files from your designer. Those are fair questions, and you should have had these answers before now. Here they are, with the pictures.</p>
     <p>Here is the short version:</p>
     <ul>
       <li>Your logo is white. The wall is light gray. White on light gray is very hard to see, so we painted a green box behind the letters.</li>
@@ -180,6 +193,18 @@
     </ul>
     <p>Please read all of it. If you want to change something, tell me. You know this brand better than anyone, and nothing is painted yet.</p>
   </section>
+
+  <nav class="jump reveal" style="animation-delay:.12s" aria-labelledby="jumpH">
+    <h2 id="jumpH">Or jump straight to what you want to know</h2>
+    <ul>
+      <li><a href="#s1">Why the logo needed a green box</a></li>
+      <li><a href="#s3">About the thin line idea</a></li>
+      <li><a href="#s4">Why the small words moved to the corner</a></li>
+      <li><a href="#s5">The six choices for the front wall</a></li>
+      <li><a href="#s9b">How the painting actually happens</a></li>
+      <li><a href="#s10">What I need from you</a></li>
+    </ul>
+  </nav>
 
   <!-- ============ 1. THE WALL PROBLEM ============ -->
   <section class="sec" aria-labelledby="s1">
@@ -449,15 +474,17 @@
 
   <!-- ============ 11. SCHEDULE ============ -->
   <section class="schedule" aria-labelledby="schedH">
-    <h2 id="schedH">Where the schedule stands</h2>
-    <p>I want to be honest with you, because opening day is close. The deposit has not arrived yet, so Haru is not on my work calendar. I am doing all of this design work in between my other jobs.</p>
-    <p>On the day the deposit arrives, that changes. Haru becomes my main job, and it gets my full attention every day until the building is finished. With the date this close, that is the single biggest thing that would speed this up.</p>
+    <h2 id="schedH">Getting the building ready for opening day</h2>
+    <p>I want to be honest with you, because August 20 is close. The deposit has not arrived yet, so Haru is not on my work calendar. I am doing all of this design work in between my other jobs.</p>
+    <p>On the day the deposit arrives, that changes. Haru becomes my main job, and it gets my full attention every day until the building is finished. With the date this close, that is the single biggest thing that would get the signs on the wall in time.</p>
+    <p>You and your mom decide when that happens. I just want you to know what it unlocks.</p>
   </section>
 
   <!-- ============ 12. YOUR TURN ============ -->
   <section class="sec" aria-labelledby="s12">
     <p class="eyebrow">Your turn</p>
     <h2 class="sec-title" id="s12">Please tell me what you think</h2>
+    <p>When this is done, someone walking up Cary Street will see your name from the crosswalk, know what kind of shop it is before they reach the door, and see all of it in your colors and your letters. That is what every choice above is aiming at.</p>
     <p>You care about this brand, and that is exactly what this project needs. Please look through everything above. If something feels wrong to you, I want to hear it now, while it is still a picture on a screen and not paint on a wall.</p>
     <div class="actions">
       <a class="btn btn-primary" href="mailto:hello@untitledmixedmedia.com?subject=Haru%20design%20files">
