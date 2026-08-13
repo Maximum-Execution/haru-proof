@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Haru - The Whole Design Story</title>
+<title>Haru - What we have designed, and why</title>
 <link rel="stylesheet" href="../type.css">
 <style>
   :root{
@@ -31,7 +31,7 @@
   html{-webkit-text-size-adjust:100%}
   body{
     margin:0;color:var(--text);
-    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.55;
+    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.6;
     padding-bottom:60px;
     background:var(--bg);
     background-image:radial-gradient(125% 70% at 50% -5%, var(--ground) 0%, var(--bg) 58%);
@@ -47,10 +47,15 @@
   @media (min-width:760px){ .wrap{max-width:980px} }
   .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
     overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+  .skip{position:absolute;left:-9999px;top:0;z-index:50;background:var(--accent);color:#FFFFFF;
+    padding:14px 20px;border-radius:0 0 12px 0;font-size:19px;font-weight:700;text-decoration:none}
+  .skip:focus{left:0}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px;border-radius:6px}
 
   header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
   .wordmark{height:26px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
-  h1{font-size:33px;line-height:1.14;margin:10px 0 4px;font-weight:700;letter-spacing:-0.005em;text-wrap:balance}
+  h1{font-size:32px;line-height:1.18;margin:10px 0 6px;font-weight:700;letter-spacing:-0.005em;
+     text-wrap:balance;max-width:18ch}
   .meta{color:var(--muted);font-size:16px;margin:0}
   .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
     border:1px solid var(--line);background:var(--surface);color:var(--text);
@@ -58,66 +63,70 @@
 
   .lead{background:var(--surface);border:1px solid var(--line);border-radius:16px;
     padding:var(--card-m) var(--card-m) var(--card-m-b);margin:calc(var(--m) * 1.3) 0 0}
-  .lead h2{font-size:23px;margin:0 0 12px;font-weight:700;line-height:1.25;text-wrap:balance}
-  .lead p{margin:0 0 12px;font-size:19px;line-height:1.55;max-width:60ch;text-wrap:pretty}
+  .lead h2{font-size:23px;margin:0 0 12px;font-weight:700;line-height:1.3;text-wrap:balance}
+  .lead p{margin:0 0 14px;font-size:19px;line-height:1.6;max-width:56ch;text-wrap:pretty}
   .lead p:last-child{margin-bottom:0}
-  .lead ul{margin:0 0 12px;padding-left:24px}
-  .lead ul li{margin:0 0 8px;font-size:19px;line-height:1.5}
+  .lead ul{margin:0 0 14px;padding-left:24px}
+  .lead ul li{margin:0 0 10px;font-size:19px;line-height:1.55}
 
   .sec{margin-top:calc(var(--m) * 1.8)}
   .eyebrow{color:var(--muted);font-size:15px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0}
-  h2.sec-title{font-size:26px;margin:4px 0 0;font-weight:700;line-height:1.2;text-wrap:balance;max-width:26ch}
-  .sec p{margin:14px 0 0;font-size:19px;line-height:1.55;max-width:62ch;text-wrap:pretty}
+  h2.sec-title{font-size:26px;margin:4px 0 0;font-weight:700;line-height:1.25;text-wrap:balance;max-width:22ch}
+  h3{font-size:20px;margin:26px 0 0;font-weight:700;line-height:1.3;text-wrap:balance}
+  .sec p{margin:14px 0 0;font-size:19px;line-height:1.6;max-width:56ch;text-wrap:pretty}
   .sec p strong{font-weight:600}
-  .note{color:var(--muted);font-size:17px;line-height:1.5;max-width:62ch}
+  .note{color:var(--muted);font-size:17px;line-height:1.55;max-width:58ch}
 
   .shot{margin:18px 0 0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
   .shot img{width:100%;height:auto;display:block}
-  .shot figcaption{padding:13px 16px;font-size:16px;line-height:1.45;color:var(--muted)}
+  .shot figcaption{padding:14px 16px;font-size:17px;line-height:1.5;color:var(--muted)}
   .shot figcaption b{color:var(--text);font-weight:600}
 
   .duo{display:grid;gap:18px;grid-template-columns:1fr;margin-top:18px}
   @media (min-width:620px){ .duo{grid-template-columns:1fr 1fr} }
-  .trio{display:grid;gap:18px;grid-template-columns:1fr;margin-top:18px}
-  @media (min-width:620px){ .trio{grid-template-columns:1fr 1fr 1fr} }
-  .duo figure,.trio figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-  .duo img,.trio img{width:100%;height:auto;display:block}
-  .duo figcaption,.trio figcaption{padding:12px 15px;font-size:16px;line-height:1.4;color:var(--muted)}
-  .duo figcaption b,.trio figcaption b{color:var(--text);font-weight:600}
-  .picked{display:inline-block;font-size:14px;font-weight:700;letter-spacing:.06em;
+  .duo figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .duo img{width:100%;height:auto;display:block}
+  .duo figcaption{padding:13px 15px;font-size:17px;line-height:1.45;color:var(--muted)}
+  .duo figcaption b{color:var(--text);font-weight:600}
+  .picked{display:inline-block;font-size:15px;font-weight:700;letter-spacing:.05em;
     text-transform:uppercase;color:var(--accent-text)}
+
+  /* Option grids: every choice Kim was shown, in the order she saw them. */
+  .optgroup{margin-top:22px}
+  .optgroup > h3{margin-top:0}
+  .opts{display:grid;gap:18px;grid-template-columns:1fr;margin-top:14px}
+  @media (min-width:620px){ .opts{grid-template-columns:1fr 1fr} }
+  @media (min-width:900px){ .opts{grid-template-columns:1fr 1fr 1fr} }
+  .opts figure{margin:0;background:var(--surface);border:2px solid var(--line);border-radius:16px;overflow:hidden}
+  .opts figure.chosen{border-color:var(--accent);border-width:3px}
+  .opts img{width:100%;height:auto;display:block}
+  .opts figcaption{padding:13px 15px;font-size:17px;line-height:1.45;color:var(--text)}
+  .opts figcaption small{display:block;color:var(--muted);font-size:16px;margin-top:3px}
 
   .mathbox{margin-top:18px;background:var(--surface);border:1px solid var(--line);
     border-left:5px solid var(--accent);border-radius:16px;
     padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .mathbox h3{font-size:19px;margin:0 0 10px;font-weight:700}
-  .mathbox p{margin:0 0 10px;font-size:18px;line-height:1.5;max-width:58ch}
+  .mathbox p{margin:0 0 12px;font-size:18px;line-height:1.55;max-width:54ch}
   .mathbox p:last-child{margin-bottom:0}
   .mathbox .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
-
-  .plan{margin-top:18px}
-  .step{display:flex;gap:18px;align-items:flex-start;margin-top:18px}
-  .step .n{flex:none;width:52px;height:52px;border-radius:14px;background:var(--accent);color:#FFFFFF;
-    display:flex;align-items:center;justify-content:center;
-    font-family:var(--font-mono);font-size:24px;font-weight:700}
-  .step h3{font-size:20px;margin:4px 0 6px;font-weight:700;line-height:1.25}
-  .step p{margin:0;font-size:18px;line-height:1.5;max-width:56ch}
 
   .files{margin-top:18px;background:var(--surface);border:2px solid var(--line);border-radius:16px;
     padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .files h3{font-size:21px;margin:0 0 6px;font-weight:700}
-  .files p{margin:0 0 14px;font-size:18px;line-height:1.5;color:var(--muted);max-width:56ch}
-  .fitem{display:flex;gap:14px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}
+  .files > p{margin:0 0 14px;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
+  .fitem{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
   .fitem:first-of-type{border-top:0}
-  .fitem .tick{flex:none;width:30px;height:30px;border-radius:9px;border:2px solid var(--accent);
-    display:flex;align-items:center;justify-content:center;color:var(--accent-text);font-weight:700;font-size:17px}
-  .fitem .t{font-size:18px;line-height:1.45}
-  .fitem .t small{display:block;color:var(--muted);font-size:16px;margin-top:2px}
+  .fitem .tick{flex:none;width:32px;height:32px;border-radius:9px;border:2px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;color:var(--accent-text);
+    font-weight:700;font-size:17px;font-family:var(--font-mono)}
+  .fitem .t{font-size:18px;line-height:1.5}
+  .fitem .t small{display:block;color:var(--muted);font-size:17px;margin-top:3px}
 
   .schedule{margin-top:calc(var(--m) * 1.8);background:var(--surface);border:1px solid var(--line);
     border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
-  .schedule h2{font-size:22px;margin:0 0 12px;font-weight:700;line-height:1.25}
-  .schedule p{margin:0 0 12px;font-size:18px;line-height:1.55;max-width:60ch}
+  .schedule h2{font-size:22px;margin:0 0 12px;font-weight:700;line-height:1.3}
+  .schedule p{margin:0 0 14px;font-size:18px;line-height:1.6;max-width:56ch}
   .schedule p:last-child{margin-bottom:0}
 
   .actions{display:grid;gap:14px;grid-template-columns:1fr;margin-top:calc(var(--m) * 1.3)}
@@ -125,12 +134,12 @@
   .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
     min-height:68px;padding:16px 20px;border-radius:14px;text-decoration:none;text-align:center;line-height:1.3}
   .btn-primary{background:var(--accent);color:#FFFFFF;font-size:20px;font-weight:700}
-  .btn-secondary{border:2px solid var(--line);color:var(--text);font-size:18px;font-weight:500;background:transparent}
-  .btn .sub{font-family:var(--font-mono);font-size:16px;font-weight:400;opacity:.9;font-variant-numeric:tabular-nums}
-  .btn:focus-visible{outline:3px solid var(--accent-text);outline-offset:3px}
+  .btn-secondary{border:2px solid var(--line);color:var(--text);font-size:19px;font-weight:600;background:transparent}
+  .btn .sub{font-family:var(--font-mono);font-size:16px;font-weight:400;font-variant-numeric:tabular-nums}
+  .btn-primary .sub{color:#FFFFFF}
 
   footer{margin-top:calc(var(--m) * 1.8);border-top:1px solid var(--line);padding-top:20px}
-  .fine{color:var(--muted);font-size:15px;line-height:1.5;margin:10px 0}
+  .fine{color:var(--muted);font-size:15px;line-height:1.55;margin:10px 0}
   .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
 
   .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
@@ -141,248 +150,300 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to the pictures</a>
 <div class="wrap">
   <header class="reveal">
     <div>
       <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
-      <h1>The whole design story, start to today</h1>
-      <p class="meta">Haru &middot; for Lea</p>
+      <h1>What we have designed, and why</h1>
+      <p class="meta">Haru &middot; a full update for Lea</p>
     </div>
     <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
   </header>
 
+  <main id="main">
+
   <section class="lead reveal" style="animation-delay:.06s" aria-labelledby="leadH">
     <h2 id="leadH">Hi Lea. Here is everything.</h2>
-    <p>You asked good questions, and you deserve full answers. This page shows every design step so far, the choices we looked at, and why each decision was made. Nothing is hidden and nothing is final without you and your mom.</p>
-    <p>The short version:</p>
+    <p>You asked good questions. Here are the full answers. This page shows every design step so far, all the choices we looked at, and the reason for each one.</p>
+    <p>Here is the short version:</p>
     <ul>
-      <li>Your white logo disappears on the light wall, so we put a green panel behind it.</li>
-      <li>The tagline letters would be too small to read from across the street, so the tagline got its own sign on the corner.</li>
-      <li>Your mom picked the sign placements, the 3030 color, and the version without the triangle. You will see all the options she chose from below.</li>
-      <li><strong>Nothing needs to be redesigned.</strong> I only need the original logo files so what I paint matches your brand exactly.</li>
+      <li>Your logo is white. The wall is light gray. White on light gray is very hard to see, so we painted a green box behind the letters.</li>
+      <li>The small words under the logo would be too small to read from across the street. So we moved them to their own sign on the corner, where we can make them bigger.</li>
+      <li>Your mom looked at six drawings of the front wall. She chose the one without the triangle, on the right side.</li>
+      <li><strong>Nothing needs to be redesigned.</strong> I only need the original logo files, so the letters I paint match your brand exactly.</li>
     </ul>
-    <p>Read it all, or skip to the end for the three files I need. And if you see anything you would change, tell me. You know this brand better than anyone.</p>
+    <p>Please read all of it. If you want to change something, tell me. You know this brand better than anyone, and nothing is painted yet.</p>
   </section>
 
   <!-- ============ 1. THE WALL PROBLEM ============ -->
   <section class="sec" aria-labelledby="s1">
     <p class="eyebrow">Where we started</p>
-    <h2 class="sec-title" id="s1">A white logo on a light wall</h2>
-    <p>Your logo is white. The upper wall on West Cary Street is painted a light gray. White on light gray is almost the same brightness, so from the sidewalk the letters would nearly vanish.</p>
-    <p>This is not a guess. We measured it. Here is the white version on the real wall, using the 3030 address as the test:</p>
+    <h2 class="sec-title" id="s1">A white logo on a light gray wall</h2>
+    <p>Your logo is white. The top part of the wall on West Cary Street is painted light gray. White and light gray are almost the same brightness. When two colors are this close, the eye cannot separate them from far away.</p>
+    <p>Here is your own logo file. On the left it sits on the real color of your wall. On the right it sits on Haru green. Same logo, same size, both sides:</p>
     <figure class="shot">
-      <img src="../img/addr-3-white.jpg" width="1400" height="1050" alt="The front wall with the 3030 address painted white. The white number nearly disappears into the light gray wall." loading="lazy">
-      <figcaption><b>White paint on the light wall.</b> You have to hunt for the 3030. Now imagine the whole sign like this. It would be money spent on something people cannot see.</figcaption>
+      <img src="../img/contrast-logo-on-wall.jpg" width="1400" height="560" alt="The Haru logo shown twice at the same size. On the left it sits on the light gray color of the wall and is very hard to see. On the right it sits on Haru green and is easy to see." loading="lazy">
+      <figcaption><b>Your logo on the wall color, and on green.</b> This is your real logo file, not a drawing. The gray on the left is the actual color of your wall. Look at how the small words almost vanish on the left side.</figcaption>
+    </figure>
+    <p>We also tested it in paint on the building, using the address number 3030:</p>
+    <figure class="shot">
+      <img src="../img/addr-3-white.jpg" width="1400" height="1050" alt="The front of the building with the address number 3030 painted in white. The white number almost disappears into the light gray wall." loading="lazy">
+      <figcaption><b>White paint on the light gray wall.</b> You have to look hard to find the 3030. Now imagine the whole logo like this. It would be money spent on something people cannot see.</figcaption>
     </figure>
     <div class="mathbox">
-      <h3>How we measure it</h3>
-      <p>Sign makers score how much letters stand out with a contrast number. Higher is easier to read. Black on white scores about <span class="num">21</span>, the best possible.</p>
-      <p>White letters on this wall score about <span class="num">1.3</span>. That is close to invisible. No amount of skill in the painting fixes that number.</p>
+      <h3>How sign painters measure this</h3>
+      <p>We use a number to score how easy letters are to see. A higher number is easier. Black letters on a white wall score about <span class="num">21</span>. That is the best score you can get.</p>
+      <p>White letters on this gray wall score about <span class="num">1.3</span>. That is almost invisible.</p>
+      <p>Painting more carefully cannot fix this. The problem is the two colors, not the brushwork.</p>
     </div>
   </section>
 
   <!-- ============ 2. THE GREEN PANEL ============ -->
   <section class="sec" aria-labelledby="s2">
-    <p class="eyebrow">The fix</p>
-    <h2 class="sec-title" id="s2">A green panel behind the white letters</h2>
-    <p>We did not want to change your logo. The letters stay white, exactly as designed. Instead we paint a panel of Haru's own green behind them. The green block is easy to spot from far away, and the white letters read against the green.</p>
-    <p>Honest note: white on green is still not the strongest contrast on paper. But it keeps your brand colors, it makes the sign easy to find, and at the size these letters will be painted it reads well. It is a big step up from invisible.</p>
+    <p class="eyebrow">How we fixed it</p>
+    <h2 class="sec-title" id="s2">A green box behind the white letters</h2>
+    <p>We did not want to change your logo. The letters stay white, exactly as your designer made them. Instead, we paint a box of Haru green behind them.</p>
+    <p>The green box is easy to see from far away. The white letters show up clearly against the green.</p>
+    <p>I want to be honest with you. White on green is still not the strongest choice. But it keeps your brand colors, people can find the sign from far away, and the letters will be large. It is a very big improvement over invisible.</p>
     <figure class="shot">
-      <img src="../img/front-darker-green.jpg" width="1400" height="1177" alt="The front of the building with the Haru logo in white on a green panel, the 3030 address in darker green, and the Japanese and Korean letters by the window." loading="lazy">
-      <figcaption><b>The front today.</b> White logo on the green panel, the 3030 by the door, and HARU in Japanese and Korean near the window. Every piece on this wall was chosen from options your mom reviewed.</figcaption>
+      <img src="../img/front-darker-green.jpg" width="1400" height="1177" alt="The front of the building with the Haru logo in white on a green box, the address number in dark green, and the Japanese and Korean writing near the window." loading="lazy">
+      <figcaption><b>The front wall today.</b> The white logo on the green box, the 3030 near the door, and the Japanese and Korean writing near the window. Your mom chose every piece on this wall from a set of options.</figcaption>
     </figure>
   </section>
 
   <!-- ============ 3. THE OUTLINE IDEA ============ -->
   <section class="sec" aria-labelledby="s3">
-    <p class="eyebrow">Your suggestion</p>
-    <h2 class="sec-title" id="s3">About outlining the letters</h2>
-    <p>You suggested a thin dark outline around the white letters, so they could sit right on the wall. That is a real sign painter technique, and it was worth looking at. Here is why it does not solve this problem:</p>
-    <p><strong>Thin lines disappear with distance.</strong> For a line to still be visible from 50 feet away, it has to be painted about an inch thick. A truly thin outline stops existing to the eye from across the street, and then we are back to white on light gray.</p>
-    <p><strong>A thick outline changes your logo.</strong> If we paint the outline heavy enough to work, the sign becomes an outlined logo. That is a different look from the clean logo your designer made.</p>
-    <p><strong>It costs real money.</strong> Hand painting a clean outline around every curve of every letter is some of the slowest, most focused brushwork there is. It would add many hours of labor to fix a problem the green panel already fixes.</p>
-    <p>So the outline is possible, but it buys less readability than the panel at a much higher price. If you want to see a mockup of it anyway, say the word and I will make one. It is your family's building.</p>
+    <p class="eyebrow">Your idea</p>
+    <h2 class="sec-title" id="s3">About drawing a line around the letters</h2>
+    <p>You asked about painting a thin dark line around the white letters, so they could sit right on the gray wall. That is a real sign painting method, and it was worth checking. Here is what we found.</p>
+
+    <h3>1. A line only fixes the edge</h3>
+    <p>The line goes around the outside of each letter. The inside of the letter is still white, and the wall behind it is still light gray. From across the street, you would see a thin dark shape, but the letter itself would still blend into the wall. The green box fixes the whole letter, not just its edge.</p>
+
+    <h3>2. A thin line gets very hard to see from far away</h3>
+    <p>People will read this sign from about 50 feet away. At that distance a quarter inch line is right at the edge of what the eye can pick out. It reads as a faint smudge more than a line.</p>
+    <p>To read clearly as a line from 50 feet, it needs to be roughly three quarters of an inch thick. At that thickness it is not a thin outline any more. It becomes a bold black edge, and it changes the look of your logo.</p>
+
+    <h3>3. It costs a lot more</h3>
+    <p>Painting a clean line around every curve of every letter, by hand, is slow and difficult work. It would add many hours to the job. That is a large cost to fix a problem the green box already fixes.</p>
+
+    <p>So the line is possible, but it works less well than the green box and it costs much more. <strong>If you would like to see it as a picture anyway, just ask and I will make one.</strong> This is your family's building.</p>
   </section>
 
   <!-- ============ 4. THE TAGLINE ============ -->
   <section class="sec" aria-labelledby="s4">
     <p class="eyebrow">Your biggest question</p>
-    <h2 class="sec-title" id="s4">Why the tagline has its own sign</h2>
-    <p>You asked why we split "Curated Japanese &amp; Korean Market" away from the name. It is not a style choice. It is arithmetic about reading distance.</p>
+    <h2 class="sec-title" id="s4">Why the small words got their own sign</h2>
+    <p>You asked why we moved "Curated Japanese &amp; Korean Market" away from the Haru name. This was not a style choice. It is about how far away people will be standing.</p>
     <div class="mathbox">
       <h3>The rule sign painters use</h3>
-      <p>A letter needs about <span class="num">1 inch</span> of height for every <span class="num">10 feet</span> a person stands away from it.</p>
-      <p>The main sign sits about 15 feet up and gets read from 40 to 60 feet away, from the far sidewalk and the crosswalks. At that distance, letters need to be <span class="num">5 to 6 inches</span> tall to read comfortably.</p>
-      <p>Inside the big sign, the tagline letters would come out around 2 to 3 inches tall. From across the street they would be a blurry line under the name. Money spent on words nobody can read.</p>
+      <p>A letter needs about <span class="num">1 inch</span> of height for every <span class="num">10 feet</span> that a person stands away from it.</p>
+      <p>This sign will be about <span class="num">15 feet</span> up in the air. People read it from <span class="num">40 to 60 feet</span> away, from the other side of the street and from the crosswalks. So the letters need to be <span class="num">5 to 6 inches</span> tall.</p>
+      <p>If we kept the small words inside the big logo, those letters would only be about <span class="num">2 to 3 inches</span> tall. From across the street they would look like a gray blur under the name. Nobody could read them, and drivers definitely could not.</p>
     </div>
-    <p>So the tagline moved to its own sign on the corner of the building, where the two streets meet. There it gets letters big enough to actually read, and everyone walking up Cary or Belmont sees it.</p>
-    <p>Your mom picked the size and colors from six options:</p>
-    <div class="trio">
-      <figure>
-        <img src="../img/haru-corner-2.jpg" width="663" height="953" alt="Corner sign option: green box with white letters, larger size." loading="lazy">
-        <figcaption><b>Green, bigger.</b> <span class="picked">Her pick</span></figcaption>
+    <p>So we moved those words to their own sign, on the corner where the two streets meet. There we can make the letters large enough to actually read. Everyone walking up Cary Street or Belmont Avenue will see it.</p>
+    <p>Your mom chose the size and colors from six drawings. Here are three of them:</p>
+    <div class="opts">
+      <figure class="chosen">
+        <img src="../img/haru-corner-2.jpg" width="663" height="953" alt="Corner sign choice: a green box with white letters, in the larger size." loading="lazy">
+        <figcaption>Green box, white letters, bigger.<small><span class="picked">Your mom chose this</span></small></figcaption>
       </figure>
       <figure>
-        <img src="../img/haru-corner-3.jpg" width="663" height="953" alt="Corner sign option: white box with green letters, smaller size." loading="lazy">
-        <figcaption>White box, green letters.</figcaption>
+        <img src="../img/haru-corner-3.jpg" width="663" height="953" alt="Corner sign choice: a white box with green letters, in the smaller size." loading="lazy">
+        <figcaption>White box, green letters.<small>Not chosen.</small></figcaption>
       </figure>
       <figure>
-        <img src="../img/haru-corner-5.jpg" width="663" height="953" alt="Corner sign option: orange box with white letters." loading="lazy">
-        <figcaption>Haru Sunrise orange version.</figcaption>
+        <img src="../img/haru-corner-5.jpg" width="663" height="953" alt="Corner sign choice: an orange box with white letters." loading="lazy">
+        <figcaption>Orange box, white letters.<small>Not chosen.</small></figcaption>
       </figure>
     </div>
-    <p class="note" style="margin-top:14px">She also asked us to remove the "&amp;" and line the words up on the left, so the corner sign now reads Curated / Japanese / Korean / Market on four clean lines.</p>
+    <p class="note">She also asked us to remove the "&amp;" sign and line up all the words on the left side. The corner sign now reads on four lines: Curated, Japanese, Korean, Market.</p>
   </section>
 
-  <!-- ============ 5. THE TRIANGLE ============ -->
+  <!-- ============ 5. THE SIX FRONT OPTIONS ============ -->
   <section class="sec" aria-labelledby="s5">
-    <p class="eyebrow">Another real decision</p>
-    <h2 class="sec-title" id="s5">With the triangle, or without</h2>
-    <p>We mocked up the front both ways and showed every version. Your mom chose the clean wordmark without the triangle for the big sign. Here is what she compared:</p>
+    <p class="eyebrow">Six choices for the front wall</p>
+    <h2 class="sec-title" id="s5">With the triangle, and without it</h2>
+    <p>We drew the front wall six different ways. Three without the orange triangle, and three with it. Each one puts the logo in a different place and a different size.</p>
+    <p>Your mom looked at all six and chose the large logo <strong>without the triangle, on the right side of the wall</strong>, next to the 3030.</p>
+
+    <div class="optgroup">
+      <h3>Without the triangle</h3>
+      <div class="opts">
+        <figure class="chosen">
+          <img src="../img/front_nt_side.jpg" width="1400" height="787" alt="Front of the building. Large Haru logo, no triangle, on the right side of the white wall next to the 3030." loading="lazy">
+          <figcaption>Big, on the right, next to the 3030.<small><span class="picked">Your mom chose this</span></small></figcaption>
+        </figure>
+        <figure>
+          <img src="../img/front_nt_window.jpg" width="1400" height="787" alt="Front of the building. Medium Haru logo, no triangle, lined up with the window below it." loading="lazy">
+          <figcaption>Medium, lined up with the window.<small>Not chosen.</small></figcaption>
+        </figure>
+        <figure>
+          <img src="../img/front_nt_higher.jpg" width="1400" height="787" alt="Front of the building. Smaller Haru logo, no triangle, sitting a little higher on the wall." loading="lazy">
+          <figcaption>Smaller, a little higher.<small>Not chosen.</small></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="optgroup">
+      <h3>With the triangle</h3>
+      <div class="opts">
+        <figure>
+          <img src="../img/front_wt_side.jpg" width="1400" height="787" alt="Front of the building. Large Haru logo with the orange triangle, on the right side next to the 3030." loading="lazy">
+          <figcaption>Big, on the right, next to the 3030.<small>Not chosen.</small></figcaption>
+        </figure>
+        <figure>
+          <img src="../img/front_wt_window.jpg" width="1400" height="787" alt="Front of the building. Smaller Haru logo with the orange triangle, lined up with the window below it." loading="lazy">
+          <figcaption>Smaller, lined up with the window.<small>Not chosen.</small></figcaption>
+        </figure>
+        <figure>
+          <img src="../img/front_wt_low.jpg" width="1400" height="787" alt="Front of the building. Medium Haru logo with the orange triangle, sitting lower on the wall." loading="lazy">
+          <figcaption>Medium, lower on the wall.<small>Not chosen.</small></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p>We also showed her the logo by itself, both ways, so she could compare them closely:</p>
     <div class="duo">
       <figure>
-        <img src="../img/style_no_triangle.jpg" width="1000" height="533" alt="The Haru logo without the orange triangle, on green." loading="lazy">
-        <figcaption><b>Without the triangle.</b> <span class="picked">Her pick</span></figcaption>
+        <img src="../img/style_no_triangle.jpg" width="1000" height="533" alt="The Haru logo without the orange triangle, shown on green." loading="lazy">
+        <figcaption><b>Without the triangle.</b> <span class="picked">Chosen</span></figcaption>
       </figure>
       <figure>
-        <img src="../img/style_with_triangle.jpg" width="1000" height="533" alt="The Haru logo with the orange triangle, on green." loading="lazy">
-        <figcaption>With the triangle.</figcaption>
+        <img src="../img/style_with_triangle.jpg" width="1000" height="533" alt="The Haru logo with the orange triangle, shown on green." loading="lazy">
+        <figcaption><b>With the triangle.</b> Not chosen.</figcaption>
       </figure>
     </div>
-    <div class="duo">
-      <figure>
-        <img src="../img/front_nt_side.jpg" width="1400" height="787" alt="Front wall mockup, logo without triangle, large on the right side near the 3030." loading="lazy">
-        <figcaption><b>On the wall without.</b> Big, on the right, next to the 3030. <span class="picked">Her pick</span></figcaption>
-      </figure>
-      <figure>
-        <img src="../img/front_wt_side.jpg" width="1400" height="787" alt="Front wall mockup, logo with triangle, large on the right side." loading="lazy">
-        <figcaption>The same spot with the triangle.</figcaption>
-      </figure>
-    </div>
-    <p class="note" style="margin-top:14px">She saw six front layouts in total: three without the triangle, three with it, in different sizes and positions. The triangle is not gone from the brand. It is just not on the big wall sign.</p>
+    <p class="note">The triangle is not gone from your brand. It is only left off this one large wall sign.</p>
   </section>
 
   <!-- ============ 6. THE 3030 ============ -->
   <section class="sec" aria-labelledby="s6">
-    <p class="eyebrow">The address</p>
-    <h2 class="sec-title" id="s6">The 3030 over the door</h2>
-    <p>The address number is planned right where you want it, by the door. We tested four colors on the real wall and measured each one:</p>
+    <p class="eyebrow">The address number</p>
+    <h2 class="sec-title" id="s6">The 3030 above the door</h2>
+    <p>The address number goes near the door, where you wanted it. We tested four colors on the real wall and measured each one.</p>
     <div class="duo">
       <figure>
-        <img src="../img/addr-1-black.jpg" width="1400" height="1050" alt="The 3030 address in black on the front wall." loading="lazy">
-        <figcaption><b>Black.</b> Strongest contrast, but your mom felt it grabbed the eye before the Haru sign did.</figcaption>
+        <img src="../img/addr-1-black.jpg" width="1400" height="1050" alt="The address number 3030 painted in black on the front wall." loading="lazy">
+        <figcaption><b>Black.</b> The easiest to read. But your mom felt people noticed the number before they noticed the Haru sign.</figcaption>
       </figure>
       <figure>
-        <img src="../img/addr-2-green.jpg" width="1400" height="1050" alt="The 3030 address in green on the front wall." loading="lazy">
-        <figcaption><b>Green.</b> Stays in the family with the panel below.</figcaption>
+        <img src="../img/addr-2-green.jpg" width="1400" height="1050" alt="The address number 3030 painted in green on the front wall." loading="lazy">
+        <figcaption><b>Green.</b> Matches the green box below it.</figcaption>
       </figure>
     </div>
     <figure class="shot">
-      <img src="../img/addr-crop-darker.jpg" width="1400" height="742" alt="Close view of the 3030 in a darker green that stands out more against the wall." loading="lazy">
-      <figcaption><b>The final call: a darker green.</b> Your mom asked if the green could be a shade deeper so it shows up better. We darkened it and she approved it. The address stays quiet on purpose. Phones do the finding. The building confirms the arrival.</figcaption>
+      <img src="../img/addr-crop-darker.jpg" width="1400" height="742" alt="A close view of the address number 3030 in a darker green, which shows up more against the wall." loading="lazy">
+      <figcaption><b>What we chose: a darker green.</b> Your mom asked if the green could be a little darker so it shows up better. We made it darker and she approved it. The number stays quiet on purpose. Most people find the shop with their phone. The number only confirms they are in the right place.</figcaption>
     </figure>
   </section>
 
   <!-- ============ 7. JAPANESE AND KOREAN ============ -->
   <section class="sec" aria-labelledby="s7">
-    <p class="eyebrow">By the window</p>
-    <h2 class="sec-title" id="s7">HARU in Japanese and Korean</h2>
-    <p>Your mom asked for Haru written in Japanese and Korean, so we added both near the window on the green wall: はる and 하루. She confirmed the characters are correct before anything else moved forward, and she picked how they sit on the wall:</p>
+    <p class="eyebrow">Near the window</p>
+    <h2 class="sec-title" id="s7">Haru written in Japanese and Korean</h2>
+    <p>Your mom asked for the name Haru written in Japanese and in Korean. We added both near the window, on the green wall. She checked the writing carefully and confirmed it was correct before we went any further.</p>
+    <p>She then chose how they sit on the wall:</p>
     <div class="duo">
       <figure>
-        <img src="../img/haru-characters-2.jpg" width="760" height="1200" alt="The Japanese and Korean characters painted in white directly on the green wall." loading="lazy">
-        <figcaption><b>White, painted right on the green wall.</b> <span class="picked">Her pick</span></figcaption>
+        <img src="../img/haru-characters-2.jpg" width="760" height="1200" alt="The Japanese and Korean writing painted in white directly on the green wall." loading="lazy">
+        <figcaption><b>White writing, painted on the green wall.</b> <span class="picked">Chosen</span></figcaption>
       </figure>
       <figure>
-        <img src="../img/haru-characters-1.jpg" width="760" height="1200" alt="The Japanese and Korean characters in green inside a white box." loading="lazy">
-        <figcaption>The other option: green letters in a white box.</figcaption>
+        <img src="../img/haru-characters-1.jpg" width="760" height="1200" alt="The Japanese and Korean writing in green inside a white box." loading="lazy">
+        <figcaption><b>Green writing inside a white box.</b> Not chosen.</figcaption>
       </figure>
     </div>
   </section>
 
   <!-- ============ 8. THE J ============ -->
   <section class="sec" aria-labelledby="s8">
-    <p class="eyebrow">A small detail we sweat</p>
-    <h2 class="sec-title" id="s8">Your mom drew us a J</h2>
-    <p>On the corner sign, your mom felt the capital J in "Japanese" did not look balanced. She drew the shape she wanted on paper and texted it to me. So I redrew that one letter by hand to match her drawing, and left every other letter exactly as it was.</p>
+    <p class="eyebrow">A small detail</p>
+    <h2 class="sec-title" id="s8">Your mom drew us a letter J</h2>
+    <p>On the corner sign, your mom felt the capital J in the word Japanese did not look right. She drew the shape she wanted on paper and sent me a photo of it.</p>
+    <p>So I drew that one letter again by hand to match her drawing. Every other letter stayed exactly the same.</p>
     <div class="duo">
       <figure>
-        <img src="../img/kim-drawing-j.jpg" width="600" height="667" alt="Kim's hand drawing of a J with a flat bar across the top." loading="lazy">
+        <img src="../img/kim-drawing-j.jpg" width="600" height="667" alt="Kim's drawing of a letter J with a flat bar across the top." loading="lazy">
         <figcaption><b>Her drawing.</b></figcaption>
       </figure>
       <figure>
-        <img src="../img/corner-j-new.png" width="600" height="680" alt="The redrawn J on the sign, with a flat bar across the top matching the drawing." loading="lazy">
-        <figcaption><b>The painted letter.</b></figcaption>
+        <img src="../img/corner-j-new.png" width="600" height="680" alt="The new letter J for the sign, with a flat bar across the top to match the drawing." loading="lazy">
+        <figcaption><b>The new letter.</b></figcaption>
       </figure>
     </div>
     <figure class="shot">
-      <img src="../img/corner-current.jpg" width="1000" height="1437" alt="The corner sign today: Curated Japanese Korean Market in white on green, with the redrawn J." loading="lazy">
-      <figcaption><b>The corner sign today.</b> We are settling the last little details of letter spacing with her now. This is also where your designer's original files would help most, so the final painted letters match the brand exactly.</figcaption>
+      <img src="../img/corner-current.jpg" width="1000" height="1437" alt="The corner sign today, reading Curated Japanese Korean Market in white letters on green, with the new J." loading="lazy">
+      <figcaption><b>The corner sign today.</b> We are still working out the last small details of the letter spacing with her. This is also the place where your designer's original files would help the most, so the painted letters match your brand exactly.</figcaption>
     </figure>
   </section>
 
   <!-- ============ 9. WHAT IS LEFT ============ -->
   <section class="sec" aria-labelledby="s9">
     <p class="eyebrow">Still to come</p>
-    <h2 class="sec-title" id="s9">The Belmont side, and finishing</h2>
-    <p>The side wall on South Belmont Avenue is planned last, on purpose. Once the front wall and the corner are locked, the Belmont side gets designed to match them, so the whole building agrees with itself from every direction.</p>
-    <p>After that you and your mom get one final set of pictures showing everything together: the front, the corner, the 3030, the window characters, and the Belmont side. Nothing gets painted until you have seen the whole building and said yes.</p>
+    <h2 class="sec-title" id="s9">The Belmont Avenue wall</h2>
+    <p>We are designing the side wall on South Belmont Avenue last, and this is on purpose. Once the front wall and the corner are finished, we design the side wall to match them. That way the whole building looks like one design from every side.</p>
+    <p>After that, you and your mom get one final set of pictures. They will show everything together: the front wall, the corner, the 3030, the Japanese and Korean writing, and the Belmont wall. <strong>Nothing gets painted until you have seen the whole building and said yes.</strong></p>
   </section>
 
   <!-- ============ 10. THE ASK ============ -->
   <section class="sec" aria-labelledby="s10">
-    <p class="eyebrow">How you can move this forward</p>
-    <h2 class="sec-title" id="s10">Three files, and we are off</h2>
-    <p>You asked what needs to be redesigned. The honest answer is <strong>nothing</strong>. Every decision above is made or nearly made. What I am missing is the original artwork, so the letters I paint are your designer's exact letters instead of my careful rebuild from photos.</p>
-    <p>Your designer does not need to design anything new. Exporting these takes a few minutes:</p>
+    <p class="eyebrow">How you can help right now</p>
+    <h2 class="sec-title" id="s10">Three files, and we can move fast</h2>
+    <p>You asked what needs to be redesigned. The honest answer is <strong>nothing</strong>. Every choice above is already made, or almost made.</p>
+    <p>What I am missing is the original artwork. Right now I am rebuilding your logo carefully from pictures. With the real files, the letters I paint will be your designer's exact letters.</p>
+    <p><strong>Your designer does not need to design anything new.</strong> Sending these files takes only a few minutes:</p>
     <div class="files">
       <h3>What to send me</h3>
-      <p>Email works best: hello@untitledmixedmedia.com</p>
+      <p>Email is easiest: hello@untitledmixedmedia.com</p>
       <div class="fitem">
         <span class="tick" aria-hidden="true">1</span>
         <span class="t">The full logo as a vector file
-          <small>AI, EPS, or SVG. The complete version, with the triangle and the tagline together.</small>
+          <small>A file ending in .ai, .eps, or .svg. These can be made any size without going blurry. Please send the complete version, with the triangle and the small words.</small>
         </span>
       </div>
       <div class="fitem">
         <span class="tick" aria-hidden="true">2</span>
-        <span class="t">The name of the tagline font, and the font files if you have them
-          <small>This drives the corner sign and the 3030, and any sign we add later starts the same day instead of waiting.</small>
+        <span class="t">The name of the font used for the small words
+          <small>And the font file, if you have it. I need this for the corner sign and the 3030. If we add more signs later, I can start the same day instead of waiting.</small>
         </span>
       </div>
       <div class="fitem">
         <span class="tick" aria-hidden="true">3</span>
-        <span class="t">A brand guide, if one exists
-          <small>Colors, spacing rules, anything the designer wrote down. If there is no guide, no problem.</small>
+        <span class="t">A brand guide, if there is one
+          <small>This is a document that lists the colors and rules for the logo. If there is no guide, that is fine.</small>
         </span>
       </div>
     </div>
-    <p style="margin-top:16px">And if you look at all of this and want the logo handled differently, that is a real option too. Tell me what you want changed and I will mock it up so you can see it before anything is painted.</p>
+    <p>And if you look at all of this and want the logo used differently, that is a real option. Tell me what you want changed, and I will draw it so you can see it before anything is painted.</p>
   </section>
 
   <!-- ============ 11. SCHEDULE ============ -->
   <section class="schedule" aria-labelledby="schedH">
     <h2 id="schedH">Where the schedule stands</h2>
-    <p>Being straight with you, because the deadline is close: the deposit has not come in yet, so Haru is not on my work calendar. Right now I do all of this design work in the gaps between my scheduled jobs.</p>
-    <p>The day the deposit arrives, that flips. Haru becomes my main job and gets my full attention, every day, until the building is done. With opening day this close, that switch is the single biggest thing that speeds this up.</p>
+    <p>I want to be honest with you, because opening day is close. The deposit has not arrived yet, so Haru is not on my work calendar. I am doing all of this design work in between my other jobs.</p>
+    <p>On the day the deposit arrives, that changes. Haru becomes my main job, and it gets my full attention every day until the building is finished. With the date this close, that is the single biggest thing that would speed this up.</p>
   </section>
 
   <!-- ============ 12. YOUR TURN ============ -->
   <section class="sec" aria-labelledby="s12">
     <p class="eyebrow">Your turn</p>
-    <h2 class="sec-title" id="s12">Tell me what you think</h2>
-    <p>You care about this brand, and that is exactly what this project needs. Look through everything above. If something feels wrong, I want to hear it now, while it is still paint on a screen instead of paint on a wall.</p>
+    <h2 class="sec-title" id="s12">Please tell me what you think</h2>
+    <p>You care about this brand, and that is exactly what this project needs. Please look through everything above. If something feels wrong to you, I want to hear it now, while it is still a picture on a screen and not paint on a wall.</p>
     <div class="actions">
       <a class="btn btn-primary" href="mailto:hello@untitledmixedmedia.com?subject=Haru%20design%20files">
         <span>Send the files</span>
         <span class="sub">hello@untitledmixedmedia.com</span>
       </a>
       <a class="btn btn-secondary" href="tel:+12054518061">
-        <span>Or call and talk it through</span>
+        <span>Or call me any time</span>
         <span class="sub">(205) 451-8061</span>
       </a>
     </div>
   </section>
+
+  </main>
 
   <footer>
     <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
