@@ -9,6 +9,7 @@
 <style>
   :root{
     --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E; --line-soft:#313235;
+    --figure:#545557;
     --text:#EEECE9; --muted:#959494;
     --accent:#e41a1c; --accent-text:#F5787A;
     --ground:#26272B;
@@ -22,6 +23,7 @@
   }
   [data-theme="light"]{
     --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD; --line-soft:#DEDCDA;
+    --figure:#BCBBB9;
     --text:#000205; --muted:#595A5B;
     --accent:#C4141C; --accent-text:#B3121A;
     --ground:#F6F5F3;
@@ -138,7 +140,7 @@
     font-size:19px;line-height:1.55;max-width:54ch}
   .warranty li:last-child{margin-bottom:0}
   .warranty li::before{content:counter(w);position:absolute;left:0;top:-6px;
-    font-family:var(--font-mono);font-size:30px;font-weight:700;color:var(--line);line-height:1;
+    font-family:var(--font-mono);font-size:30px;font-weight:700;color:var(--figure);line-height:1;
     font-variant-numeric:tabular-nums}
   .sig{margin-top:26px;padding-top:18px;border-top:1px solid var(--line);
     font-size:17px;line-height:1.5;color:var(--muted);max-width:54ch}
@@ -200,7 +202,7 @@
   <section class="sec" aria-labelledby="leadH">
     <p class="eyebrow">Where we landed</p>
     <h2 id="leadH">What I understood yesterday</h2>
-    <ul class="check">
+    <ul class="check" role="list">
       <li>Paint the <strong>front wall</strong> before opening day. Triangle stays, orange, above the name. Green panel set to the side.</li>
       <li>The <strong>corner sign</strong> is included, but it is still a rough draft waiting on your real font. Nothing to decide about it today.</li>
       <li>The <strong>sign inside</strong>, behind the register, is included. I can do it before you open if I can get in.</li>
@@ -287,7 +289,7 @@
     <p class="eyebrow">After you say yes</p>
     <h2 id="wH">Your week</h2>
     <p>Once the deposit and the artwork are both in hand, the outside takes 5 to 7 working days. That is when the clock starts, not before.</p>
-    <ol class="tl">
+    <ol class="tl" role="list">
       <li><span class="lbl">Start</span><span class="txt">Deposit and artwork arrive. I print your letters at full size and punch the patterns.</span></li>
       <li><span class="lbl">Day 2</span><span class="txt">Patterns finished and checked against my wall measurements.</span></li>
       <li><span class="lbl">Night</span><span class="txt">The design goes onto the wall around 2:30am, when Cary Street is quiet and the sidewalk is clear.</span></li>
@@ -314,7 +316,7 @@
   <section class="sec" aria-labelledby="iH">
     <p class="eyebrow">Not on the invoice, still yours</p>
     <h2 id="iH">Four things I am not charging you for</h2>
-    <ul class="incl">
+    <ul class="incl" role="list">
       <li><b>Every round of design so far</b>
         <span>The green panel, the triangle placement, the color of the 3030, the crossbar on Kim's J, the corner draft. None of that was billed and none of it will be.</span></li>
       <li><b>Photographs of the finished storefront</b>
@@ -331,7 +333,7 @@
   <section class="sec" aria-labelledby="pH">
     <p class="eyebrow">How I work</p>
     <h2 id="pH">Three things I will not do to you</h2>
-    <ol class="warranty">
+    <ol class="warranty" role="list">
       <li>I will not paint anything until you tell me this picture is right. Paint is permanent, so we agree on the picture first. That is the whole reason this page exists.</li>
       <li>I will not charge you for anything that is not on the list above. If you ask for a change, you get a price in writing before a brush touches the wall.</li>
       <li>I will not ask for the balance until you have walked the building with me. Anything you point at, I fix, at my cost. You pay the rest when you are happy with every letter.</li>
