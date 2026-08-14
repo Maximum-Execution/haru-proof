@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Haru - Progress</title>
+<link rel="stylesheet" href="../type.css">
+<style>
+  :root{
+    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E; --line-soft:#313235;
+    --figure:#545557;
+    --text:#EEECE9; --muted:#959494;
+    --accent:#e41a1c; --accent-text:#F5787A;
+    --ground:#26272B;
+    --wordmark-invert:0;
+    --font-ui:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --font-mono:"Geist Mono",ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --m: clamp(20px, 5.4vw, 40px);
+    --m-b: calc(var(--m) * 1.15);
+    --card-m: clamp(18px, 5.6%, 26px);
+  }
+  [data-theme="light"]{
+    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD; --line-soft:#DEDCDA;
+    --figure:#BCBBB9;
+    --text:#000205; --muted:#595A5B;
+    --accent:#C4141C; --accent-text:#B3121A;
+    --ground:#F6F5F3;
+    --wordmark-invert:1;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;color:var(--text);
+    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.6;
+    padding-bottom:60px;
+    background:var(--bg);
+    background-image:radial-gradient(125% 70% at 50% -5%, var(--ground) 0%, var(--bg) 58%);
+    background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    opacity:.035;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .wrap{position:relative;z-index:1;max-width:660px;margin:0 auto;
+    padding:var(--m) max(var(--m),env(safe-area-inset-right)) var(--m-b) max(var(--m),env(safe-area-inset-left));}
+  @media (min-width:760px){ .wrap{max-width:900px} }
+  a:focus-visible,button:focus-visible,summary:focus-visible{
+    outline:3px solid var(--accent-text);outline-offset:3px;border-radius:6px}
+  .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+  /* ---------- header ---------- */
+  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .wordmark{height:24px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
+  h1{font-size:clamp(30px,7.4vw,36px);line-height:1.12;margin:14px 0 0;font-weight:700;
+     letter-spacing:-0.012em;text-wrap:balance;max-width:14ch}
+  .fresh{display:flex;align-items:center;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
+  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
+    border:1px solid var(--line);background:var(--surface);color:var(--text);
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer}
+
+  /* ---------- the pulse: right now / next ---------- */
+  .pulse{margin-top:calc(var(--m) * 1.1);border:1px solid var(--line);border-radius:16px;
+    background:var(--surface);overflow:hidden}
+  .prow{padding:18px var(--card-m)}
+  .prow + .prow{border-top:1px solid var(--line-soft)}
+  .plabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px}
+  .prow.now .plabel{color:var(--accent-text)}
+  .ptext{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
+  .prow.now .ptext{font-weight:600}
+
+  /* ---------- progress ---------- */
+  .prog{margin-top:26px}
+  .bar{display:flex;gap:9px;align-items:stretch}
+  .grp{display:flex;gap:3px}
+  .seg{flex:1 1 0;height:12px;border-radius:3px;background:var(--line);transform-origin:left center}
+  .seg.on{background:var(--text)}
+  .progmeta{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+    margin-top:12px;flex-wrap:wrap}
+  .count{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
+  .count b{font-family:var(--font-mono);font-weight:700}
+  .weather{color:var(--muted);font-size:15px;text-align:right;flex:1 1 auto}
+  .wdots{display:inline-flex;gap:5px;margin-left:8px;vertical-align:-2px}
+  .wd{display:inline-flex;align-items:center;justify-content:center;
+    width:19px;height:19px;border-radius:5px;border:1px solid var(--line);
+    font-size:11px;font-weight:700;color:var(--muted);font-family:var(--font-mono)}
+  .wd.rain{border-color:var(--accent-text);color:var(--accent-text)}
+
+  /* ---------- section device ---------- */
+  .sec{margin-top:calc(var(--m) * 1.55);padding-top:24px;border-top:1px solid var(--line)}
+  .eyebrow{color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.11em;
+    text-transform:uppercase;margin:0 0 6px}
+  h2{font-size:25px;margin:0;font-weight:700;line-height:1.22;letter-spacing:-0.005em;
+    text-wrap:balance;max-width:22ch}
+  .intro{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
+
+  /* ---------- sign cards ---------- */
+  .signs{display:grid;gap:16px;grid-template-columns:1fr;margin-top:20px}
+  @media (min-width:700px){ .signs{grid-template-columns:1fr 1fr} }
+  .sign{border:1px solid var(--line);border-radius:16px;background:var(--surface);
+    overflow:hidden;display:flex;flex-direction:column}
+  .sign img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover;
+    border-bottom:1px solid var(--line-soft)}
+  .sbody{padding:16px var(--card-m) 20px;display:flex;flex-direction:column;flex:1}
+  .sname{font-size:20px;font-weight:700;line-height:1.25;margin:0}
+  .swhere{color:var(--muted);font-size:15px;margin:3px 0 0}
+  .sstatus{font-size:17px;line-height:1.45;color:var(--muted);margin:14px 0 0}
+
+  .stepper{list-style:none;margin:18px 0 0;padding:0;display:flex}
+  .step{flex:1 1 0;display:flex;flex-direction:column;align-items:center;text-align:center;
+    position:relative;min-width:0}
+  .step::before{content:"";position:absolute;top:11px;left:-50%;width:100%;height:2px;
+    background:var(--line);z-index:0}
+  .step:first-child::before{display:none}
+  .step.done::before{background:var(--text)}
+  .knob{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;
+    border:2px solid var(--line);background:var(--surface);
+    display:flex;align-items:center;justify-content:center}
+  .step.done .knob{border-color:var(--text);background:var(--text)}
+  .knob svg{width:12px;height:12px;display:none}
+  .step.done .knob svg{display:block}
+  .slabel{font-size:12px;line-height:1.3;margin-top:8px;color:var(--muted);max-width:9ch}
+  .step.done .slabel{color:var(--text);font-weight:600}
+
+  /* ---------- needs ---------- */
+  .needs{list-style:none;margin:20px 0 0;padding:0;border:1px solid var(--line);
+    border-radius:16px;background:var(--surface);overflow:hidden}
+  .need{display:flex;gap:15px;align-items:flex-start;padding:18px var(--card-m);
+    border-top:1px solid var(--line-soft)}
+  .need:first-child{border-top:0}
+  .nmark{flex:none;width:26px;height:26px;border-radius:50%;margin-top:1px;
+    display:flex;align-items:center;justify-content:center}
+  .need.received .nmark{background:var(--text)}
+  .need.received .nmark svg{width:13px;height:13px}
+  .need.needed .nmark{border:2px solid var(--accent);background:transparent}
+  .need.needed .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .ntop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .nitem{font-size:19px;font-weight:700;line-height:1.3}
+  .need.received .nitem{color:var(--muted);font-weight:600}
+  .owner{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);
+    white-space:nowrap}
+  .need.needed .owner{border-color:var(--accent);color:var(--accent-text)}
+  .nnote{font-size:17px;line-height:1.5;color:var(--muted);margin:6px 0 0;max-width:52ch}
+  .allclear{padding:24px var(--card-m);font-size:19px;font-weight:600;text-align:center}
+
+  /* ---------- photos ---------- */
+  .phero{margin:20px 0 0}
+  .phero img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line)}
+  .pcap{margin:12px 0 0;font-size:17px;line-height:1.5;color:var(--muted)}
+  .pcap b{color:var(--text);font-weight:600}
+  .pstrip{display:flex;gap:10px;overflow-x:auto;margin-top:14px;padding-bottom:4px;
+    -webkit-overflow-scrolling:touch}
+  .pstrip:empty{display:none}
+  .pthumb{flex:none;width:104px;margin:0}
+  .pthumb img{width:100%;height:70px;object-fit:cover;display:block;border-radius:9px;
+    border:1px solid var(--line)}
+  .pthumb figcaption{display:block;font-size:12px;color:var(--muted);margin-top:5px;
+    font-family:var(--font-mono)}
+
+  /* ---------- materials ---------- */
+  .mats{margin-top:20px;border:1px solid var(--line);border-radius:16px;
+    background:var(--surface);overflow:hidden}
+  .mat{border-top:1px solid var(--line-soft)}
+  .mat:first-child{border-top:0}
+  .mat summary{list-style:none;cursor:pointer;padding:18px var(--card-m);
+    display:flex;align-items:center;justify-content:space-between;gap:14px;
+    font-size:19px;font-weight:600;line-height:1.35;min-height:44px}
+  .mat summary::-webkit-details-marker{display:none}
+  .chev{flex:none;width:12px;height:12px;border-right:2px solid var(--muted);
+    border-bottom:2px solid var(--muted);transform:rotate(45deg);margin-right:4px;
+    transition:transform .2s ease}
+  .mat[open] .chev{transform:rotate(-135deg)}
+  .matbody{padding:0 var(--card-m) 22px}
+  .matbody p{margin:0 0 13px;font-size:18px;line-height:1.6;color:var(--muted);max-width:56ch}
+  .matbody p:last-child{margin-bottom:0}
+
+  /* ---------- decisions ---------- */
+  .decs{list-style:none;margin:18px 0 0;padding:0;max-width:56ch}
+  .decs li{position:relative;padding-left:30px;margin:0 0 11px;font-size:18px;line-height:1.5;
+    color:var(--muted)}
+  .decs li::before{content:"";position:absolute;left:2px;top:9px;width:12px;height:7px;
+    border-left:2px solid var(--figure);border-bottom:2px solid var(--figure);
+    transform:rotate(-45deg)}
+
+  /* ---------- quiet rows ---------- */
+  .quiet{margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+  .qrow{padding:18px var(--card-m);font-size:17px;line-height:1.55;color:var(--muted);max-width:62ch}
+  .qrow + .qrow{border-top:1px solid var(--line-soft)}
+  .qlabel{color:var(--text);font-weight:700;display:block;margin-bottom:4px;
+    font-size:13px;letter-spacing:.11em;text-transform:uppercase}
+
+  /* ---------- contact ---------- */
+  .actions{display:grid;gap:12px;grid-template-columns:1fr;margin-top:20px}
+  @media (min-width:560px){ .actions{grid-template-columns:1fr 1fr} }
+  .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    min-height:64px;padding:14px 20px;border-radius:13px;text-decoration:none;text-align:center;
+    line-height:1.3;border:1.5px solid var(--line);color:var(--text);font-size:18px;font-weight:600}
+  .btn .sub{font-size:15px;font-weight:400;color:var(--muted);
+    font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  footer{margin-top:calc(var(--m) * 1.55);border-top:1px solid var(--line);padding-top:22px}
+  .fine{color:var(--muted);font-size:15px;line-height:1.55;margin:10px 0;max-width:64ch}
+  .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
+
+  .noscript{border:1px solid var(--accent);border-radius:14px;padding:18px var(--card-m);
+    margin-top:24px;font-size:18px;line-height:1.5}
+
+  /* ---------- motion ---------- */
+  @keyframes segIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  .seg.on{animation:segIn .45s cubic-bezier(.25,1,.5,1) both}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .seg.on{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="reveal">
+    <div>
+      <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
+      <h1>Your signs, underway</h1>
+      <p class="fresh"><span class="dot-live" aria-hidden="true"></span><span id="fresh"></span></p>
+    </div>
+    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+  </header>
+
+  <noscript>
+    <div class="noscript">
+      This page needs JavaScript turned on to show your progress.
+      For the latest, text Spencer at (205) 451-8061.
+    </div>
+  </noscript>
+
+  <section class="pulse reveal" style="animation-delay:.06s" aria-labelledby="pulseH">
+    <h2 id="pulseH" class="vh">Where things stand right now</h2>
+    <div class="prow now"><span class="plabel">Right now</span><p class="ptext" id="rightNow"></p></div>
+    <div class="prow"><span class="plabel">Next</span><p class="ptext" id="next"></p></div>
+  </section>
+
+  <section class="prog reveal" style="animation-delay:.12s" aria-labelledby="progH">
+    <h2 id="progH" class="vh">Overall progress</h2>
+    <div class="bar" id="bar" role="img" aria-label="Progress"></div>
+    <div class="progmeta">
+      <span class="count" id="count"></span>
+      <span class="weather" id="weather"></span>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="signsH">
+    <p class="eyebrow">The work</p>
+    <h2 id="signsH">Your four signs</h2>
+    <p class="intro">Every sign moves through four steps. Filled means finished.</p>
+    <div class="signs" id="signs"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="needsH">
+    <p class="eyebrow">Your side</p>
+    <h2 id="needsH">What I need from you</h2>
+    <ul class="needs" id="needs" role="list"></ul>
+  </section>
+
+  <section class="sec" aria-labelledby="photoH">
+    <p class="eyebrow">From the wall</p>
+    <h2 id="photoH">Latest picture</h2>
+    <figure class="phero" id="phero"></figure>
+    <div class="pstrip" id="pstrip"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="matsH">
+    <p class="eyebrow">The craft</p>
+    <h2 id="matsH">What is going on your walls</h2>
+    <p class="intro">Open any of these if you want to know why I chose what I chose.</p>
+    <div class="mats" id="mats"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="decH">
+    <p class="eyebrow">Locked in</p>
+    <h2 id="decH">What we already decided</h2>
+    <ul class="decs" id="decs" role="list"></ul>
+    <div class="quiet">
+      <div class="qrow"><span class="qlabel">Money</span><span id="payment"></span></div>
+      <div class="qrow"><span class="qlabel">If anything goes wrong</span><span id="warranty"></span></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="contactH">
+    <p class="eyebrow">Anytime</p>
+    <h2 id="contactH">Questions?</h2>
+    <p class="intro">You never have to wait for an update to ask me something.</p>
+    <div class="actions" id="actions"></div>
+  </section>
+
+  <footer>
+    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a id="mail" href="#"></a></p>
+    <p class="fine">Pictures marked as previews are digital mockups. Painted color and texture vary
+      slightly in real light. This is hand-painted work.</p>
+    <p class="fine">&copy; 2026 Untitled Mixed Media LLC</p>
+  </footer>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var D = window.HARU;
+  if(!D){ return; }
+
+  var SVGNS = "http://www.w3.org/2000/svg";
+
+  /* Small DOM builder. Everything user-visible goes in via textContent,
+     so no markup is ever parsed from the data file. */
+  function h(tag, opts, kids){
+    var e = document.createElement(tag);
+    opts = opts || {};
+    if(opts.cls)  { e.className = opts.cls; }
+    if(opts.text != null){ e.textContent = opts.text; }
+    if(opts.attrs){ for(var k in opts.attrs){ e.setAttribute(k, opts.attrs[k]); } }
+    if(kids){ kids.forEach(function(c){ if(c){ e.appendChild(c); } }); }
+    return e;
+  }
+  function check(){
+    var svg = document.createElementNS(SVGNS,"svg");
+    svg.setAttribute("viewBox","0 0 16 16");
+    svg.setAttribute("fill","none");
+    svg.setAttribute("aria-hidden","true");
+    var p = document.createElementNS(SVGNS,"path");
+    p.setAttribute("d","M2.5 8.5L6 12L13.5 4");
+    p.setAttribute("stroke","var(--bg)");
+    p.setAttribute("stroke-width","2.4");
+    p.setAttribute("stroke-linecap","round");
+    p.setAttribute("stroke-linejoin","round");
+    svg.appendChild(p);
+    return svg;
+  }
+  function el(id){ return document.getElementById(id); }
+  function fill(node, kids){
+    node.textContent = "";
+    kids.forEach(function(c){ if(c){ node.appendChild(c); } });
+  }
+
+  /* ---------- theme ---------- */
+  (function(){
+    var doc = document.documentElement, t = el("themeToggle");
+    function apply(v){
+      doc.setAttribute("data-theme", v);
+      t.setAttribute("aria-pressed", v === "light" ? "true" : "false");
+      t.textContent = v === "light" ? "Dark" : "Light";
+    }
+    var saved = new URLSearchParams(location.search).get("theme");
+    try{ saved = saved || localStorage.getItem("haru-theme"); }catch(e){}
+    apply(saved === "light" ? "light" : "dark");
+    t.addEventListener("click", function(){
+      var v = doc.getAttribute("data-theme") === "light" ? "dark" : "light";
+      apply(v);
+      try{ localStorage.setItem("haru-theme", v); }catch(e){}
+    });
+  })();
+
+  /* ---------- header + pulse ---------- */
+  el("fresh").textContent   = "Updated " + D.updated;
+  el("rightNow").textContent = D.rightNow;
+  el("next").textContent     = D.next;
+
+  /* ---------- progress bar ----------
+     One group per sign, one segment per step. Group flex-grow is the step
+     count, so a sign with more steps owns proportionally more of the bar. */
+  (function(){
+    var total = 0, done = 0, delay = 0, groups = [];
+    D.signs.forEach(function(sign){
+      var segs = sign.steps.map(function(step){
+        total++;
+        if(!step.done){ return h("span", {cls:"seg"}); }
+        done++;
+        delay += 60;
+        var s = h("span", {cls:"seg on"});
+        s.style.animationDelay = delay + "ms";
+        return s;
+      });
+      var g = h("div", {cls:"grp"}, segs);
+      g.style.flexGrow = String(sign.steps.length);
+      g.style.flexBasis = "0";
+      groups.push(g);
+    });
+    var bar = el("bar");
+    fill(bar, groups);
+    bar.setAttribute("aria-label", done + " of " + total + " steps finished");
+    fill(el("count"), [
+      h("b", {text:String(done)}),
+      document.createTextNode(" of "),
+      h("b", {text:String(total)}),
+      document.createTextNode(" steps done")
+    ]);
+  })();
+
+  /* ---------- sign cards ---------- */
+  (function(){
+    var cards = D.signs.map(function(s){
+      var kids = [];
+      if(s.thumb){
+        kids.push(h("img", {attrs:{
+          src:s.thumb, alt:s.name + ", " + s.where,
+          width:"600", height:"400", loading:"lazy"
+        }}));
+      }
+      var steps = s.steps.map(function(st){
+        var label = h("span", {cls:"slabel", text:st.label});
+        if(st.done){ label.appendChild(h("span", {cls:"vh", text:" (finished)"})); }
+        return h("li", {cls:"step" + (st.done ? " done" : "")}, [
+          h("span", {cls:"knob", attrs:{"aria-hidden":"true"}}, [check()]),
+          label
+        ]);
+      });
+      kids.push(h("div", {cls:"sbody"}, [
+        h("h3", {cls:"sname",  text:s.name}),
+        h("p",  {cls:"swhere", text:s.where}),
+        h("ol", {cls:"stepper", attrs:{role:"list"}}, steps),
+        h("p",  {cls:"sstatus", text:s.status})
+      ]));
+      return h("article", {cls:"sign"}, kids);
+    });
+    fill(el("signs"), cards);
+  })();
+
+  /* ---------- needs ---------- */
+  (function(){
+    var rows = [];
+    var open = D.needs.filter(function(n){ return n.state !== "received"; });
+    if(!open.length){
+      rows.push(h("li", {cls:"allclear",
+        text:"Nothing! I have everything I need right now."}));
+    }
+    D.needs.forEach(function(n){
+      var got = n.state === "received";
+      var mark = h("span", {cls:"nmark", attrs:{"aria-hidden":"true"}}, got ? [check()] : []);
+      var owner = h("span", {cls:"owner", text:n.owner});
+      var top = h("div", {cls:"ntop"}, [
+        h("span", {cls:"nitem", text:n.item}),
+        owner,
+        h("span", {cls:"vh", text:got ? "Received" : "Still needed"})
+      ]);
+      rows.push(h("li", {cls:"need " + (got ? "received" : "needed")}, [
+        mark,
+        h("div", null, [top, h("p", {cls:"nnote", text:n.note})])
+      ]));
+    });
+    fill(el("needs"), rows);
+  })();
+
+  /* ---------- photos ----------
+     photos[0] is the hero. The array ships seeded with the approved mockup,
+     so there is never an empty state before painting starts. */
+  (function(){
+    var list = D.photos || [];
+    if(!list.length){ return; }
+    var p = list[0];
+    fill(el("phero"), [
+      h("img", {attrs:{src:p.src, alt:p.caption}}),
+      h("figcaption", {cls:"pcap"}, [
+        h("b", {text:p.date + "."}),
+        document.createTextNode(" " + p.caption)
+      ])
+    ]);
+    fill(el("pstrip"), list.slice(1).map(function(q){
+      return h("figure", {cls:"pthumb"}, [
+        h("img", {attrs:{src:q.src, alt:q.caption, loading:"lazy"}}),
+        h("figcaption", {text:q.date})
+      ]);
+    }));
+  })();
+
+  /* ---------- materials ---------- */
+  (function(){
+    fill(el("mats"), D.materials.map(function(m, i){
+      var summary = h("summary", null, [
+        document.createTextNode(m.title),
+        h("span", {cls:"chev", attrs:{"aria-hidden":"true"}})
+      ]);
+      var body = h("div", {cls:"matbody"}, m.body.map(function(par){
+        return h("p", {text:par});
+      }));
+      var d = h("details", {cls:"mat"}, [summary, body]);
+      if(i === 0){ d.setAttribute("open",""); }
+      return d;
+    }));
+  })();
+
+  /* ---------- decisions, money, warranty ---------- */
+  fill(el("decs"), D.decisions.map(function(d){ return h("li", {text:d}); }));
+  el("payment").textContent  = D.payment;
+  el("warranty").textContent = D.warranty;
+
+  /* ---------- contact ---------- */
+  (function(){
+    var c = D.contact;
+    fill(el("actions"), [
+      h("a", {cls:"btn", attrs:{href:"sms:" + c.sms}}, [
+        h("span", {text:"Text me"}),
+        h("span", {cls:"sub", text:c.display})
+      ]),
+      h("a", {cls:"btn", attrs:{href:"tel:" + c.tel}}, [
+        h("span", {text:"Call me"}),
+        h("span", {cls:"sub", text:"any time, really"})
+      ])
+    ]);
+    var m = el("mail");
+    m.setAttribute("href", "mailto:" + c.email);
+    m.textContent = c.email;
+  })();
+
+  /* ---------- weather whisper ----------
+     Live from Open-Meteo. Fahrenheit and America/New_York are explicit:
+     the API defaults to Celsius and GMT, and a GMT day boundary would shift
+     the rain-watch weekdays off Richmond's days. Any failure renders nothing. */
+  (function(){
+    var loc = D.location;
+    if(!loc || !window.fetch){ return; }
+
+    /* Hard date guard. Past the deadline this feature retires itself.
+       Never rely on API failure for this: the forecast endpoint returns
+       recent past days successfully and would leave a stale line on screen. */
+    var today = new Date();
+    var end   = new Date(loc.deadline + "T23:59:59");
+    if(today > end){ return; }
+
+    function iso(d){
+      return d.getFullYear() + "-" +
+        String(d.getMonth() + 1).padStart(2, "0") + "-" +
+        String(d.getDate()).padStart(2, "0");
+    }
+    var url = "https://api.open-meteo.com/v1/forecast" +
+      "?latitude="  + encodeURIComponent(loc.lat) +
+      "&longitude=" + encodeURIComponent(loc.lon) +
+      "&current=temperature_2m,weather_code" +
+      "&daily=precipitation_probability_max" +
+      "&temperature_unit=fahrenheit" +
+      "&timezone=America%2FNew_York" +
+      "&start_date=" + iso(today) +
+      "&end_date="   + encodeURIComponent(loc.deadline);
+
+    var WORD = {0:"clear",1:"mostly clear",2:"partly cloudy",3:"cloudy",
+      45:"foggy",48:"foggy",51:"drizzling",53:"drizzling",55:"drizzling",
+      56:"drizzling",57:"drizzling",61:"raining",63:"raining",65:"raining",
+      66:"raining",67:"raining",71:"snowing",73:"snowing",75:"snowing",
+      77:"snowing",80:"showers",81:"showers",82:"showers",85:"snowing",
+      86:"snowing",95:"storming",96:"storming",99:"storming"};
+    var DAY = ["Su","M","Tu","W","Th","F","Sa"];
+
+    fetch(url).then(function(r){
+      if(!r.ok){ throw new Error("weather unavailable"); }
+      return r.json();
+    }).then(function(j){
+      if(!j || !j.current || !j.daily || !j.daily.time){ return; }
+
+      var temp = Math.round(j.current.temperature_2m);
+      var word = WORD[j.current.weather_code];
+      var kids = [document.createTextNode(
+        temp + "°" + (word ? " and " + word : "") + " at Haru"
+      )];
+
+      var pops = j.daily.precipitation_probability_max || [];
+      var dots = [], wetDays = 0;
+      j.daily.time.forEach(function(dstr, i){
+        var pop = pops[i];
+        var wet = typeof pop === "number" && pop >= 40;
+        if(wet){ wetDays++; }
+        var d = new Date(dstr + "T12:00:00");
+        dots.push(h("span", {
+          cls: "wd" + (wet ? " rain" : ""),
+          text: DAY[d.getDay()],
+          attrs: {title: dstr + (typeof pop === "number" ? ", " + pop + "% chance of rain" : "")}
+        }));
+      });
+      if(dots.length){
+        kids.push(h("span", {
+          cls:"wdots",
+          attrs:{
+            role:"img",
+            "aria-label": wetDays
+              ? "Rain possible on " + wetDays + " day" + (wetDays > 1 ? "s" : "") + " before opening"
+              : "No rain expected before opening"
+          }
+        }, dots));
+      }
+      fill(el("weather"), kids);
+    }).catch(function(){
+      /* No error state by design. The line simply never appears. */
+    });
+  })();
+
+})();
+</script>
+</body>
+</html>
