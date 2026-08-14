@@ -6,118 +6,113 @@
    Never edit index.html for a content change.
 
    FIELD GUIDE
-   updated    Human phrase for when this was last touched. No timestamps.
-              e.g. "Friday evening, August 14"
-   rightNow   One sentence. What is happening at this moment.
-   next       One sentence. What happens immediately after.
+   updated      Human phrase for when this was last touched. No timestamps.
+   rightNow     One sentence. What is happening at this moment.
+   next         One sentence. What happens right after.
 
-   signs[]    One card per sign. Order shown = order here.
-     id       internal only, never displayed
-     name     client language, not trade language
-     where    one short line placing it on the building
-     thumb    path relative to this folder
-     steps[]  {label, done}. Flip done:false to done:true as work completes.
-              Step labels may differ per sign (the inside sign does).
-     status   one sentence in Spencer's voice about where this sign stands
+   signs[]      One card per sign. Order shown = order here.
+     name       client language, never trade language
+     where      one short line placing it
+     thumb      OPTIONAL photo, path relative to this folder. As the job moves,
+                swap each thumb for the newest photo of that actual spot.
+     thumbLabel OPTIONAL chip drawn on the photo, e.g. "The wall today".
+                Change it when the photo changes ("Patterns up", "Painted").
+     steps[]    {label, done}. Flip done:true as work completes.
+     status     one sentence in Spencer's voice about where this sign stands
 
-   needs[]    Things Spencer is waiting on.
-     owner    "Kim" or "Lea" - always assign to a person
-     state    "received" or "needed"
-     note     received items keep a thank-you; needed items say why it matters
-              RULE: received items STAY on the list, checked. Do not delete them.
-              Seeing past asks get answered is what makes the next ask easy.
+   needs[]      Split by state:
+     state      "needed" = shown big with a red mark, this is the client's move
+                "received" = collapses into a small checked line under
+                "Already in hand". NEVER delete received items; seeing old asks
+                answered is what makes the next ask feel easy.
+     owner      "Kim" or "Lea", always a person
 
-   photos[]   Newest FIRST. photos[0] renders large, the rest as thumbnails.
-              RULE: this array is never empty. It ships seeded with the approved
-              mockup so there is never a blank state before painting starts.
+   photos[]     Newest FIRST. photos[0] renders large. Never empty; it ships
+                seeded with the approved mockup.
 
-   materials[] Expandable craft cards. This section GROWS over the job.
-              Add a card whenever a material or method decision is worth showing.
-
-   decisions[] One line each. Settled things that stay settled.
-   payment    One quiet sentence. Never amounts, never a table.
+   materials[]  Craft cards. Add one whenever a decision is worth showing off.
+   decisions[]  One line each. Settled things that stay settled.
+   payment      One quiet sentence. Never amounts, never a table.
    ========================================================================== */
 
 window.HARU = {
 
-  updated: "Friday evening, August 14",
+  updated: "Friday night, August 14",
 
-  rightNow: "Your logo files are in and the paint color is confirmed. I am printing your letters at full size.",
-  next: "Punching the patterns, then the design goes up on the wall on a quiet night.",
+  rightNow: "Your files are in, your green is matched, and I'm printing your letters at full size.",
+  next: "Patterns get punched, then the design goes up on the wall on the first dry night.",
 
   signs: [
     {
-      id: "haru-sign",
       name: "The Haru sign",
       where: "Front wall, West Cary Street",
-      thumb: "../img/progress/sign-haru.jpg",
+      thumb: "../img/progress/now-haru.jpg",
+      thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: false },
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "White letters and the orange triangle on the green panel, with the tagline above the name."
+      status: "This blank wall is about to carry your name. White letters, the orange triangle, and your tagline on the green panel."
     },
     {
-      id: "address-3030",
       name: "The 3030",
       where: "Above your front door",
-      thumb: "../img/progress/sign-3030.jpg",
+      thumb: "../img/progress/now-3030.jpg",
+      thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: false },
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "In the darker green you picked. If your real font arrives in time, I will set it in that instead."
+      status: "Goes right above the door, in the darker green you picked. If your font shows up in time, I'll cut it in the real thing."
     },
     {
-      id: "characters",
       name: "Haru in Japanese and Korean",
       where: "By the front window",
-      thumb: "../img/progress/sign-characters.jpg",
+      thumb: "../img/progress/now-characters.jpg",
+      thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: false },
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "White, painted straight onto the green wall, exactly the letterforms you approved."
+      status: "That green panel next to the window is the spot. White letters, the exact forms you approved."
     },
     {
-      id: "inside-sign",
-      name: "The sign inside",
-      where: "Behind the register",
-      thumb: "../img/progress/sign-inside.jpg",
+      name: "Signs inside the store",
+      where: "Planned after the outside is done",
       steps: [
-        { label: "Design approved", done: true },
-        { label: "Wall measured", done: false },
-        { label: "Panel painted", done: false },
-        { label: "Logo painted", done: false }
+        { label: "Outside finished", done: false },
+        { label: "Walk the store", done: false },
+        { label: "Pick each sign", done: false },
+        { label: "Made and installed", done: false }
       ],
-      status: "Your white logo on a green panel, the way Lea asked for it. I can do this before you open if I can get inside."
+      status: "Once you're moved in, we walk the store together and figure out what each spot needs. Painted, vinyl, printed, whatever does the job best. The point is simple: people walk in and find what they came for."
     }
   ],
 
   needs: [
     {
+      item: "The font name",
+      owner: "Lea",
+      state: "needed",
+      note: "So the 3030 can be in your real font instead of my close match, and so any lettering inside matches too. The name alone works. The files are even better."
+    },
+    {
       item: "The logo files",
       owner: "Lea",
       state: "received",
-      note: "Got the SVG files. That is what lets me print your letters at full size without them going blurry. Thank you Lea."
+      note: "SVG files in hand. Thank you, Lea."
     },
     {
       item: "The green paint color",
       owner: "Kim",
       state: "received",
-      note: "SW 6717 Lime Rickey. Now the green inside will match the green outside exactly. Thank you Kim."
-    },
-    {
-      item: "The font name",
-      owner: "Lea",
-      state: "needed",
-      note: "I need this for the lettering on the inside sign. If it reaches me in time, I will also set the 3030 in your real font. Right now I am using a close match."
+      note: "SW 6717 Lime Rickey, matched. Thank you, Kim."
     }
   ],
 
@@ -125,56 +120,57 @@ window.HARU = {
     {
       src: "../img/final-front-2026-08-14.jpg",
       date: "August 14",
-      caption: "The approved picture. This is what goes on the wall."
+      caption: "The approved picture. This is what the wall becomes."
     }
   ],
 
   materials: [
     {
-      title: "The paint on your building",
+      title: "The paint going on your building",
       body: [
-        "Sherwin-Williams Emerald Urethane Trim Enamel. It is the toughest exterior enamel they make, and it holds a clean edge, which matters a lot when a letter is only a few inches wide.",
-        "Two different finishes, on purpose. The green goes on flat. The white letters go on gloss.",
-        "Flat green kills glare. Walk past your store from any angle, in any sun, and the green stays green instead of turning into a sheet of white reflection. Gloss white does the opposite, and that is exactly the point. White does not glare, it glows. On a bright day your name will look lit from the inside.",
-        "There is a bonus in it. Flat green sitting next to gloss white reads a little darker than it really is, so your letters pop harder without me changing your brand color at all."
+        "Sherwin-Williams Emerald Urethane Trim Enamel. It's the toughest exterior enamel they make, and it holds a crisp edge, which matters when a letter is only a few inches wide.",
+        "Two finishes, and there's a reason. The green goes on flat. The white letters go on gloss.",
+        "Flat green kills glare. Walk past your store at any angle, any time of day, and the green stays green instead of turning into a sheet of reflection. Gloss white flips that around. White can't really glare, it glows. On a bright afternoon your name will look lit from inside.",
+        "And there's a free bonus: flat green sitting against gloss white reads a touch darker than it is, so your letters pop harder without changing your brand color at all."
       ]
     },
     {
-      title: "Your green, written down",
+      title: "Your green, on record",
       body: [
-        "SW 6717 Lime Rickey. That is the exact green already on your building, and it is now in my file, on the paint order, and in this document.",
-        "It matters because the sign inside behind the register has to match the outside. Not close. The same can."
+        "SW 6717 Lime Rickey. The exact green already on your building. It's in my file, on the paint order, and written here so none of us ever has to guess.",
+        "Whatever we end up putting inside gets matched to the same can, not to a memory of it."
       ]
     },
     {
-      title: "How the letters get on the wall",
+      title: "How letters get on a wall",
       body: [
-        "Nothing is drawn freehand. I print every letter at full size on paper, then punch thousands of tiny holes along every line of every letter.",
-        "That paper gets taped to your wall and patted with a bag of chalk dust. The dust goes through the holes and leaves a dotted outline of your logo on the brick, exactly the size it will be painted. Then I paint the letters over the dots and the chalk brushes away.",
-        "It is called pouncing. Sign painters have done it this way for a couple hundred years, and it is the reason hand-painted letters look right instead of almost right.",
-        "The transfer happens around 2:30 in the morning, when Cary Street is quiet and the sidewalk is clear."
+        "Nothing goes up freehand. I print every letter at full size on paper and punch thousands of tiny holes along every edge.",
+        "The paper gets taped to your wall and patted with a bag of chalk dust. The dust falls through the holes and leaves a dotted outline of your logo, exactly where and exactly how big. I paint over the dots, and the chalk brushes away.",
+        "Sign painters call it pouncing, and it's a couple hundred years old. It's the difference between letters that look right and letters that look almost right.",
+        "The transfer happens around 2:30 in the morning, when Cary Street is empty and nobody has to duck under a ladder."
       ]
     },
     {
-      title: "Paint, not vinyl",
+      title: "Why paint and not vinyl",
       body: [
-        "Vinyl is a sticker. It lifts at the edges, traps dirt underneath, and goes chalky after a few summers. Then somebody has to scrape it off.",
-        "Paint bonds to the surface and becomes part of the wall. Richmond still has hand-painted signs from a hundred years ago that you can read from the street today."
+        "Vinyl is a sticker. It lifts at the edges, collects grime underneath, and goes chalky after a few summers. Then someone has to scrape it off.",
+        "Paint soaks in and becomes part of the wall. Richmond still has hand-painted signs from a hundred years ago that read fine from across the street. Yours is built the same way."
       ]
     }
   ],
 
   decisions: [
-    "The tagline goes on the logo, above the name.",
+    "The tagline lives on the logo, above the name.",
     "Nothing gets painted on the corner.",
-    "The 3030 is painted in the darker green.",
-    "The green panel sits to the side, not centered.",
-    "The triangle stays orange, above the name."
+    "The 3030 goes in the darker green.",
+    "The green panel sits off to the side, not centered.",
+    "The triangle stays orange, above the name.",
+    "Inside signs get chosen together after the outside is finished and you're moved in."
   ],
 
-  payment: "Deposit received. The balance is due only at the walkthrough, after you have seen every letter. Nothing else will ever be charged.",
+  payment: "Deposit received, and that's it for now. When everything is finished, outside and in, we walk it all together and the rest is due. Nothing gets added along the way.",
 
-  warranty: "If anything I painted lifts, peels, or fades inside the first year, I come back and fix it. That one is on me.",
+  warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
   contact: {
     sms: "+12054518061",

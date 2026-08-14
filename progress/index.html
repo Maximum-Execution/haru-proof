@@ -55,10 +55,9 @@
   /* ---------- header ---------- */
   header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
   .wordmark{height:24px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
-  h1{font-size:clamp(30px,7.4vw,36px);line-height:1.12;margin:14px 0 0;font-weight:700;
-     letter-spacing:-0.012em;text-wrap:balance;max-width:14ch}
-  /* align-items:flex-start + margin keeps the dot on the FIRST line when the
-     date wraps on narrow phones, instead of drifting to the second line */
+  h1{font-size:clamp(30px,7.4vw,38px);line-height:1.1;margin:14px 0 0;font-weight:700;
+     letter-spacing:-0.014em;text-wrap:balance;max-width:14ch}
+  .deck{font-size:18px;line-height:1.5;margin:10px 0 0;max-width:44ch;color:var(--muted)}
   .fresh{display:flex;align-items:flex-start;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
   .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px}
   .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
@@ -76,29 +75,46 @@
   .ptext{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
   .prow.now .ptext{font-weight:600}
 
-  /* ---------- progress ---------- */
-  .prog{margin-top:26px}
-  .bar{display:flex;gap:9px;align-items:stretch}
-  .grp{display:flex;gap:3px}
-  .seg{flex:1 1 0;height:12px;border-radius:3px;background:var(--line);transform-origin:left center}
-  .seg.on{background:var(--text)}
-  .progmeta{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
-    margin-top:12px;flex-wrap:wrap}
-  .count{font-size:17px;font-weight:600;font-variant-numeric:tabular-nums}
-  .count b{font-family:var(--font-mono);font-weight:700}
-  .weather{color:var(--muted);font-size:15px;text-align:right;flex:1 1 auto}
-  .wdots{display:inline-flex;gap:5px;margin-left:8px;vertical-align:-2px}
-  .wd{display:inline-flex;align-items:center;justify-content:center;
-    width:19px;height:19px;border-radius:5px;border:1px solid var(--line);
-    font-size:11px;font-weight:700;color:var(--muted);font-family:var(--font-mono)}
-  .wd.rain{border-color:var(--accent-text);color:var(--accent-text)}
+  /* ---------- the glance: ring + legend, one infographic ---------- */
+  .glance{display:flex;flex-direction:column;gap:26px;margin-top:22px;align-items:center}
+  @media (min-width:640px){ .glance{flex-direction:row;gap:40px;align-items:center} }
+  .ringwrap{position:relative;flex:none;width:210px;height:210px}
+  .ringwrap svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+  .ring-track{fill:none;stroke:var(--line-soft);stroke-width:15}
+  .ring-fill{fill:none;stroke:var(--text);stroke-width:15;stroke-linecap:round;
+    transition:stroke-dashoffset 1s cubic-bezier(.25,1,.5,1)}
+  .ringcenter{position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;gap:2px}
+  .ringpct{font-family:var(--font-mono);font-size:44px;font-weight:700;line-height:1;
+    letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+  .ringpct small{font-size:24px;font-weight:700}
+  .ringsub{font-size:14px;color:var(--muted);line-height:1.35;max-width:12ch}
+  .legend{flex:1 1 auto;width:100%;align-self:stretch;display:flex;flex-direction:column;
+    justify-content:center}
+  .lrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--line-soft)}
+  .lrow:first-child{border-top:0}
+  .lname{flex:1 1 auto;font-size:17px;font-weight:600;line-height:1.3;min-width:0}
+  .ldots{display:flex;gap:5px;flex:none}
+  .ldot{width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .ldot.on{background:var(--text)}
+  .lcount{flex:none;font-family:var(--font-mono);font-size:14px;color:var(--muted);
+    font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:right}
+
+  /* ---------- painting weather: plain words, no widgets ---------- */
+  .wblock{margin-top:26px;padding-top:20px;border-top:1px solid var(--line-soft)}
+  .wblock:empty{display:none}
+  .wlabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .wnow{margin:0;font-size:18px;line-height:1.5;max-width:54ch}
+  .wnow b{font-weight:600}
+  .wahead{margin:7px 0 0;font-size:17px;line-height:1.5;color:var(--muted);max-width:54ch}
 
   /* ---------- section device ---------- */
   .sec{margin-top:calc(var(--m) * 1.55);padding-top:24px;border-top:1px solid var(--line)}
   .eyebrow{color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.11em;
     text-transform:uppercase;margin:0 0 6px}
   h2{font-size:25px;margin:0;font-weight:700;line-height:1.22;letter-spacing:-0.005em;
-    text-wrap:balance;max-width:22ch}
+    text-wrap:balance;max-width:24ch}
   .intro{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
 
   /* ---------- sign cards ---------- */
@@ -106,8 +122,12 @@
   @media (min-width:700px){ .signs{grid-template-columns:1fr 1fr} }
   .sign{border:1px solid var(--line);border-radius:16px;background:var(--surface);
     overflow:hidden;display:flex;flex-direction:column}
-  .sign img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover;
+  .thwrap{position:relative}
+  .thwrap img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover;
     border-bottom:1px solid var(--line-soft)}
+  .thchip{position:absolute;left:12px;top:12px;background:var(--surface);
+    border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:700;
+    letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:7px}
   .sbody{padding:16px var(--card-m) 20px;display:flex;flex-direction:column;flex:1}
   .sname{font-size:20px;font-weight:700;line-height:1.25;margin:0}
   .swhere{color:var(--muted);font-size:15px;margin:3px 0 0}
@@ -132,24 +152,28 @@
   /* ---------- needs ---------- */
   .needs{list-style:none;margin:20px 0 0;padding:0;border:1px solid var(--line);
     border-radius:16px;background:var(--surface);overflow:hidden}
-  .need{display:flex;gap:15px;align-items:flex-start;padding:18px var(--card-m);
-    border-top:1px solid var(--line-soft)}
-  .need:first-child{border-top:0}
+  .need{display:flex;gap:15px;align-items:flex-start;padding:18px var(--card-m)}
+  .need + .need{border-top:1px solid var(--line-soft)}
   .nmark{flex:none;width:26px;height:26px;border-radius:50%;margin-top:1px;
-    display:flex;align-items:center;justify-content:center}
-  .need.received .nmark{background:var(--text)}
-  .need.received .nmark svg{width:13px;height:13px}
-  .need.needed .nmark{border:2px solid var(--accent);background:transparent}
-  .need.needed .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+    border:2px solid var(--accent);display:flex;align-items:center;justify-content:center}
+  .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
   .ntop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .nitem{font-size:19px;font-weight:700;line-height:1.3}
-  .need.received .nitem{color:var(--muted);font-weight:600}
   .owner{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--muted);
-    white-space:nowrap}
-  .need.needed .owner{border-color:var(--accent);color:var(--accent-text)}
+    border:1px solid var(--accent);border-radius:999px;padding:3px 10px;
+    color:var(--accent-text);white-space:nowrap}
   .nnote{font-size:17px;line-height:1.5;color:var(--muted);margin:6px 0 0;max-width:52ch}
   .allclear{padding:24px var(--card-m);font-size:19px;font-weight:600;text-align:center}
+  .inhand-label{padding:14px var(--card-m) 4px;font-size:12px;font-weight:700;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--figure);
+    border-top:1px solid var(--line-soft)}
+  .got{display:flex;gap:11px;align-items:flex-start;padding:9px var(--card-m)}
+  .got:last-child{padding-bottom:18px}
+  .gotmark{flex:none;width:19px;height:19px;border-radius:50%;background:var(--figure);
+    display:flex;align-items:center;justify-content:center;margin-top:3px}
+  .gotmark svg{width:10px;height:10px}
+  .gottext{font-size:16px;line-height:1.45;color:var(--muted)}
+  .gottext b{font-weight:600;color:var(--muted)}
 
   /* ---------- photos ---------- */
   .phero{margin:20px 0 0}
@@ -214,13 +238,10 @@
     margin-top:24px;font-size:18px;line-height:1.5}
 
   /* ---------- motion ---------- */
-  @keyframes segIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
-  .seg.on{animation:segIn .45s cubic-bezier(.25,1,.5,1) both}
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
-    .seg.on{transform:none}
   }
 </style>
 </head>
@@ -231,6 +252,7 @@
     <div>
       <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
       <h1>Your signs, underway</h1>
+      <p class="deck">The one page that always knows where your job stands. Open it whenever you wonder what's happening.</p>
       <p class="fresh"><span class="dot-live" aria-hidden="true"></span><span id="fresh"></span></p>
     </div>
     <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
@@ -249,45 +271,50 @@
     <div class="prow"><span class="plabel">Next</span><p class="ptext" id="next"></p></div>
   </section>
 
-  <section class="prog reveal" style="animation-delay:.12s" aria-labelledby="progH">
-    <h2 id="progH" class="vh">Overall progress</h2>
-    <div class="bar" id="bar" role="img" aria-label="Progress"></div>
-    <div class="progmeta">
-      <span class="count" id="count"></span>
-      <span class="weather" id="weather"></span>
+  <section class="sec" aria-labelledby="glanceH">
+    <p class="eyebrow">The whole job</p>
+    <h2 id="glanceH">How far along is it?</h2>
+    <p class="intro">One circle. Every finished step fills it a little more, and when it closes, your store has all its signs.</p>
+    <div class="glance">
+      <div class="ringwrap" id="ringwrap"></div>
+      <div class="legend" id="legend" role="list"></div>
     </div>
+    <div class="wblock" id="weather"></div>
   </section>
 
   <section class="sec" aria-labelledby="signsH">
-    <p class="eyebrow">The work</p>
-    <h2 id="signsH">Your four signs</h2>
-    <p class="intro">Every sign moves through four steps. Filled means finished.</p>
+    <p class="eyebrow">Sign by sign</p>
+    <h2 id="signsH">The four pieces</h2>
+    <p class="intro">The photos show each spot as it looks right now. They change as the work does, so you can watch the walls fill in.</p>
     <div class="signs" id="signs"></div>
   </section>
 
   <section class="sec" aria-labelledby="needsH">
     <p class="eyebrow">Your side</p>
-    <h2 id="needsH">What I need from you</h2>
+    <h2 id="needsH">Where I need you</h2>
+    <p class="intro">A red circle means the next move is yours, and it's the fastest way to keep me painting. Everything else here is handled.</p>
     <ul class="needs" id="needs" role="list"></ul>
   </section>
 
   <section class="sec" aria-labelledby="photoH">
-    <p class="eyebrow">From the wall</p>
+    <p class="eyebrow">Proof</p>
     <h2 id="photoH">Latest picture</h2>
+    <p class="intro">The newest shot from the job always sits on top.</p>
     <figure class="phero" id="phero"></figure>
     <div class="pstrip" id="pstrip"></div>
   </section>
 
   <section class="sec" aria-labelledby="matsH">
     <p class="eyebrow">The craft</p>
-    <h2 id="matsH">What is going on your walls</h2>
-    <p class="intro">Open any of these if you want to know why I chose what I chose.</p>
+    <h2 id="matsH">What your money is buying</h2>
+    <p class="intro">Open any card. None of this is the cheap route, and every choice has a reason behind it.</p>
     <div class="mats" id="mats"></div>
   </section>
 
   <section class="sec" aria-labelledby="decH">
     <p class="eyebrow">Locked in</p>
-    <h2 id="decH">What we already decided</h2>
+    <h2 id="decH">Decided, and staying decided</h2>
+    <p class="intro">Written down here so nobody ever has to dig back through a text thread.</p>
     <ul class="decs" id="decs" role="list"></ul>
     <div class="quiet">
       <div class="qrow"><span class="qlabel">Money</span><span id="payment"></span></div>
@@ -298,14 +325,19 @@
   <section class="sec" aria-labelledby="contactH">
     <p class="eyebrow">Anytime</p>
     <h2 id="contactH">Questions?</h2>
-    <p class="intro">You never have to wait for an update to ask me something.</p>
+    <p class="intro">You never have to wait for an update to ask.</p>
     <div class="actions" id="actions"></div>
   </section>
 
   <footer>
     <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a id="mail" href="#"></a></p>
+    <p class="fine">This page keeps you posted, and it's the quick version. Your exact scope, price, and
+      payment terms live on your estimate and invoice. If this page and the paperwork ever read
+      differently, the paperwork is the agreement.</p>
     <p class="fine">Pictures marked as previews are digital mockups. Painted color and texture vary
       slightly in real light. This is hand-painted work.</p>
+    <p class="fine">Workmanship coverage applies to painted work for one year against lifting, peeling,
+      and fading. It doesn't cover damage from impact, vandalism, or building repairs.</p>
     <p class="fine">&copy; 2026 Untitled Mixed Media LLC</p>
   </footer>
 </div>
@@ -320,28 +352,27 @@
   var SVGNS = "http://www.w3.org/2000/svg";
 
   /* Small DOM builder. Everything user-visible goes in via textContent,
-     so no markup is ever parsed from the data file. */
+     so nothing from the data file is ever parsed as markup. */
   function h(tag, opts, kids){
     var e = document.createElement(tag);
     opts = opts || {};
-    if(opts.cls)  { e.className = opts.cls; }
+    if(opts.cls){ e.className = opts.cls; }
     if(opts.text != null){ e.textContent = opts.text; }
     if(opts.attrs){ for(var k in opts.attrs){ e.setAttribute(k, opts.attrs[k]); } }
     if(kids){ kids.forEach(function(c){ if(c){ e.appendChild(c); } }); }
     return e;
   }
-  function check(){
-    var svg = document.createElementNS(SVGNS,"svg");
-    svg.setAttribute("viewBox","0 0 16 16");
-    svg.setAttribute("fill","none");
-    svg.setAttribute("aria-hidden","true");
-    var p = document.createElementNS(SVGNS,"path");
-    p.setAttribute("d","M2.5 8.5L6 12L13.5 4");
-    p.setAttribute("stroke","var(--bg)");
-    p.setAttribute("stroke-width","2.4");
-    p.setAttribute("stroke-linecap","round");
-    p.setAttribute("stroke-linejoin","round");
-    svg.appendChild(p);
+  function svgEl(tag, attrs){
+    var e = document.createElementNS(SVGNS, tag);
+    for(var k in attrs){ e.setAttribute(k, attrs[k]); }
+    return e;
+  }
+  function check(stroke){
+    var svg = svgEl("svg", {viewBox:"0 0 16 16", fill:"none", "aria-hidden":"true"});
+    svg.appendChild(svgEl("path", {
+      d:"M2.5 8.5L6 12L13.5 4", stroke:stroke || "var(--bg)",
+      "stroke-width":"2.4", "stroke-linecap":"round", "stroke-linejoin":"round"
+    }));
     return svg;
   }
   function el(id){ return document.getElementById(id); }
@@ -369,39 +400,60 @@
   })();
 
   /* ---------- header + pulse ---------- */
-  el("fresh").textContent   = "Updated " + D.updated;
+  el("fresh").textContent    = "Updated " + D.updated;
   el("rightNow").textContent = D.rightNow;
   el("next").textContent     = D.next;
 
-  /* ---------- progress bar ----------
-     One group per sign, one segment per step. Group flex-grow is the step
-     count, so a sign with more steps owns proportionally more of the bar. */
+  /* ---------- the glance: one ring for the whole job ---------- */
   (function(){
-    var total = 0, done = 0, delay = 0, groups = [];
-    D.signs.forEach(function(sign){
-      var segs = sign.steps.map(function(step){
-        total++;
-        if(!step.done){ return h("span", {cls:"seg"}); }
-        done++;
-        delay += 60;
-        var s = h("span", {cls:"seg on"});
-        s.style.animationDelay = delay + "ms";
-        return s;
-      });
-      var g = h("div", {cls:"grp"}, segs);
-      g.style.flexGrow = String(sign.steps.length);
-      g.style.flexBasis = "0";
-      groups.push(g);
+    var total = 0, done = 0;
+    D.signs.forEach(function(s){
+      s.steps.forEach(function(st){ total++; if(st.done){ done++; } });
     });
-    var bar = el("bar");
-    fill(bar, groups);
-    bar.setAttribute("aria-label", done + " of " + total + " steps finished");
-    fill(el("count"), [
-      h("b", {text:String(done)}),
-      document.createTextNode(" of "),
-      h("b", {text:String(total)}),
-      document.createTextNode(" steps done")
-    ]);
+    var pct = total ? Math.round(done / total * 100) : 0;
+
+    /* ring */
+    var R = 84, C = 2 * Math.PI * R;
+    var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
+    svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, "class":"ring-track"}));
+    var arc = svgEl("circle", {cx:105, cy:105, r:R, "class":"ring-fill",
+      "stroke-dasharray": C.toFixed(2),
+      "stroke-dashoffset": C.toFixed(2)});
+    svg.appendChild(arc);
+
+    var pctEl = h("div", {cls:"ringpct"});
+    pctEl.appendChild(document.createTextNode(String(pct)));
+    pctEl.appendChild(h("small", {text:"%"}));
+
+    var wrap = el("ringwrap");
+    wrap.setAttribute("role", "img");
+    wrap.setAttribute("aria-label",
+      done + " of " + total + " steps finished, about " + pct + " percent of the whole job");
+    fill(wrap, [svg, h("div", {cls:"ringcenter", attrs:{"aria-hidden":"true"}}, [
+      pctEl,
+      h("div", {cls:"ringsub", text: done + " of " + total + " steps finished"})
+    ])]);
+
+    /* let layout settle, then draw the arc so it animates in */
+    var target = C * (1 - done / total);
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+      arc.style.strokeDashoffset = target.toFixed(2);
+    }); });
+
+    /* legend: one row per sign */
+    fill(el("legend"), D.signs.map(function(s){
+      var d = s.steps.filter(function(st){ return st.done; }).length;
+      var dots = s.steps.map(function(st){
+        return h("span", {cls:"ldot" + (st.done ? " on" : "")});
+      });
+      var row = h("div", {cls:"lrow", attrs:{role:"listitem"}}, [
+        h("span", {cls:"lname", text:s.name}),
+        h("span", {cls:"ldots", attrs:{"aria-hidden":"true"}}, dots),
+        h("span", {cls:"lcount", text: d + " of " + s.steps.length})
+      ]);
+      row.setAttribute("aria-label", s.name + ": " + d + " of " + s.steps.length + " steps finished");
+      return row;
+    }));
   })();
 
   /* ---------- sign cards ---------- */
@@ -409,10 +461,14 @@
     var cards = D.signs.map(function(s){
       var kids = [];
       if(s.thumb){
-        kids.push(h("img", {attrs:{
+        var thKids = [h("img", {attrs:{
           src:s.thumb, alt:s.name + ", " + s.where,
           width:"600", height:"400", loading:"lazy"
-        }}));
+        }})];
+        if(s.thumbLabel){
+          thKids.push(h("span", {cls:"thchip", text:s.thumbLabel}));
+        }
+        kids.push(h("div", {cls:"thwrap"}, thKids));
       }
       var steps = s.steps.map(function(st){
         var label = h("span", {cls:"slabel", text:st.label});
@@ -433,34 +489,47 @@
     fill(el("signs"), cards);
   })();
 
-  /* ---------- needs ---------- */
+  /* ---------- needs: open items big, received items small and checked ---------- */
   (function(){
-    var rows = [];
     var open = D.needs.filter(function(n){ return n.state !== "received"; });
+    var got  = D.needs.filter(function(n){ return n.state === "received"; });
+    var rows = [];
+
     if(!open.length){
       rows.push(h("li", {cls:"allclear",
-        text:"Nothing! I have everything I need right now."}));
+        text:"Nothing! I have everything I need from you right now."}));
     }
-    D.needs.forEach(function(n){
-      var got = n.state === "received";
-      var mark = h("span", {cls:"nmark", attrs:{"aria-hidden":"true"}}, got ? [check()] : []);
-      var owner = h("span", {cls:"owner", text:n.owner});
-      var top = h("div", {cls:"ntop"}, [
-        h("span", {cls:"nitem", text:n.item}),
-        owner,
-        h("span", {cls:"vh", text:got ? "Received" : "Still needed"})
-      ]);
-      rows.push(h("li", {cls:"need " + (got ? "received" : "needed")}, [
-        mark,
-        h("div", null, [top, h("p", {cls:"nnote", text:n.note})])
+    open.forEach(function(n){
+      rows.push(h("li", {cls:"need"}, [
+        h("span", {cls:"nmark", attrs:{"aria-hidden":"true"}}),
+        h("div", null, [
+          h("div", {cls:"ntop"}, [
+            h("span", {cls:"nitem", text:n.item}),
+            h("span", {cls:"owner", text:n.owner}),
+            h("span", {cls:"vh", text:"Still needed"})
+          ]),
+          h("p", {cls:"nnote", text:n.note})
+        ])
       ]));
     });
+    if(got.length){
+      rows.push(h("li", {cls:"inhand-label", attrs:{"aria-hidden":"true"}, text:"Already in hand"}));
+      got.forEach(function(n){
+        var t = h("span", {cls:"gottext"});
+        t.appendChild(h("b", {text:n.item + ". "}));
+        t.appendChild(document.createTextNode(n.note));
+        var row = h("li", {cls:"got"}, [
+          h("span", {cls:"gotmark", attrs:{"aria-hidden":"true"}}, [check("var(--surface)")]),
+          t
+        ]);
+        row.setAttribute("aria-label", "Received: " + n.item + ". " + n.note);
+        rows.push(row);
+      });
+    }
     fill(el("needs"), rows);
   })();
 
-  /* ---------- photos ----------
-     photos[0] is the hero. The array ships seeded with the approved mockup,
-     so there is never an empty state before painting starts. */
+  /* ---------- photos ---------- */
   (function(){
     var list = D.photos || [];
     if(!list.length){ return; }
@@ -519,20 +588,17 @@
     m.textContent = c.email;
   })();
 
-  /* ---------- weather whisper ----------
-     Live from Open-Meteo. Fahrenheit and America/New_York are explicit:
-     the API defaults to Celsius and GMT, and a GMT day boundary would shift
-     the rain-watch weekdays off Richmond's days. Any failure renders nothing. */
+  /* ---------- painting weather ----------
+     Plain words only. The one thing clients care about: does rain touch
+     the schedule. Fahrenheit and America/New_York are explicit because
+     the API defaults to Celsius and GMT. Any failure renders nothing. */
   (function(){
     var loc = D.location;
     if(!loc || !window.fetch){ return; }
 
-    /* Hard date guard. Past the deadline this feature retires itself.
-       Never rely on API failure for this: the forecast endpoint returns
-       recent past days successfully and would leave a stale line on screen. */
+    /* Hard date guard: past the deadline this block retires itself. */
     var today = new Date();
-    var end   = new Date(loc.deadline + "T23:59:59");
-    if(today > end){ return; }
+    if(today > new Date(loc.deadline + "T23:59:59")){ return; }
 
     function iso(d){
       return d.getFullYear() + "-" +
@@ -550,12 +616,13 @@
       "&end_date="   + encodeURIComponent(loc.deadline);
 
     var WORD = {0:"clear",1:"mostly clear",2:"partly cloudy",3:"cloudy",
-      45:"foggy",48:"foggy",51:"drizzling",53:"drizzling",55:"drizzling",
-      56:"drizzling",57:"drizzling",61:"raining",63:"raining",65:"raining",
-      66:"raining",67:"raining",71:"snowing",73:"snowing",75:"snowing",
-      77:"snowing",80:"showers",81:"showers",82:"showers",85:"snowing",
-      86:"snowing",95:"storming",96:"storming",99:"storming"};
-    var DAY = ["Su","M","Tu","W","Th","F","Sa"];
+      45:"foggy",48:"foggy",51:"drizzly",53:"drizzly",55:"drizzly",
+      56:"drizzly",57:"drizzly",61:"rainy",63:"rainy",65:"rainy",
+      66:"rainy",67:"rainy",71:"snowy",73:"snowy",75:"snowy",
+      77:"snowy",80:"showery",81:"showery",82:"showery",85:"snowy",
+      86:"snowy",95:"stormy",96:"stormy",99:"stormy"};
+    var RAINCODES = [51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99];
+    var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
     fetch(url).then(function(r){
       if(!r.ok){ throw new Error("weather unavailable"); }
@@ -564,38 +631,51 @@
       if(!j || !j.current || !j.daily || !j.daily.time){ return; }
 
       var temp = Math.round(j.current.temperature_2m);
-      var word = WORD[j.current.weather_code];
-      var kids = [document.createTextNode(
-        temp + "°" + (word ? " and " + word : "") + " at Haru"
-      )];
-
+      var word = WORD[j.current.weather_code] || "";
       var pops = j.daily.precipitation_probability_max || [];
-      var dots = [], wetDays = 0;
-      j.daily.time.forEach(function(dstr, i){
-        var pop = pops[i];
-        var wet = typeof pop === "number" && pop >= 40;
-        if(wet){ wetDays++; }
-        var d = new Date(dstr + "T12:00:00");
-        dots.push(h("span", {
-          cls: "wd" + (wet ? " rain" : ""),
-          text: DAY[d.getDay()],
-          attrs: {title: dstr + (typeof pop === "number" ? ", " + pop + "% chance of rain" : "")}
-        }));
-      });
-      if(dots.length){
-        kids.push(h("span", {
-          cls:"wdots",
-          attrs:{
-            role:"img",
-            "aria-label": wetDays
-              ? "Rain possible on " + wetDays + " day" + (wetDays > 1 ? "s" : "") + " before opening"
-              : "No rain expected before opening"
-          }
-        }, dots));
+      var todayPop = typeof pops[0] === "number" ? pops[0] : 0;
+      var rainingNow = RAINCODES.indexOf(j.current.weather_code) >= 0;
+
+      var verdict;
+      if(rainingNow || todayPop >= 65){
+        verdict = "Rain day, so pattern and prep work happens inside. Nothing stalls.";
+      } else if(todayPop >= 35){
+        verdict = "Some rain around, so I paint in the dry windows.";
+      } else {
+        verdict = "Good painting weather.";
       }
-      fill(el("weather"), kids);
+
+      /* rain outlook for the remaining days before the deadline */
+      var wet = [];
+      j.daily.time.forEach(function(dstr, i){
+        if(i === 0){ return; }
+        var pop = pops[i];
+        if(typeof pop === "number" && pop >= 40){
+          wet.push(DAYS[new Date(dstr + "T12:00:00").getDay()]);
+        }
+      });
+      var ahead;
+      if(!wet.length){
+        ahead = "No rain in sight between now and your opening.";
+      } else if(wet.length === 1){
+        ahead = "Rain looks likely " + wet[0] + ". I plan painting around it, so your opening doesn't move.";
+      } else if(wet.length === 2){
+        ahead = "Rain looks likely " + wet[0] + " and " + wet[1] + ". I plan painting around them, so your opening doesn't move.";
+      } else {
+        ahead = "Rain is likely a few of the days before the 20th. I schedule painting around the dry ones, so your opening doesn't move.";
+      }
+
+      var now = h("p", {cls:"wnow"});
+      now.appendChild(h("b", {text: temp + "°" + (word ? " and " + word : "") + " at the store right now."}));
+      now.appendChild(document.createTextNode(" " + verdict));
+
+      fill(el("weather"), [
+        h("span", {cls:"wlabel", text:"Painting weather"}),
+        now,
+        h("p", {cls:"wahead", text: ahead})
+      ]);
     }).catch(function(){
-      /* No error state by design. The line simply never appears. */
+      /* No error state by design. The block simply never appears. */
     });
   })();
 
