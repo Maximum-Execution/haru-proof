@@ -59,21 +59,21 @@
      letter-spacing:-0.014em;text-wrap:balance;max-width:14ch}
   .deck{font-size:18px;line-height:1.5;margin:10px 0 0;max-width:44ch;color:var(--muted)}
   .fresh{display:flex;align-items:flex-start;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
-  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px}
+  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px;
+    animation:livepulse 2.6s ease-in-out infinite}
+  @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.35}}
   .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
     border:1px solid var(--line);background:var(--surface);color:var(--text);
-    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer}
+    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer;
+    transition:border-color .2s}
 
-  /* ---------- the pulse: right now / next ---------- */
-  .pulse{margin-top:calc(var(--m) * 1.1);border:1px solid var(--line);border-radius:16px;
-    background:var(--surface);overflow:hidden}
-  .prow{padding:18px var(--card-m)}
-  .prow + .prow{border-top:1px solid var(--line-soft)}
-  .plabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:6px}
-  .prow.now .plabel{color:var(--accent-text)}
-  .ptext{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
-  .prow.now .ptext{font-weight:600}
+  /* ---------- section device ---------- */
+  .sec{margin-top:calc(var(--m) * 1.55);padding-top:24px;border-top:1px solid var(--line)}
+  .eyebrow{color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.11em;
+    text-transform:uppercase;margin:0 0 6px}
+  h2{font-size:25px;margin:0;font-weight:700;line-height:1.22;letter-spacing:-0.005em;
+    text-wrap:balance;max-width:24ch}
+  .intro{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
 
   /* ---------- the glance: ring + legend, one infographic ---------- */
   .glance{display:flex;flex-direction:column;gap:26px;margin-top:22px;align-items:center}
@@ -82,7 +82,7 @@
   .ringwrap svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
   .ring-track{fill:none;stroke:var(--line-soft);stroke-width:15}
   .ring-fill{fill:none;stroke:var(--text);stroke-width:15;stroke-linecap:round;
-    transition:stroke-dashoffset 1s cubic-bezier(.25,1,.5,1)}
+    transition:stroke-dashoffset 1.1s cubic-bezier(.25,1,.5,1)}
   .ringcenter{position:absolute;inset:0;display:flex;flex-direction:column;
     align-items:center;justify-content:center;text-align:center;gap:2px}
   .ringpct{font-family:var(--font-mono);font-size:44px;font-weight:700;line-height:1;
@@ -96,7 +96,8 @@
   .lname{flex:1 1 auto;font-size:17px;font-weight:600;line-height:1.3;min-width:0}
   .ldots{display:flex;gap:5px;flex:none}
   .ldot{width:9px;height:9px;border-radius:50%;background:var(--line)}
-  .ldot.on{background:var(--text)}
+  .ldot.on{background:var(--text);animation:dotpop .45s cubic-bezier(.25,1,.5,1) both}
+  @keyframes dotpop{from{transform:scale(.3);opacity:.2}to{transform:scale(1);opacity:1}}
   .lcount{flex:none;font-family:var(--font-mono);font-size:14px;color:var(--muted);
     font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:right}
 
@@ -109,13 +110,16 @@
   .wnow b{font-weight:600}
   .wahead{margin:7px 0 0;font-size:17px;line-height:1.5;color:var(--muted);max-width:54ch}
 
-  /* ---------- section device ---------- */
-  .sec{margin-top:calc(var(--m) * 1.55);padding-top:24px;border-top:1px solid var(--line)}
-  .eyebrow{color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.11em;
-    text-transform:uppercase;margin:0 0 6px}
-  h2{font-size:25px;margin:0;font-weight:700;line-height:1.22;letter-spacing:-0.005em;
-    text-wrap:balance;max-width:24ch}
-  .intro{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
+  /* ---------- the pulse: right now / next ---------- */
+  .pulse{margin-top:26px;border:1px solid var(--line);border-radius:16px;
+    background:var(--surface);overflow:hidden}
+  .prow{padding:18px var(--card-m)}
+  .prow + .prow{border-top:1px solid var(--line-soft)}
+  .plabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px}
+  .prow.now .plabel{color:var(--accent-text)}
+  .ptext{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
+  .prow.now .ptext{font-weight:600}
 
   /* ---------- sign cards ---------- */
   .signs{display:grid;gap:16px;grid-template-columns:1fr;margin-top:20px}
@@ -142,7 +146,7 @@
   .step.done::before{background:var(--text)}
   .knob{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;
     border:2px solid var(--line);background:var(--surface);
-    display:flex;align-items:center;justify-content:center}
+    display:flex;align-items:center;justify-content:center;transition:transform .2s}
   .step.done .knob{border-color:var(--text);background:var(--text)}
   .knob svg{width:12px;height:12px;display:none}
   .step.done .knob svg{display:block}
@@ -156,7 +160,8 @@
   .need + .need{border-top:1px solid var(--line-soft)}
   .nmark{flex:none;width:26px;height:26px;border-radius:50%;margin-top:1px;
     border:2px solid var(--accent);display:flex;align-items:center;justify-content:center}
-  .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);
+    animation:livepulse 2.6s ease-in-out infinite}
   .ntop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
   .nitem{font-size:19px;font-weight:700;line-height:1.3}
   .owner{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
@@ -196,11 +201,12 @@
   .mat:first-child{border-top:0}
   .mat summary{list-style:none;cursor:pointer;padding:18px var(--card-m);
     display:flex;align-items:center;justify-content:space-between;gap:14px;
-    font-size:19px;font-weight:600;line-height:1.35;min-height:44px}
+    font-size:19px;font-weight:600;line-height:1.35;min-height:44px;
+    transition:background-color .2s}
   .mat summary::-webkit-details-marker{display:none}
   .chev{flex:none;width:12px;height:12px;border-right:2px solid var(--muted);
     border-bottom:2px solid var(--muted);transform:rotate(45deg);margin-right:4px;
-    transition:transform .2s ease}
+    transition:transform .25s cubic-bezier(.25,1,.5,1)}
   .mat[open] .chev{transform:rotate(-135deg)}
   .matbody{padding:0 var(--card-m) 22px}
   .matbody p{margin:0 0 13px;font-size:18px;line-height:1.6;color:var(--muted);max-width:56ch}
@@ -226,7 +232,8 @@
   @media (min-width:560px){ .actions{grid-template-columns:1fr 1fr} }
   .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
     min-height:64px;padding:14px 20px;border-radius:13px;text-decoration:none;text-align:center;
-    line-height:1.3;border:1.5px solid var(--line);color:var(--text);font-size:18px;font-weight:600}
+    line-height:1.3;border:1.5px solid var(--line);color:var(--text);font-size:18px;font-weight:600;
+    transition:transform .2s, border-color .2s}
   .btn .sub{font-size:15px;font-weight:400;color:var(--muted);
     font-variant-numeric:tabular-nums;white-space:nowrap}
 
@@ -240,8 +247,19 @@
   /* ---------- motion ---------- */
   @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
   .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
+  .pre{opacity:0;transform:translateY(14px);
+    transition:opacity .55s ease, transform .55s cubic-bezier(.25,1,.5,1)}
+  .pre.in{opacity:1;transform:none}
+  @media (hover:hover){
+    .sign{transition:transform .25s cubic-bezier(.25,1,.5,1), border-color .25s}
+    .sign:hover{transform:translateY(-3px);border-color:var(--figure)}
+    .btn:hover{transform:translateY(-2px);border-color:var(--muted)}
+    .toggle:hover{border-color:var(--muted)}
+    .mat summary:hover{background-color:var(--line-soft)}
+  }
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{animation:none!important;transition:none!important}
+    .pre{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -252,7 +270,7 @@
     <div>
       <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
       <h1>Your signs, underway</h1>
-      <p class="deck">The one page that always knows where your job stands. Open it whenever you wonder what's happening.</p>
+      <p class="deck">This page always shows where your job stands. Check it any time.</p>
       <p class="fresh"><span class="dot-live" aria-hidden="true"></span><span id="fresh"></span></p>
     </div>
     <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
@@ -265,41 +283,40 @@
     </div>
   </noscript>
 
-  <section class="pulse reveal" style="animation-delay:.06s" aria-labelledby="pulseH">
-    <h2 id="pulseH" class="vh">Where things stand right now</h2>
-    <div class="prow now"><span class="plabel">Right now</span><p class="ptext" id="rightNow"></p></div>
-    <div class="prow"><span class="plabel">Next</span><p class="ptext" id="next"></p></div>
-  </section>
-
   <section class="sec" aria-labelledby="glanceH">
     <p class="eyebrow">The whole job</p>
     <h2 id="glanceH">How far along is it?</h2>
-    <p class="intro">One circle. Every finished step fills it a little more, and when it closes, your store has all its signs.</p>
+    <p class="intro">Every finished step fills the circle. When it closes, all your signs are done.</p>
     <div class="glance">
       <div class="ringwrap" id="ringwrap"></div>
       <div class="legend" id="legend" role="list"></div>
     </div>
     <div class="wblock" id="weather"></div>
+    <section class="pulse" aria-labelledby="pulseH">
+      <h3 id="pulseH" class="vh">Right now and next</h3>
+      <div class="prow now"><span class="plabel">Right now</span><p class="ptext" id="rightNow"></p></div>
+      <div class="prow"><span class="plabel">Next</span><p class="ptext" id="next"></p></div>
+    </section>
   </section>
 
   <section class="sec" aria-labelledby="signsH">
     <p class="eyebrow">Sign by sign</p>
-    <h2 id="signsH">The four pieces</h2>
-    <p class="intro">The photos show each spot as it looks right now. They change as the work does, so you can watch the walls fill in.</p>
+    <h2 id="signsH">The four signs</h2>
+    <p class="intro">The photos show each spot today. They change as the work moves.</p>
     <div class="signs" id="signs"></div>
   </section>
 
   <section class="sec" aria-labelledby="needsH">
     <p class="eyebrow">Your side</p>
     <h2 id="needsH">Where I need you</h2>
-    <p class="intro">A red circle means the next move is yours, and it's the fastest way to keep me painting. Everything else here is handled.</p>
+    <p class="intro">A red circle means I am waiting on you. Everything else is handled.</p>
     <ul class="needs" id="needs" role="list"></ul>
   </section>
 
   <section class="sec" aria-labelledby="photoH">
     <p class="eyebrow">Proof</p>
     <h2 id="photoH">Latest picture</h2>
-    <p class="intro">The newest shot from the job always sits on top.</p>
+    <p class="intro">The newest photo is always first.</p>
     <figure class="phero" id="phero"></figure>
     <div class="pstrip" id="pstrip"></div>
   </section>
@@ -307,14 +324,14 @@
   <section class="sec" aria-labelledby="matsH">
     <p class="eyebrow">The craft</p>
     <h2 id="matsH">What your money is buying</h2>
-    <p class="intro">Open any card. None of this is the cheap route, and every choice has a reason behind it.</p>
+    <p class="intro">Open any card to see why I picked it.</p>
     <div class="mats" id="mats"></div>
   </section>
 
   <section class="sec" aria-labelledby="decH">
     <p class="eyebrow">Locked in</p>
     <h2 id="decH">Decided, and staying decided</h2>
-    <p class="intro">Written down here so nobody ever has to dig back through a text thread.</p>
+    <p class="intro">Written here so no one has to search old texts.</p>
     <ul class="decs" id="decs" role="list"></ul>
     <div class="quiet">
       <div class="qrow"><span class="qlabel">Money</span><span id="payment"></span></div>
@@ -325,19 +342,19 @@
   <section class="sec" aria-labelledby="contactH">
     <p class="eyebrow">Anytime</p>
     <h2 id="contactH">Questions?</h2>
-    <p class="intro">You never have to wait for an update to ask.</p>
+    <p class="intro">Ask me anything, any time.</p>
     <div class="actions" id="actions"></div>
   </section>
 
   <footer>
     <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a id="mail" href="#"></a></p>
-    <p class="fine">This page keeps you posted, and it's the quick version. Your exact scope, price, and
-      payment terms live on your estimate and invoice. If this page and the paperwork ever read
-      differently, the paperwork is the agreement.</p>
-    <p class="fine">Pictures marked as previews are digital mockups. Painted color and texture vary
-      slightly in real light. This is hand-painted work.</p>
-    <p class="fine">Workmanship coverage applies to painted work for one year against lifting, peeling,
-      and fading. It doesn't cover damage from impact, vandalism, or building repairs.</p>
+    <p class="fine">This page keeps you updated. It is the quick version. Your exact scope, price, and
+      payment terms are on your estimate and invoice. If this page and the paperwork ever say
+      different things, the paperwork wins.</p>
+    <p class="fine">Pictures marked as previews or goals are digital mockups. Painted color and texture
+      vary slightly in real light. This is hand-painted work.</p>
+    <p class="fine">The one year coverage on painted work includes lifting, peeling, and fading.
+      It does not include damage from impact, vandalism, or building repairs.</p>
     <p class="fine">&copy; 2026 Untitled Mixed Media LLC</p>
   </footer>
 </div>
@@ -350,6 +367,8 @@
   if(!D){ return; }
 
   var SVGNS = "http://www.w3.org/2000/svg";
+  var REDUCE = false;
+  try{ REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
 
   /* Small DOM builder. Everything user-visible goes in via textContent,
      so nothing from the data file is ever parsed as markup. */
@@ -412,7 +431,6 @@
     });
     var pct = total ? Math.round(done / total * 100) : 0;
 
-    /* ring */
     var R = 84, C = 2 * Math.PI * R;
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
     svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, "class":"ring-track"}));
@@ -421,8 +439,9 @@
       "stroke-dashoffset": C.toFixed(2)});
     svg.appendChild(arc);
 
+    var num = document.createTextNode(REDUCE ? String(pct) : "0");
     var pctEl = h("div", {cls:"ringpct"});
-    pctEl.appendChild(document.createTextNode(String(pct)));
+    pctEl.appendChild(num);
     pctEl.appendChild(h("small", {text:"%"}));
 
     var wrap = el("ringwrap");
@@ -434,17 +453,36 @@
       h("div", {cls:"ringsub", text: done + " of " + total + " steps finished"})
     ])]);
 
-    /* let layout settle, then draw the arc so it animates in */
     var target = C * (1 - done / total);
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    if(REDUCE){
       arc.style.strokeDashoffset = target.toFixed(2);
-    }); });
+    } else {
+      /* let layout settle, then draw the arc and count the number up together */
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        arc.style.strokeDashoffset = target.toFixed(2);
+        var t0 = null, DUR = 950;
+        function tick(ts){
+          if(t0 === null){ t0 = ts; }
+          var p = Math.min((ts - t0) / DUR, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          num.nodeValue = String(Math.round(pct * ease));
+          if(p < 1){ requestAnimationFrame(tick); }
+        }
+        requestAnimationFrame(tick);
+      }); });
+    }
 
-    /* legend: one row per sign */
+    /* legend: one row per sign, finished dots pop in one after another */
+    var delay = 0;
     fill(el("legend"), D.signs.map(function(s){
       var d = s.steps.filter(function(st){ return st.done; }).length;
       var dots = s.steps.map(function(st){
-        return h("span", {cls:"ldot" + (st.done ? " on" : "")});
+        var dot = h("span", {cls:"ldot" + (st.done ? " on" : "")});
+        if(st.done && !REDUCE){
+          delay += 90;
+          dot.style.animationDelay = (350 + delay) + "ms";
+        }
+        return dot;
       });
       var row = h("div", {cls:"lrow", attrs:{role:"listitem"}}, [
         h("span", {cls:"lname", text:s.name}),
@@ -580,12 +618,35 @@
       ]),
       h("a", {cls:"btn", attrs:{href:"tel:" + c.tel}}, [
         h("span", {text:"Call me"}),
-        h("span", {cls:"sub", text:"any time, really"})
+        h("span", {cls:"sub", text:"I will pick up"})
       ])
     ]);
     var m = el("mail");
     m.setAttribute("href", "mailto:" + c.email);
     m.textContent = c.email;
+  })();
+
+  /* ---------- gentle scroll reveal for sections below the fold ---------- */
+  (function(){
+    if(REDUCE || !("IntersectionObserver" in window)){ return; }
+    var secs = Array.prototype.slice.call(document.querySelectorAll(".sec"));
+    /* never hide the first section; it must be visible before any scroll */
+    secs.shift();
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          en.target.classList.add("in");
+          io.unobserve(en.target);
+        }
+      });
+    }, {rootMargin:"0px 0px -8% 0px"});
+    secs.forEach(function(s){
+      /* only pre-hide sections that start off screen */
+      if(s.getBoundingClientRect().top > window.innerHeight){
+        s.classList.add("pre");
+        io.observe(s);
+      }
+    });
   })();
 
   /* ---------- painting weather ----------
@@ -638,14 +699,13 @@
 
       var verdict;
       if(rainingNow || todayPop >= 65){
-        verdict = "Rain day, so pattern and prep work happens inside. Nothing stalls.";
+        verdict = "Rain today. I do pattern and prep work inside, so nothing stops.";
       } else if(todayPop >= 35){
-        verdict = "Some rain around, so I paint in the dry windows.";
+        verdict = "Rain is possible today. I paint between the showers.";
       } else {
         verdict = "Good painting weather.";
       }
 
-      /* rain outlook for the remaining days before the deadline */
       var wet = [];
       j.daily.time.forEach(function(dstr, i){
         if(i === 0){ return; }
@@ -656,13 +716,13 @@
       });
       var ahead;
       if(!wet.length){
-        ahead = "No rain in sight between now and your opening.";
+        ahead = "No rain expected before your opening.";
       } else if(wet.length === 1){
-        ahead = "Rain looks likely " + wet[0] + ". I plan painting around it, so your opening doesn't move.";
+        ahead = "Rain looks likely " + wet[0] + ". I plan around it. Your opening does not move.";
       } else if(wet.length === 2){
-        ahead = "Rain looks likely " + wet[0] + " and " + wet[1] + ". I plan painting around them, so your opening doesn't move.";
+        ahead = "Rain looks likely " + wet[0] + " and " + wet[1] + ". I plan around them. Your opening does not move.";
       } else {
-        ahead = "Rain is likely a few of the days before the 20th. I schedule painting around the dry ones, so your opening doesn't move.";
+        ahead = "Rain is likely on a few days. I paint on the dry ones. Your opening does not move.";
       }
 
       var now = h("p", {cls:"wnow"});
