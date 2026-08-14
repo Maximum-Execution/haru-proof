@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Haru - One Choice Left</title>
+<title>Haru - Two Ways To Do This</title>
 <link rel="stylesheet" href="../type.css">
 <style>
   :root{
@@ -71,23 +71,30 @@
     text-wrap:balance;max-width:22ch}
   .sec > p{margin:14px 0 0;font-size:19px;line-height:1.6;max-width:56ch;text-wrap:pretty}
 
-  /* ---- the two options, equal weight ---- */
-  .opts{display:grid;gap:18px;margin-top:22px;grid-template-columns:1fr}
-  @media (min-width:620px){ .opts{grid-template-columns:1fr 1fr} }
+  /* ---- the two options, identical structure so the comparison is fair ---- */
+  .opts{display:grid;gap:20px;margin-top:24px;grid-template-columns:1fr}
+  @media (min-width:680px){ .opts{grid-template-columns:1fr 1fr;align-items:start} }
   .opt{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
-  .opt img{width:100%;height:auto;display:block;border-bottom:1px solid var(--line-soft)}
-  .obody{padding:16px var(--card-m) var(--card-m-b)}
-  .olabel{display:flex;align-items:center;gap:11px;margin-bottom:7px}
-  .oletter{flex:none;width:32px;height:32px;border-radius:9px;border:1.5px solid var(--line);
-    color:var(--text);font-family:var(--font-mono);font-size:16px;font-weight:700;
+  .ohead{padding:18px var(--card-m) 16px;display:flex;align-items:flex-start;gap:12px}
+  .oletter{flex:none;width:34px;height:34px;border-radius:9px;border:1.5px solid var(--line);
+    color:var(--text);font-family:var(--font-mono);font-size:17px;font-weight:700;
     display:flex;align-items:center;justify-content:center}
-  .olabel h3{font-size:19px;margin:0;font-weight:700;line-height:1.25}
-  .obody p{margin:0;font-size:17px;line-height:1.5;color:var(--muted)}
+  .ohead h3{font-size:20px;margin:0;font-weight:700;line-height:1.25}
+  .opart{border-top:1px solid var(--line-soft);padding:16px var(--card-m)}
+  .plabel{display:block;font-size:13px;font-weight:600;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .opart img{width:100%;height:auto;display:block;border-radius:9px}
+  .opart .cornerimg{max-width:190px}
+  .none{border:1.5px dashed var(--line);border-radius:9px;padding:22px 18px;text-align:center;
+    color:var(--muted);font-size:17px;line-height:1.45}
+  .onote{border-top:1px solid var(--line-soft);padding:16px var(--card-m) var(--card-m-b);
+    font-size:17px;line-height:1.5;color:var(--muted)}
+  .onote b{color:var(--text);font-weight:600}
 
-  .picks{display:grid;gap:12px;grid-template-columns:1fr;margin-top:22px}
+  .picks{display:grid;gap:12px;grid-template-columns:1fr;margin-top:24px}
   @media (min-width:620px){ .picks{grid-template-columns:1fr 1fr} }
 
-  /* ---- container A: the ask. the only red block on the page. ---- */
+  /* ---- container: the ask. the only red block on the page. ---- */
   .need{margin-top:20px;border:2px solid var(--accent);border-radius:14px;background:var(--surface);overflow:hidden}
   .need .nhead{padding:var(--card-m) var(--card-m) 16px}
   .need h3{font-size:20px;margin:0 0 6px;font-weight:700;line-height:1.3}
@@ -102,7 +109,7 @@
   .who{display:inline-block;margin-top:9px;font-size:13px;font-weight:600;letter-spacing:.09em;
     text-transform:uppercase;color:var(--muted)}
 
-  /* ---- container B: the four signs ---- */
+  /* ---- container: the signs ---- */
   .deliv{margin-top:20px;border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
   .ditem{display:flex;gap:16px;align-items:flex-start;padding:18px var(--card-m);border-top:1px solid var(--line-soft)}
   .ditem:first-child{border-top:0}
@@ -142,7 +149,7 @@
     font-size:17px;line-height:1.5;color:var(--muted);max-width:54ch}
   .sig b{display:block;color:var(--text);font-weight:600;margin-top:4px}
 
-  /* ---- container C: the money ---- */
+  /* ---- container: the money ---- */
   .pay{margin-top:20px;background:var(--surface);border:1px solid var(--line);
     border-radius:14px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .prow{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
@@ -180,8 +187,8 @@
   <header class="reveal">
     <div>
       <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
-      <h1>One choice left</h1>
-      <p class="deck">The corner sign is off the list, like you asked. The only thing still open is the small tagline on your logo. Here it is both ways, up close. Pick one and I start today.</p>
+      <h1>Two ways to do this</h1>
+      <p class="deck">Kim, you asked to see the tagline on the logo. Here it is, next to the version where those same words stay on the corner. The words go in one place or the other. Same price either way.</p>
       <p class="meta">Haru &middot; Friday, August 14 &middot; for Kim and Lea</p>
     </div>
     <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
@@ -189,69 +196,72 @@
 
   <figure class="heroshot reveal" style="animation-delay:.05s">
     <img src="../img/final-front-2026-08-14.jpg" width="1342" height="973"
-      alt="The front of Haru. The white Haru logo with the orange triangle sits on a green panel on the right side of the wall, with a small tagline above the name. The 3030 address is above the door. Haru in Japanese and Korean is by the window.">
-    <figcaption><b>Kim, here is the tagline on the wall, like you asked to see.</b> Everything else on this picture is already approved. The green panel, the triangle, the 3030, the Japanese and Korean writing. The only thing being decided today is that small line above the name.</figcaption>
+      alt="The front of Haru. The white Haru logo with the orange triangle sits on a green panel on the right side of the wall, with the tagline in small letters above the name. The 3030 address is above the door. Haru in Japanese and Korean is by the window.">
+    <figcaption><b>Kim, this is what you asked to see.</b> The tagline sitting on the logo, on the wall, at real size. Everything else in this picture is already approved. Below you can compare it against keeping those words on the corner instead.</figcaption>
   </figure>
 
   <!-- ============ THE CHOICE ============ -->
   <section class="sec" aria-labelledby="chH">
-    <p class="eyebrow">The only open question</p>
-    <h2 id="chH">The small line, in or out</h2>
-    <p>Both pictures below are the same wall, the same green, the same big Haru. The only difference is that one line. Here they are side by side and up close, so you can actually see it.</p>
+    <p class="eyebrow">The question on the table</p>
+    <h2 id="chH">Where should the words go?</h2>
+    <p><em>Curated Japanese &amp; Korean Market</em> is one line of writing, and it belongs in one place. It can sit on the corner where we planned it, or it can sit on the logo where you just asked to see it. Doing both would say the same thing twice.</p>
 
     <div class="opts">
       <div class="opt">
-        <img src="../img/panel-detail-no-tagline.jpg" width="948" height="516"
-          alt="Close view of the green panel without the tagline: the orange triangle above Haru in large white letters.">
-        <div class="obody">
-          <div class="olabel"><span class="oletter" aria-hidden="true">A</span><h3>Without the tagline</h3></div>
-          <p>Just the triangle and the name. This is the version you already approved.</p>
+        <div class="ohead"><span class="oletter" aria-hidden="true">A</span><h3>The words stay on the corner</h3></div>
+        <div class="opart">
+          <span class="plabel">Front logo</span>
+          <img src="../img/panel-detail-no-tagline.jpg" width="948" height="516"
+            alt="Close view of the green panel without the tagline: the orange triangle above Haru in large white letters.">
         </div>
+        <div class="opart">
+          <span class="plabel">Angled corner</span>
+          <img class="cornerimg" src="../img/corner-current.jpg" width="1000" height="1437"
+            alt="Rough draft of the corner sign: Curated Japanese Korean Market in white letters on green.">
+        </div>
+        <p class="onote">This is the plan we have been building all along. Your logo stays exactly as approved, and the words get their own wall with room to breathe. <b>The corner drawing is still rough and still needs your real font,</b> so it would be finished and painted on its own day after the front wall is done.</p>
       </div>
+
       <div class="opt">
-        <img src="../img/tagline-detail-2026-08-14.jpg" width="948" height="516"
-          alt="Close view of the green panel with the tagline: the orange triangle, then Curated Japanese and Korean Market in small white letters, then Haru in large white letters.">
-        <div class="obody">
-          <div class="olabel"><span class="oletter" aria-hidden="true">B</span><h3>With the tagline</h3></div>
-          <p>The line your designer drew, back on the logo, above the name where it belongs.</p>
+        <div class="ohead"><span class="oletter" aria-hidden="true">B</span><h3>The words move to the logo</h3></div>
+        <div class="opart">
+          <span class="plabel">Front logo</span>
+          <img src="../img/tagline-detail-2026-08-14.jpg" width="948" height="516"
+            alt="Close view of the green panel with the tagline: the orange triangle, then Curated Japanese and Korean Market in small white letters, then Haru in large white letters.">
         </div>
+        <div class="opart">
+          <span class="plabel">Angled corner</span>
+          <p class="none">Nothing painted here</p>
+        </div>
+        <p class="onote">The words go back on the logo the way your designer drew them, above the name. <b>The line is small at that size.</b> It reads when someone is at your window, not from across the street. Everything finishes on the front wall in one go, and nothing waits on the corner.</p>
       </div>
     </div>
 
-    <p>One thing worth knowing before you pick. The name is about eight times taller than that small line, and the two are built for two different distances. <strong>Haru is for the street.</strong> People read it from a car or from the far sidewalk. <strong>The small line is for your door.</strong> It reads when someone is at your window deciding whether to come in. From across Cary you will see the name, the triangle, and the green either way.</p>
-    <p>Neither one is wrong. It is your logo and your call, and it costs the same either way.</p>
+    <p>Both cost the same. Nothing about the green, the triangle, the 3030, or the Japanese and Korean writing changes either way. This is the last design question, and once you answer it I print patterns and start.</p>
 
     <div class="picks">
-      <a class="btn btn-primary" href="sms:+12054518061&body=A.%20No%20tagline.%20This%20one%20is%20right%2C%20send%20the%20invoice.">
-        <span>Pick A, no tagline</span>
+      <a class="btn btn-primary" href="sms:+12054518061&body=A.%20Keep%20the%20words%20on%20the%20corner.">
+        <span>Pick A, words on the corner</span>
         <span class="sub">opens a text, you press send</span>
       </a>
-      <a class="btn btn-primary" href="sms:+12054518061&body=B.%20With%20the%20tagline.%20This%20one%20is%20right%2C%20send%20the%20invoice.">
-        <span>Pick B, with the tagline</span>
+      <a class="btn btn-primary" href="sms:+12054518061&body=B.%20Put%20the%20words%20on%20the%20logo.">
+        <span>Pick B, words on the logo</span>
         <span class="sub">opens a text, you press send</span>
       </a>
     </div>
     <div class="alts">
       <a class="btn btn-secondary" href="tel:+12054518061">
-        <span>Not sure? Call me and we decide in two minutes</span>
+        <span>Not sure? Call me and we settle it in two minutes</span>
         <span class="sub">(205) 451-8061</span>
       </a>
     </div>
-  </section>
-
-  <!-- ============ THE CORNER ============ -->
-  <section class="sec" aria-labelledby="cnH">
-    <p class="eyebrow">Settled yesterday</p>
-    <h2 id="cnH">The corner sign is off</h2>
-    <p>Nothing gets painted on the angled corner. There is no font to chase for it, no drawing to approve, and no extra visit to schedule. It is off the list and off your mind.</p>
-    <p>Your price does not change. Four signs instead of five, and everything I drew for the corner along the way stays on my side of the ledger.</p>
   </section>
 
   <!-- ============ THE ASK ============ -->
   <section class="sec" aria-labelledby="nH">
     <p class="eyebrow">What is holding this up</p>
     <h2 id="nH">I need the real artwork to start</h2>
-    <p>Picking A or B is only half of it. The picture files I have were fine for these previews, but I cannot cut a full size pattern from them. And if you pick B, this gets stricter: small letters are exactly where a low quality file falls apart.</p>
+    <p>Picking A or B is only half of it. The picture files I have were fine for these previews, but I cannot cut a full size pattern from them. This is the same list I sent before, and I still do not have any of it.</p>
     <div class="need">
       <div class="nhead">
         <h3>Four things, and two of them are quick</h3>
@@ -260,13 +270,13 @@
       <div class="nitem">
         <span class="n" aria-hidden="true">1</span>
         <span class="t"><b>The logo as a vector file</b>
-          <small>A file ending in .ai, .eps, or .svg. Those stay sharp at any size. A small .png turns to mush. This one holds up everything.</small>
+          <small>A file ending in .ai, .eps, or .svg. Those stay sharp at any size. A small .png turns to mush. This one holds up everything, in both options.</small>
           <span class="who">Lea, from your designer</span></span>
       </div>
       <div class="nitem">
         <span class="n" aria-hidden="true">2</span>
         <span class="t"><b>The fonts from the logo and the tagline</b>
-          <small>The font files if you have them, or just the exact names. At three inches of letter there is no faking a typeface. It either is your font or it is obviously not.</small>
+          <small>The font files if you have them, or just the exact names. Either option needs this. A is the corner set in your real font, B is three inch letters on the logo, and at that size there is no faking a typeface.</small>
           <span class="who">Lea, from your designer</span></span>
       </div>
       <div class="nitem">
@@ -287,13 +297,13 @@
   <!-- ============ DELIVERABLES ============ -->
   <section class="sec" aria-labelledby="dH">
     <p class="eyebrow">Everything in your $5,000</p>
-    <h2 id="dH">Four signs, written down</h2>
-    <p>This is what those files turn into. The same list, word for word, goes on your invoice.</p>
+    <h2 id="dH">What you are getting, written down</h2>
+    <p>The first four are the same no matter which option you pick. The fifth depends on your answer above. This exact list goes on your invoice.</p>
     <div class="deliv">
       <div class="ditem">
         <span class="n" aria-hidden="true">1</span>
         <span class="t"><b>The Haru sign</b> Front wall on West Cary Street. White letters, orange triangle, on a green panel set to the side.
-          <small>With or without the small tagline, whichever you picked above. The price is the same either way.</small>
+          <small>With the tagline if you pick B, without it if you pick A.</small>
           <span class="when">Before opening</span></span>
       </div>
       <div class="ditem">
@@ -312,6 +322,12 @@
           <small>I can do this before you open if I can get in to measure and paint. If that is too much while you are setting up, we do it right after. Your call, not mine.</small>
           <span class="when">Before opening, if I can get in</span></span>
       </div>
+      <div class="ditem">
+        <span class="n" aria-hidden="true">5</span>
+        <span class="t"><b>The corner sign</b> Only if you pick A.
+          <small>Still a rough draft. It needs your real font before I can call the design finished, and it gets painted on its own day after the front wall. Included at no extra cost.</small>
+          <span class="when">If you pick A, once the font arrives</span></span>
+      </div>
     </div>
   </section>
 
@@ -319,14 +335,14 @@
   <section class="sec" aria-labelledby="wH">
     <p class="eyebrow">After you pick</p>
     <h2 id="wH">Your week, and it is a tight one</h2>
-    <p>The outside takes 5 to 7 working days once the deposit and the artwork are both in hand. Today is the 14th. You open on the 20th. There are no spare days left in that, so the clock starts the moment those files land.</p>
+    <p>The front wall takes 5 to 7 working days once the deposit and the artwork are both in hand. Today is the 14th. You open on the 20th. There are no spare days left in that, so the clock starts the moment those files land.</p>
     <ol class="tl" role="list">
       <li><span class="lbl">Start</span><span class="txt">Deposit and artwork arrive. I print your letters at full size and punch the patterns.</span></li>
       <li><span class="lbl">Day 2</span><span class="txt">Patterns finished and checked against my wall measurements.</span></li>
       <li><span class="lbl">Night</span><span class="txt">The design goes onto the wall around 2:30am, when Cary Street is quiet and the sidewalk is clear.</span></li>
       <li><span class="lbl">Day 3 to 5</span><span class="txt">Painting. The Haru sign, the 3030, and the Japanese and Korean writing.</span></li>
       <li><span class="lbl">Day 6</span><span class="txt">Touch ups, then we walk the building together and check every letter.</span></li>
-      <li class="mark"><span class="lbl">Aug 20</span><span class="txt">You open, with the outside finished.</span></li>
+      <li class="mark"><span class="lbl">Aug 20</span><span class="txt">You open, with the front wall finished.</span></li>
     </ol>
   </section>
 
@@ -336,9 +352,9 @@
     <h2 id="iH">Four things I am not charging you for</h2>
     <ul class="incl" role="list">
       <li><b>Every round of design so far</b>
-        <span>The green panel, the triangle placement, the color of the 3030, the crossbar on Kim's J, and all the corner drawings we are not going to use. None of that was billed and none of it will be.</span></li>
+        <span>The green panel, the triangle placement, the color of the 3030, the crossbar on Kim's J, the corner drawings, and both versions above. None of that was billed and none of it will be.</span></li>
       <li><b>Photographs of the finished storefront</b>
-        <span>When the outside is done I shoot it properly and send you the files. Use them for your Google listing, your menus, your Instagram. No charge, no credit needed.</span></li>
+        <span>When the front wall is done I shoot it properly and send you the files. Use them for your Google listing, your menus, your Instagram. No charge, no credit needed.</span></li>
       <li><b>A year of workmanship coverage</b>
         <span>If anything I painted lifts, peels, or fades inside the first year, I come back and fix it. That one is on me.</span></li>
       <li><b>Insurance on every day I am on your building</b>
@@ -366,9 +382,9 @@
     <h2 id="payH">Two payments, no surprises</h2>
     <div class="pay">
       <div class="prow"><span>To start the work</span><span class="amt">$2,500</span></div>
-      <div class="prow"><span>When the outside is finished and we walk it together</span><span class="amt">$2,500</span></div>
-      <p class="paynote"><b>What "the outside is finished" means:</b> the Haru sign, the 3030, and the Japanese and Korean writing are painted and you are happy with them. That is the work I control, and it is what I am promising you before opening day.</p>
-      <p class="paynote">The inside sign is already paid for inside this price. It waits on one thing that is not in my hands, a key to the room, so it gets scheduled on its own and it does not change the two payments above. <b>It is never billed again.</b></p>
+      <div class="prow"><span>When the front wall is finished and we walk it together</span><span class="amt">$2,500</span></div>
+      <p class="paynote"><b>What "the front wall is finished" means:</b> the Haru sign, the 3030, and the Japanese and Korean writing are painted and you are happy with them. That is the work I control, and it is what I am promising you before opening day.</p>
+      <p class="paynote">The inside sign, and the corner sign if you pick A, are already paid for inside this price. Both wait on things that are not in my hands, a key to the room and your font, so they get scheduled on their own and they do not change the two payments above. <b>Neither one is ever billed again.</b></p>
     </div>
   </section>
 
@@ -376,14 +392,14 @@
   <section class="sec" aria-labelledby="goH">
     <p class="eyebrow">A or B</p>
     <h2 id="goH">Whichever you pick, I start today</h2>
-    <p class="urgent">I have six days and no spare ones. If your pick and the artwork reach me today, the outside is finished before you open. If they arrive Monday, it is not. That is the only real deadline left, and it is why I would rather hear A or B today than hear it perfect next week.</p>
+    <p class="urgent">I have six days and no spare ones. If your answer and the artwork reach me today, the front wall is finished before you open. If they arrive Monday, it is not. That is the only real deadline left, and it is why I would rather hear A or B today than hear it perfect next week.</p>
     <div class="picks">
-      <a class="btn btn-primary" href="sms:+12054518061&body=A.%20No%20tagline.%20This%20one%20is%20right%2C%20send%20the%20invoice.">
-        <span>Pick A, no tagline</span>
+      <a class="btn btn-primary" href="sms:+12054518061&body=A.%20Keep%20the%20words%20on%20the%20corner.">
+        <span>Pick A, words on the corner</span>
         <span class="sub">opens a text, you press send</span>
       </a>
-      <a class="btn btn-primary" href="sms:+12054518061&body=B.%20With%20the%20tagline.%20This%20one%20is%20right%2C%20send%20the%20invoice.">
-        <span>Pick B, with the tagline</span>
+      <a class="btn btn-primary" href="sms:+12054518061&body=B.%20Put%20the%20words%20on%20the%20logo.">
+        <span>Pick B, words on the logo</span>
         <span class="sub">opens a text, you press send</span>
       </a>
     </div>
@@ -393,13 +409,13 @@
         <span class="sub">(205) 451-8061</span>
       </a>
     </div>
-    <p class="after">Your invoice comes back within the hour, with the four signs listed on it exactly as they are written above.</p>
+    <p class="after">Your invoice comes back within the hour, listing exactly what is written above.</p>
   </section>
 
   <footer>
     <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
     <p class="fine">These pictures are digital previews. Painted color and texture may vary slightly in real light. This is hand-painted work.</p>
-    <p class="fine">The price covers the four signs listed above and replaces all earlier versions of this scope, including the corner sign, which is withdrawn at the client's request at no change to the price. The tagline option is included at the same price whether selected or not. Any change requested after approval is quoted in writing before painting starts and may move the completion date. Final payment is due at the walkthrough when the exterior work is complete. The inside sign is included at no additional cost and is scheduled once the client provides interior access; because it depends on access furnished by the client, it does not delay the payment schedule. Workmanship coverage runs one year from completion of each sign and covers lifting, peeling, and fading; it does not cover impact, vandalism, or damage from building repairs.</p>
+    <p class="fine">The price covers the signs listed above and is the same whether option A or option B is selected. Any change requested after approval is quoted in writing before painting starts and may move the completion date. Final payment is due at the walkthrough when the front wall is complete. The inside sign, and the corner sign under option A, are included at no additional cost and are scheduled once the client provides interior access and the logo fonts; because those items depend on materials and access furnished by the client, they do not delay the payment schedule. Workmanship coverage runs one year from completion of each sign and covers lifting, peeling, and fading; it does not cover impact, vandalism, or damage from building repairs.</p>
     <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
   </footer>
 </div>
