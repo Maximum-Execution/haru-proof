@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Haru - Your Store, Finished</title>
+<title>Haru - Ready to Paint</title>
 <link rel="stylesheet" href="../type.css">
 <style>
   :root{
@@ -60,7 +60,6 @@
     border:1px solid var(--line);background:var(--surface);color:var(--text);
     border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer}
 
-  /* The picture is the point. It goes first and it goes big. */
   .heroshot{margin:calc(var(--m) * 1.1) 0 0;border-radius:18px;overflow:hidden;
     border:1px solid var(--line);background:var(--surface)}
   .heroshot img{width:100%;height:auto;display:block}
@@ -83,7 +82,22 @@
   h2.sec-title{font-size:25px;margin:4px 0 0;font-weight:700;line-height:1.25;text-wrap:balance;max-width:24ch}
   .sec > p{margin:12px 0 0;font-size:19px;line-height:1.6;max-width:56ch;text-wrap:pretty}
 
-  /* Deliverables: five named things. This list matches the invoice, word for word. */
+  /* The ask goes near the top, framed in red, because it is what unblocks everything. */
+  .need{margin-top:18px;border:3px solid var(--accent);border-radius:16px;background:var(--surface);overflow:hidden}
+  .need .nhead{padding:var(--card-m) var(--card-m) 4px}
+  .need h3{font-size:21px;margin:0 0 8px;font-weight:700;line-height:1.3}
+  .need .nhead p{margin:0 0 8px;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
+  .nitem{display:flex;gap:16px;align-items:flex-start;padding:16px var(--card-m);border-top:1px solid var(--line)}
+  .nitem .n{flex:none;width:40px;height:40px;border-radius:11px;background:var(--accent);color:#fff;
+    font-family:var(--font-mono);font-size:19px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .nitem .t{font-size:19px;line-height:1.45}
+  .nitem .t b{font-weight:700;display:block;margin-bottom:3px}
+  .nitem .t small{display:block;color:var(--muted);font-size:17px;margin-top:3px;line-height:1.5}
+  .who{display:inline-block;margin-top:8px;font-size:14px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--accent-text);border:1px solid var(--line);
+    border-radius:999px;padding:4px 12px}
+
   .deliv{margin-top:18px;border:2px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden}
   .ditem{display:flex;gap:16px;align-items:flex-start;padding:18px var(--card-m);border-top:1px solid var(--line)}
   .ditem:first-child{border-top:0}
@@ -92,19 +106,18 @@
     display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
   .ditem .t{font-size:19px;line-height:1.45}
   .ditem .t b{font-weight:700;display:block;margin-bottom:2px}
-  .ditem .t small{display:block;color:var(--muted);font-size:16px;margin-top:4px}
-  .when{display:inline-block;margin-top:8px;font-size:14px;font-weight:700;letter-spacing:.06em;
+  .ditem .t small{display:block;color:var(--muted);font-size:17px;margin-top:5px;line-height:1.5}
+  .when{display:inline-block;margin-top:9px;font-size:14px;font-weight:700;letter-spacing:.06em;
     text-transform:uppercase;color:var(--ok-text);border:1px solid var(--line);
     border-radius:999px;padding:4px 12px}
   .when.later{color:var(--muted)}
 
-  /* The week, in one glance. */
   .week{margin-top:18px;display:grid;gap:10px;grid-template-columns:1fr}
   @media (min-width:560px){ .week{grid-template-columns:1fr 1fr} }
   .day{display:flex;gap:14px;align-items:center;background:var(--surface);
     border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-height:56px}
   .day .d{flex:none;font-family:var(--font-mono);font-size:15px;font-weight:700;
-    color:var(--muted);width:64px;font-variant-numeric:tabular-nums}
+    color:var(--muted);width:70px;font-variant-numeric:tabular-nums}
   .day .w{font-size:18px;line-height:1.35}
   .day.open{border-color:var(--accent);border-width:2px}
   .day.open .w{font-weight:700}
@@ -115,24 +128,27 @@
   .promise h2{font-size:22px;margin:0 0 12px;font-weight:700;line-height:1.3}
   .promise p{margin:0 0 12px;font-size:19px;line-height:1.55;max-width:56ch}
   .promise p:last-child{margin-bottom:0}
-  .promise strong{font-weight:700}
 
   .corner-card{margin-top:calc(var(--m) * 1.6);background:var(--surface);border:1px solid var(--line);
     border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .corner-card h2{font-size:22px;margin:0 0 12px;font-weight:700;line-height:1.3;text-wrap:balance}
   .corner-card p{margin:0 0 12px;font-size:18px;line-height:1.55;max-width:56ch;text-wrap:pretty}
   .corner-card p:last-child{margin-bottom:0}
-  .corner-card img{width:100%;max-width:340px;height:auto;display:block;border-radius:12px;
-    border:1px solid var(--line);margin:0 0 14px}
+  .draftwrap{position:relative;max-width:340px;margin:0 0 14px}
+  .draftwrap img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+  .draftflag{position:absolute;left:12px;top:12px;background:var(--accent);color:#fff;
+    font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 12px;border-radius:8px}
 
   .pay{margin-top:calc(var(--m) * 1.6);background:var(--surface);border:2px solid var(--line);
     border-radius:16px;padding:var(--card-m) var(--card-m) var(--card-m-b)}
   .pay h2{font-size:22px;margin:0 0 14px;font-weight:700}
-  .prow{display:flex;justify-content:space-between;gap:14px;padding:13px 0;border-top:1px solid var(--line);
+  .prow{display:flex;justify-content:space-between;gap:14px;padding:14px 0;border-top:1px solid var(--line);
     font-size:19px;line-height:1.4}
   .prow:first-of-type{border-top:0}
   .prow .amt{font-family:var(--font-mono);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .pay .note{color:var(--muted);font-size:16px;line-height:1.5;margin:12px 0 0}
+  .pay .note{color:var(--muted);font-size:17px;line-height:1.55;margin:14px 0 0;max-width:56ch}
+  .pay .note b{color:var(--text)}
 
   .actions{display:grid;gap:14px;grid-template-columns:1fr;margin-top:calc(var(--m) * 1.4)}
   .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
@@ -158,8 +174,8 @@
   <header class="reveal">
     <div>
       <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
-      <h1>Your store, finished</h1>
-      <p class="meta">Haru &middot; for Kim and Lea</p>
+      <h1>Your storefront, ready to paint</h1>
+      <p class="meta">Haru &middot; Friday, August 14 &middot; for Kim and Lea</p>
     </div>
     <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
   </header>
@@ -167,18 +183,55 @@
   <figure class="heroshot reveal" style="animation-delay:.05s">
     <img src="../img/final-front-2026-08-13.jpg" width="1342" height="973"
       alt="The front of Haru, finished. The white Haru logo with the orange triangle sits on a green panel on the right side of the wall. The 3030 address is above the door in dark green. Haru in Japanese and Korean is by the window.">
-    <figcaption><b>This is the picture to check.</b> The Haru sign with the orange triangle, the green panel set to the side, the 3030 in the darker green, and the Japanese and Korean writing by the window.</figcaption>
+    <figcaption><b>Good morning. This is the picture to check.</b> The Haru sign with the orange triangle, the green panel set to the side, the 3030 in the darker green, and the Japanese and Korean writing by the window.</figcaption>
   </figure>
 
   <section class="lead reveal" style="animation-delay:.1s" aria-labelledby="leadH">
-    <h2 id="leadH">Here is what I understood today</h2>
+    <h2 id="leadH">Here is what I understood yesterday</h2>
     <ul class="check">
       <li>Paint the <strong>front wall</strong> before opening day. Triangle stays, orange, above the name. Green panel set to the side.</li>
-      <li><strong>The corner sign is yours and it is included.</strong> Nothing to decide about it today. It gets painted whenever you are ready.</li>
-      <li>The <strong>sign inside</strong>, behind the register, gets painted after you open, when the store is calm.</li>
+      <li>The <strong>corner sign</strong> is included, but it is still a rough draft. It waits for your real font. Nothing to decide about it today.</li>
+      <li>The <strong>sign inside</strong>, behind the register, is included. I can do it before you open if I can get in.</li>
       <li><strong>Nothing on the Belmont wall for now.</strong> Lea, I agree with you. That wall deserves something better later, not a rushed copy.</li>
     </ul>
-    <p>If any line above is wrong, tell me tonight and I will fix it. Nothing is painted until you say this picture is right.</p>
+    <p>If any line above is wrong, tell me and I will fix it today. Nothing gets painted until you say this picture is right.</p>
+  </section>
+
+  <!-- ============ WHAT I NEED ============ -->
+  <section class="sec" aria-labelledby="nH">
+    <p class="eyebrow">The one thing holding this up</p>
+    <h2 class="sec-title" id="nH">I need the real artwork to start</h2>
+    <p>The small picture files were fine for these previews. I cannot paint from them. To print the letters at full size and make the patterns, I need the real design files.</p>
+    <div class="need">
+      <div class="nhead">
+        <h3>Please send as soon as you can</h3>
+        <p>Email is easiest: hello@untitledmixedmedia.com</p>
+      </div>
+      <div class="nitem">
+        <span class="n" aria-hidden="true">1</span>
+        <span class="t"><b>The logo as a vector file</b>
+          <small>A file ending in .ai, .eps, or .svg. These can be blown up to ten feet without going blurry. A small .png cannot. This one blocks everything.</small>
+          <span class="who">Lea &middot; from your designer</span></span>
+      </div>
+      <div class="nitem">
+        <span class="n" aria-hidden="true">2</span>
+        <span class="t"><b>The fonts used in the logo and the tagline</b>
+          <small>The actual font files if possible, or the exact names. Kim wants the corner sign in your real font, and I agree with her. I cannot finish that design without it.</small>
+          <span class="who">Lea &middot; from your designer</span></span>
+      </div>
+      <div class="nitem">
+        <span class="n" aria-hidden="true">3</span>
+        <span class="t"><b>The name of the green paint</b>
+          <small>The brand and color name from the can, or a photo of the label. I need it so the wall inside matches the green outside exactly.</small>
+          <span class="who">Kim</span></span>
+      </div>
+      <div class="nitem">
+        <span class="n" aria-hidden="true">4</span>
+        <span class="t"><b>A time to get inside</b>
+          <small>Fifteen minutes to measure the wall behind the register. If I can get in this week, the inside sign can be finished before you open.</small>
+          <span class="who">Kim</span></span>
+      </div>
+    </div>
   </section>
 
   <!-- ============ DELIVERABLES ============ -->
@@ -204,14 +257,15 @@
       </div>
       <div class="ditem">
         <span class="n" aria-hidden="true">4</span>
-        <span class="t"><b>The inside sign</b> Behind the register. Your white logo on a green panel, like Lea asked. I measure the wall on a short visit after you open.
-          <span class="when later">After opening</span></span>
+        <span class="t"><b>The inside sign</b> Behind the register. Your white logo on a green panel, like Lea asked.
+          <small>I can do this before you open if I can get in to measure and paint. If that is too much while you are setting up, we do it right after. Your call.</small>
+          <span class="when">Before opening, if I can get in</span></span>
       </div>
       <div class="ditem">
         <span class="n" aria-hidden="true">5</span>
-        <span class="t"><b>The corner sign</b> Design finished. Painted on your schedule.
-          <small>More on this below. Nothing to decide today.</small>
-          <span class="when later">When you are ready</span></span>
+        <span class="t"><b>The corner sign</b> Curated Japanese Korean Market, on the angled corner.
+          <small>Still a rough draft. It needs your real font before I can finish it. More below.</small>
+          <span class="when later">When the font arrives</span></span>
       </div>
     </div>
   </section>
@@ -220,13 +274,13 @@
   <section class="sec" aria-labelledby="wH">
     <p class="eyebrow">What happens after you say yes</p>
     <h2 class="sec-title" id="wH">Your week, at a glance</h2>
-    <p>The painting takes 5 to 7 working days. Here is the plan if the deposit arrives tomorrow morning:</p>
+    <p>The outside takes 5 to 7 working days. The clock starts when the deposit and the artwork files are both in hand.</p>
     <div class="week" role="list">
-      <div class="day" role="listitem"><span class="d">Day 1</span><span class="w">Deposit arrives. I print your letters at full size and punch the patterns.</span></div>
-      <div class="day" role="listitem"><span class="d">Day 2</span><span class="w">Patterns finished and checked.</span></div>
-      <div class="day" role="listitem"><span class="d">Night</span><span class="w">Design goes onto the wall at about 2:30am, when Cary Street is quiet and the sidewalk is clear.</span></div>
+      <div class="day" role="listitem"><span class="d">Start</span><span class="w">Deposit and artwork files arrive. I print your letters at full size and punch the patterns.</span></div>
+      <div class="day" role="listitem"><span class="d">Day 2</span><span class="w">Patterns finished and checked against the wall measurements.</span></div>
+      <div class="day" role="listitem"><span class="d">Night</span><span class="w">Design goes onto the wall around 2:30am, when Cary Street is quiet and the sidewalk is clear.</span></div>
       <div class="day" role="listitem"><span class="d">Day 3-5</span><span class="w">Painting. The Haru sign, the 3030, and the Japanese and Korean writing.</span></div>
-      <div class="day" role="listitem"><span class="d">Day 6</span><span class="w">Touch ups and a slow careful check of every letter.</span></div>
+      <div class="day" role="listitem"><span class="d">Day 6</span><span class="w">Touch ups, then we walk the building together and check every letter.</span></div>
       <div class="day open" role="listitem"><span class="d">Aug 20</span><span class="w">You open, with the outside finished.</span></div>
     </div>
   </section>
@@ -235,16 +289,19 @@
   <section class="promise" aria-labelledby="pH">
     <h2 id="pH">My two promises</h2>
     <p><strong>1. Nothing is painted until you say this picture is right.</strong> Paint is permanent, so we agree on the picture first. That is what this page is for.</p>
-    <p><strong>2. Any letter that is not perfect gets fixed before final payment.</strong> When the outside is done, we walk the building together. You point, I fix. You only pay the rest when you are happy with every letter.</p>
+    <p><strong>2. Any letter that is not perfect gets fixed before final payment.</strong> When the outside is done, we walk the building together. You point, I fix. You pay the rest only when you are happy with every letter.</p>
   </section>
 
   <!-- ============ THE CORNER ============ -->
   <section class="corner-card" aria-labelledby="cH">
-    <h2 id="cH">The corner sign is done, and it is yours</h2>
-    <img src="../img/corner-current.jpg" width="340" height="489" alt="The corner sign design: Curated Japanese Korean Market in white letters on green, with the letter J your mom drew.">
-    <p>We designed this together over many rounds, including the letter J your mom drew by hand. That work is finished and it is part of this package. It is not being cut, and there is no extra cost.</p>
-    <p><strong>There is nothing for you to decide about it today.</strong> After the outside is done, you have a full 30 days to say the word, and I come back and paint it. It is one ladder, one visit. If you want more time than that, the design stays yours and we simply schedule it later.</p>
-    <p>Kim, one thing off your plate: the designer only needs to send one font file, and Lea is handling that. There is nothing you need to do.</p>
+    <h2 id="cH">The corner sign: a rough draft, waiting on your font</h2>
+    <div class="draftwrap">
+      <img src="../img/corner-current.jpg" width="340" height="489" alt="Rough draft of the corner sign: Curated Japanese Korean Market in white letters on green, using a stand-in font.">
+      <span class="draftflag">Rough draft</span>
+    </div>
+    <p>This is a working draft, not the finished design. The letters you see are a stand-in font, not yours. Kim is right that this should be in your real font, so I am not calling it done until I have it.</p>
+    <p>When the font arrives, I finish the layout and show it to you before anything is painted. <strong>Or your designer can lay it out</strong>, which is completely fine with me, as long as it stays simple: the same four lines, white letters, no extra colors.</p>
+    <p>Either way it is included in your price, and there is nothing for you to decide about it today. It is one ladder and one short visit whenever you are ready.</p>
   </section>
 
   <!-- ============ PAYMENT ============ -->
@@ -252,7 +309,8 @@
     <h2 id="payH">Payment, plain and simple</h2>
     <div class="prow"><span>To start the work</span><span class="amt">$2,500</span></div>
     <div class="prow"><span>When the outside is finished and we walk it together</span><span class="amt">$2,500</span></div>
-    <p class="note">The corner sign and the inside sign do not delay anything. They are painted on their own days, already covered by this price. The invoice for the deposit arrives right after your yes.</p>
+    <p class="note"><b>What "the outside is finished" means:</b> the Haru sign, the 3030, and the Japanese and Korean writing are painted and you are happy with them. That is the work I control, and it is what I am promising before you open.</p>
+    <p class="note">The corner sign and the inside sign are already paid for inside this price. They wait on things that are not in my hands: your font, and access to the room. So they are scheduled separately and do not change the payment above. <b>You are never charged again for either one.</b></p>
   </section>
 
   <!-- ============ CTA ============ -->
@@ -260,13 +318,13 @@
     <p class="eyebrow">One tap</p>
     <h2 class="sec-title" id="goH">Is the picture right?</h2>
     <div class="actions">
-      <a class="btn btn-primary" href="sms:+12054518061&body=YES.%20The%20picture%20is%20right.%20Start%20painting.">
+      <a class="btn btn-primary" href="sms:+12054518061&body=YES.%20The%20picture%20is%20right.%20Send%20the%20invoice.">
         <span>YES, the picture is right</span>
         <span class="sub">opens a text, you press send</span>
       </a>
       <a class="btn btn-secondary" href="sms:+12054518061&body=One%20change%3A%20">
         <span>Something needs to change</span>
-        <span class="sub">tell me what, I fix it tonight</span>
+        <span class="sub">tell me what, I fix it today</span>
       </a>
       <a class="btn btn-secondary" href="tel:+12054518061">
         <span>Or call me, any time</span>
@@ -278,7 +336,7 @@
   <footer>
     <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a href="mailto:hello@untitledmixedmedia.com">hello@untitledmixedmedia.com</a></p>
     <p class="fine">This picture is a digital preview. Painted color and texture may vary slightly in real light. This is hand-painted work.</p>
-    <p class="fine">The price covers the five items listed above, as agreed. Any change requested after approval is quoted in writing before painting starts. Final payment is due at the walkthrough when the outside work is complete; the corner sign and inside sign follow on their own schedule and do not change the price.</p>
+    <p class="fine">The price covers the five items listed above. Any change requested after approval is quoted in writing before painting starts. Final payment is due at the walkthrough when the exterior work is complete. The corner sign and inside sign are included at no additional cost and are scheduled once the client provides the font files and interior access; because those items depend on materials and access from the client, they do not delay the payment schedule.</p>
     <p class="fine">Design concepts are the property of Untitled Mixed Media LLC until approved and paid in full. &copy; 2026 Untitled Mixed Media LLC</p>
   </footer>
 </div>
