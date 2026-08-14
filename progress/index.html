@@ -5,6 +5,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Haru - Progress</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E1F22'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e41a1c'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../type.css">
 <style>
   :root{
@@ -56,8 +57,10 @@
   .wordmark{height:24px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
   h1{font-size:clamp(30px,7.4vw,36px);line-height:1.12;margin:14px 0 0;font-weight:700;
      letter-spacing:-0.012em;text-wrap:balance;max-width:14ch}
-  .fresh{display:flex;align-items:center;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
-  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  /* align-items:flex-start + margin keeps the dot on the FIRST line when the
+     date wraps on narrow phones, instead of drifting to the second line */
+  .fresh{display:flex;align-items:flex-start;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
+  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px}
   .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
     border:1px solid var(--line);background:var(--surface);color:var(--text);
     border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer}
