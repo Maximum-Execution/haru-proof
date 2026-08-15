@@ -152,14 +152,23 @@ window.HARU = {
   logShown: 4,
   log: [
     { date: "August 14", text: "Deposit received. Thank you, Kim." },
-    { date: "August 14", text: "Logo files and paint color both in hand. Nothing is blocking the start." },
+    { date: "August 14", text: "Vector logo files and paint color both in hand. Nothing is blocking the start." },
     { date: "August 14", text: "Front wall approved. The tagline goes on the logo." },
-    { date: "August 13", text: "Final picture sent to you both for approval." },
-    { date: "August 11", text: "Corner lettering reviewed line by line, and the J redrawn by hand." },
+    { date: "August 13", text: "Final picture sent to you both." },
+    { date: "August 13", text: "Corner set aside so the front wall could move." },
+    { date: "August 11", text: "Corner lettering reviewed line by line. The J redrawn by hand from Kim's own sketch." },
+    { date: "August 10", text: "The 3030 settled on the darker green, after testing four colors on the wall." },
+    { date: "August 10", text: "You picked your front sign, corner, and window lettering from fourteen options." },
     { date: "August 9",  text: "You approved the Japanese and Korean lettering." },
     { date: "August 7",  text: "Sign package agreed. One price, opening day on the 20th." },
+    { date: "August 7",  text: "Green confirmed. Keeping the color already on the building." },
+    { date: "August 1",  text: "Walked the building with Kim and Lea and marked where every sign goes." },
+    { date: "July 30",   text: "Site visit to check the walls before scheduling anything." },
     { date: "July 16",   text: "Back on, focused on the signs." },
-    { date: "May 5",     text: "First walk of the building and the brand questions." }
+    { date: "May 7",     text: "First full estimate sent." },
+    { date: "May 6",     text: "Site photos reviewed and the building measured." },
+    { date: "May 5",     text: "Brand discovery session with Kim. The first real conversation about Haru." },
+    { date: "April 29",  text: "Haru project opened." }
   ],
 
   currentPhoto: {
