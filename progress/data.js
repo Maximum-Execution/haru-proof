@@ -59,9 +59,9 @@ window.HARU = {
       ],
       status: "This empty wall is about to carry your name.",
       facts: [
-        { label: "Colors",  value: "White letters and orange triangle on your green" },
+        { label: "Size",    value: "12 feet wide, 6 feet tall. Your name 32 inches" },
         { label: "Finish",  value: "Flat green, gloss white" },
-        { label: "Reads from", value: "Across West Cary Street" }
+        { label: "Reads from", value: "320 feet, well past the corner" }
       ]
     },
     {
@@ -78,9 +78,9 @@ window.HARU = {
       ],
       status: "In the darker green you picked. Your real font if it arrives in time.",
       facts: [
-        { label: "Color",   value: "The darker green you approved" },
+        { label: "Size",    value: "33.5 inches wide, 9.5 inches tall" },
         { label: "Font",    value: "A close match for now, your real font if it arrives" },
-        { label: "Reads from", value: "The sidewalk, at your door" }
+        { label: "Reads from", value: "95 feet, the whole block front" }
       ]
     },
     {
@@ -97,9 +97,9 @@ window.HARU = {
       ],
       status: "White letters on the green panel, the exact forms you approved.",
       facts: [
-        { label: "Colors",  value: "White, straight onto your green wall" },
-        { label: "Finish",  value: "Gloss white" },
-        { label: "Reads from", value: "The sidewalk and the crosswalk" }
+        { label: "Size",    value: "Each character 12 to 13 inches tall" },
+        { label: "Finish",  value: "Gloss white on your green" },
+        { label: "Reads from", value: "120 feet, including the crosswalk" }
       ]
     },
     {
@@ -193,7 +193,8 @@ window.HARU = {
       body: [
         "The rule is one inch of letter for every ten feet you want to be read from.",
         "I measured your corner. The far sidewalk is 56 feet. The stoplight is 150 feet.",
-        "Your name is sized for that. The small line above it only has to reach the sidewalk, where someone is already at your door."
+        "Your name is 32 inches tall. That reads from 320 feet, well past the corner.",
+        "The small line above it is 3.5 inches. It only has to reach the sidewalk, where someone is already at your door."
       ]
     },
     {
