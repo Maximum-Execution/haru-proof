@@ -7,7 +7,10 @@
 <title>Haru - Progress</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E1F22'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e41a1c'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../type.css">
-<link rel="stylesheet" href="app.css">
+<!-- ?v is bumped on every deploy so a cached browser can never serve stale
+     CSS or content. The HTML itself revalidates against GitHub Pages within
+     its 10 minute max-age. -->
+<link rel="stylesheet" href="app.css?v=5">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -25,8 +28,10 @@
         <span id="fresh"></span>
       </p>
     </div>
-    <button type="button" id="themeToggle" aria-pressed="false"
-            class="text-label-16 min-h-12 min-w-12 flex-none cursor-pointer rounded-xl border border-line bg-surface px-4 py-2.5 font-medium text-ink transition-colors hover:border-muted">Light</button>
+    <!-- Geist Theme Switcher: a segmented control, three options, System included.
+         Built as a radiogroup so arrow keys move between options like a real one. -->
+    <div id="themeSwitch" role="radiogroup" aria-label="Color theme"
+         class="flex flex-none items-center gap-0.5 rounded-full border border-line bg-surface p-1"></div>
   </header>
 
   <noscript>
@@ -129,7 +134,7 @@
   </footer>
 </div>
 
-<script src="data.js"></script>
+<script src="data.js?v=5"></script>
 <script>
 (function(){
   "use strict";
@@ -180,22 +185,97 @@
     kids.forEach(function(c){ if(c){ node.appendChild(c); } });
   }
 
-  /* ---------- theme ---------- */
+  /* ---------- theme switcher ----------
+     Geist's segmented control: Light / System / Dark. "System" follows the
+     phone's own setting and keeps following it if that setting changes while
+     the page is open, which a two-state toggle can never do. */
   (function(){
-    var doc = document.documentElement, t = el("themeToggle");
-    function apply(v){
-      doc.setAttribute("data-theme", v);
-      t.setAttribute("aria-pressed", v === "light" ? "true" : "false");
-      t.textContent = v === "light" ? "Dark" : "Light";
+    var doc  = document.documentElement;
+    var host = el("themeSwitch");
+    if(!host){ return; }
+
+    var mq = null;
+    try{ mq = window.matchMedia("(prefers-color-scheme: dark)"); }catch(e){}
+
+    var ICONS = {
+      light: "M8 1.5v1.6M8 12.9v1.6M14.5 8h-1.6M3.1 8H1.5M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1M12.6 12.6l-1.1-1.1M4.5 4.5L3.4 3.4",
+      dark:  "M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5 5.9 5.9 0 1 0 13.5 9.6z",
+      system:"M2.5 3.2h11v7.3h-11zM5.8 13.3h4.4"
+    };
+    var LABEL = { light:"Light", system:"System", dark:"Dark" };
+    var ORDER = ["light", "system", "dark"];
+
+    function iconFor(name){
+      var svg = svgEl("svg", {viewBox:"0 0 16 16", fill:"none", "aria-hidden":"true"});
+      svg.setAttribute("class", "size-[18px]");
+      if(name === "light"){
+        svg.appendChild(svgEl("circle", {cx:"8", cy:"8", r:"3.1", stroke:"currentColor",
+          "stroke-width":"1.6"}));
+      }
+      svg.appendChild(svgEl("path", {d:ICONS[name], stroke:"currentColor",
+        "stroke-width":"1.6", "stroke-linecap":"round", "stroke-linejoin":"round"}));
+      return svg;
     }
-    var saved = new URLSearchParams(location.search).get("theme");
-    try{ saved = saved || localStorage.getItem("haru-theme"); }catch(e){}
-    apply(saved === "light" ? "light" : "dark");
-    t.addEventListener("click", function(){
-      var v = doc.getAttribute("data-theme") === "light" ? "dark" : "light";
-      apply(v);
-      try{ localStorage.setItem("haru-theme", v); }catch(e){}
+
+    /* choice = what the user picked (light|system|dark).
+       resolved = what actually gets painted (light|dark). */
+    function resolve(choice){
+      if(choice !== "system"){ return choice; }
+      return (mq && mq.matches) ? "dark" : "light";
+    }
+
+    var btns = {};
+    function paint(choice){
+      doc.setAttribute("data-theme", resolve(choice));
+      ORDER.forEach(function(k){
+        var on = k === choice;
+        btns[k].setAttribute("aria-checked", on ? "true" : "false");
+        btns[k].setAttribute("tabindex", on ? "0" : "-1");
+        btns[k].className =
+          "flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors " +
+          (on ? "bg-line text-ink" : "text-muted hover:text-ink");
+      });
+    }
+
+    var choice = new URLSearchParams(location.search).get("theme");
+    try{ choice = choice || localStorage.getItem("haru-theme"); }catch(e){}
+    /* First visit opens dark. UMM launches dark and never lets the OS pick the
+       opening state; System is offered as a choice, not as the default. */
+    if(ORDER.indexOf(choice) === -1){ choice = "dark"; }
+
+    ORDER.forEach(function(k){
+      var b = h("button", {attrs:{type:"button", role:"radio", "aria-label":LABEL[k],
+                                 title:LABEL[k], "aria-checked":"false", tabindex:"-1"}},
+                [iconFor(k)]);
+      b.addEventListener("click", function(){
+        choice = k;
+        paint(choice);
+        try{ localStorage.setItem("haru-theme", choice); }catch(e){}
+      });
+      /* arrow keys move through the group, like a real radiogroup */
+      b.addEventListener("keydown", function(ev){
+        var i = ORDER.indexOf(k), n = null;
+        if(ev.key === "ArrowRight" || ev.key === "ArrowDown"){ n = (i + 1) % ORDER.length; }
+        if(ev.key === "ArrowLeft"  || ev.key === "ArrowUp"){   n = (i + ORDER.length - 1) % ORDER.length; }
+        if(n === null){ return; }
+        ev.preventDefault();
+        choice = ORDER[n];
+        paint(choice);
+        btns[choice].focus();
+        try{ localStorage.setItem("haru-theme", choice); }catch(e){}
+      });
+      btns[k] = b;
+      host.appendChild(b);
     });
+
+    paint(choice);
+
+    /* keep following the phone while System is selected */
+    if(mq){
+      var onChange = function(){ if(choice === "system"){ paint("system"); } };
+      if(mq.addEventListener){ mq.addEventListener("change", onChange); }
+      else if(mq.addListener){ mq.addListener(onChange); }
+    }
   })();
 
   /* ---------- header + pulse ---------- */
