@@ -1,40 +1,37 @@
 /* ============================================================================
    HARU PROGRESS DASHBOARD - CONTENT FILE
    ----------------------------------------------------------------------------
-   Everything Kim and Lea read lives in this one file. index.html renders it.
-   To update the dashboard: edit values below, commit, push. Live in ~60 seconds.
-   Never edit index.html for a content change.
+   Everything Kim and Lea read lives here. index.html renders it.
+   To update: edit below, commit, push. Live in about a minute.
+   Never edit index.html for a content change, and never rebuild CSS for one.
 
-   WRITING RULES for this file: short sentences, plain words, no idioms.
-   Kim and Lea read English as a second language. Clear beats clever.
-   Never name exact times of night, exact day counts, or anything we would
-   have to walk back later. "Late at night" is a promise we can always keep.
+   WRITING RULES: short sentences, plain words, no idioms. Kim and Lea read
+   English as a second language. Clear beats clever. Never name exact times of
+   night or day counts we might have to walk back. "Late at night" always holds.
 
    FIELD GUIDE
-   updated      Human phrase for when this was last touched. No timestamps.
-   rightNow     One sentence. What is happening now.
-   next         One sentence. What happens after that.
+   updated        Human phrase. No timestamps.
+   rightNow/next  One sentence each.
 
-   signs[]      One card per sign. Order shown = order here.
-     name       client language, never trade language
-     where      one short line placing it
-     thumb      photo path relative to this folder. As the job moves, swap
-                each thumb for the newest photo of that actual spot.
-     thumbLabel chip drawn on the photo ("The wall today", "Patterns up",
-                "Painted"). Change it when the photo changes.
-     steps[]    {label, done}. Flip done:true as work completes.
-     status     one or two short sentences about where this sign stands
+   signs[]        One collapse row per sign, in display order.
+     name         client language
+     where        one short line placing it
+     thumb        photo of that spot, relative to this folder
+     thumbLabel   chip on the photo: "The wall today", "Patterns up", "Painted"
+     steps[]      {label, done} - shown inside the panel when opened
+     status       one or two short sentences
 
-   needs[]      state "needed" renders big with a red mark (the client's move);
-                "received" collapses into a small checked line. NEVER delete
-                received items; answered asks make the next ask easy.
+   needs[]        state "needed" renders big with a red mark (client's move);
+                  "received" collapses to a small checked line. NEVER delete
+                  received items. Answered asks make the next ask easy.
 
-   photos[]     Newest FIRST. photos[0] renders large. Keep the story:
-                oldest entry is the blank building, newest is latest progress.
+   currentPhoto   THE photo of the storefront right now. One picture, replaced
+                  each time a newer one exists. Drop new shots in
+                  04-working/PROGRESSION, then point this at the web copy.
 
-   materials[]  Craft cards. Add one whenever a decision is worth showing.
-   decisions[]  One line each. Settled things that stay settled.
-   payment      One quiet sentence. Never amounts, never a table.
+   materials[]    Craft cards. Add one when a decision is worth showing.
+   decisions[]    One line each.
+   payment        One quiet sentence. Never amounts.
    ========================================================================== */
 
 window.HARU = {
@@ -120,22 +117,15 @@ window.HARU = {
     }
   ],
 
-  photos: [
-    {
-      src: "../img/final-front-2026-08-14.jpg",
-      date: "The goal",
-      caption: "The approved picture. The wall becomes this."
-    },
-    {
-      src: "../img/progress/front-today.jpg",
-      date: "August 12",
-      caption: "Your building today. The canvas, ready."
-    }
-  ],
+  currentPhoto: {
+    src: "../img/progress/front-2026-08-14.jpg",
+    date: "August 14",
+    caption: "Your storefront right now, before the first letter goes up."
+  },
 
   materials: [
     {
-      title: "The paint going on your building",
+      title: "The Paint Going On Your Building",
       body: [
         "Sherwin-Williams Emerald Urethane Trim Enamel. It is the toughest exterior enamel they make, and it holds a crisp edge. That matters when a letter is only a few inches wide.",
         "Two finishes, for a reason. The green goes on flat. The white letters go on gloss.",
@@ -144,14 +134,14 @@ window.HARU = {
       ]
     },
     {
-      title: "Your green, written down",
+      title: "Your Green, Written Down",
       body: [
         "SW 6717 Lime Rickey. The exact green already on your building. It is in my file and on the paint order, so none of us ever has to guess.",
         "Anything we make for the inside gets matched to the same can, not to a memory of it."
       ]
     },
     {
-      title: "How letters get on a wall",
+      title: "How Letters Get On A Wall",
       body: [
         "Nothing goes up freehand. I print every letter at full size on paper, then punch thousands of tiny holes along every edge.",
         "The paper gets taped to your wall and patted with a bag of chalk dust. The dust falls through the holes and leaves a dotted outline of your logo, exactly where it belongs and exactly the right size. I paint over the dots, and the chalk brushes away.",
@@ -160,7 +150,7 @@ window.HARU = {
       ]
     },
     {
-      title: "Why paint and not vinyl",
+      title: "Why Paint And Not Vinyl",
       body: [
         "Vinyl is a sticker. It lifts at the edges, collects dirt underneath, and turns chalky after a few summers. Then someone has to scrape it off.",
         "Paint becomes part of the wall. Richmond still has hand-painted signs from a hundred years ago that read fine from across the street. Yours is built the same way."

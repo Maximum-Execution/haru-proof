@@ -7,355 +7,125 @@
 <title>Haru - Progress</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E1F22'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23e41a1c'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../type.css">
-<style>
-  :root{
-    --bg:#1E1F22; --surface:#26272B; --line:#3C3D3E; --line-soft:#313235;
-    --figure:#545557;
-    --text:#EEECE9; --muted:#959494;
-    --accent:#e41a1c; --accent-text:#F5787A;
-    --ground:#26272B;
-    --wordmark-invert:0;
-    --font-ui:"Geist",-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;
-    --font-mono:"Geist Mono",ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
-    --m: clamp(20px, 5.4vw, 40px);
-    --m-b: calc(var(--m) * 1.15);
-    --card-m: clamp(18px, 5.6%, 26px);
-  }
-  [data-theme="light"]{
-    --bg:#EEECE9; --surface:#FFFFFF; --line:#D0CFCD; --line-soft:#DEDCDA;
-    --figure:#BCBBB9;
-    --text:#000205; --muted:#595A5B;
-    --accent:#C4141C; --accent-text:#B3121A;
-    --ground:#F6F5F3;
-    --wordmark-invert:1;
-  }
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    margin:0;color:var(--text);
-    font-family:var(--font-ui);font-size:19px;font-weight:400;line-height:1.6;
-    padding-bottom:60px;
-    background:var(--bg);
-    background-image:radial-gradient(125% 70% at 50% -5%, var(--ground) 0%, var(--bg) 58%);
-    background-attachment:fixed;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-    opacity:.035;mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-  .wrap{position:relative;z-index:1;max-width:660px;margin:0 auto;
-    padding:var(--m) max(var(--m),env(safe-area-inset-right)) var(--m-b) max(var(--m),env(safe-area-inset-left));}
-  @media (min-width:760px){ .wrap{max-width:900px} }
-  a:focus-visible,button:focus-visible,summary:focus-visible{
-    outline:3px solid var(--accent-text);outline-offset:3px;border-radius:6px}
-  .vh{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
-    overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
-
-  /* ---------- header ---------- */
-  header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
-  .wordmark{height:24px;width:auto;display:block;filter:invert(var(--wordmark-invert))}
-  h1{font-size:clamp(30px,7.4vw,38px);line-height:1.1;margin:14px 0 0;font-weight:700;
-     letter-spacing:-0.014em;text-wrap:balance;max-width:14ch}
-  .deck{font-size:18px;line-height:1.5;margin:10px 0 0;max-width:44ch;color:var(--muted)}
-  .fresh{display:flex;align-items:flex-start;gap:9px;margin:12px 0 0;color:var(--muted);font-size:16px}
-  .dot-live{flex:none;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:9px;
-    animation:livepulse 2.6s ease-in-out infinite}
-  @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .toggle{flex:none;min-height:48px;min-width:48px;padding:10px 16px;
-    border:1px solid var(--line);background:var(--surface);color:var(--text);
-    border-radius:12px;font-family:var(--font-ui);font-size:17px;font-weight:500;cursor:pointer;
-    transition:border-color .2s}
-
-  /* ---------- section device ---------- */
-  .sec{margin-top:calc(var(--m) * 1.55);padding-top:24px;border-top:1px solid var(--line)}
-  .eyebrow{color:var(--muted);font-size:14px;font-weight:600;letter-spacing:.11em;
-    text-transform:uppercase;margin:0 0 6px}
-  h2{font-size:25px;margin:0;font-weight:700;line-height:1.22;letter-spacing:-0.005em;
-    text-wrap:balance;max-width:24ch}
-  .intro{margin:12px 0 0;font-size:18px;line-height:1.55;color:var(--muted);max-width:54ch}
-
-  /* ---------- the glance: ring + legend, one infographic ---------- */
-  .glance{display:flex;flex-direction:column;gap:26px;margin-top:22px;align-items:center}
-  @media (min-width:640px){ .glance{flex-direction:row;gap:40px;align-items:center} }
-  .ringwrap{position:relative;flex:none;width:210px;height:210px}
-  .ringwrap svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
-  .ring-track{fill:none;stroke:var(--line-soft);stroke-width:15}
-  .ring-fill{fill:none;stroke:var(--text);stroke-width:15;stroke-linecap:round;
-    transition:stroke-dashoffset 1.1s cubic-bezier(.25,1,.5,1)}
-  .ringcenter{position:absolute;inset:0;display:flex;flex-direction:column;
-    align-items:center;justify-content:center;text-align:center;gap:2px}
-  .ringpct{font-family:var(--font-mono);font-size:44px;font-weight:700;line-height:1;
-    letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
-  .ringpct small{font-size:24px;font-weight:700}
-  .ringsub{font-size:14px;color:var(--muted);line-height:1.35;max-width:12ch}
-  .legend{flex:1 1 auto;width:100%;align-self:stretch;display:flex;flex-direction:column;
-    justify-content:center}
-  .lrow{display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid var(--line-soft)}
-  .lrow:first-child{border-top:0}
-  .lname{flex:1 1 auto;font-size:17px;font-weight:600;line-height:1.3;min-width:0}
-  .ldots{display:flex;gap:5px;flex:none}
-  .ldot{width:9px;height:9px;border-radius:50%;background:var(--line)}
-  .ldot.on{background:var(--text);animation:dotpop .45s cubic-bezier(.25,1,.5,1) both}
-  @keyframes dotpop{from{transform:scale(.3);opacity:.2}to{transform:scale(1);opacity:1}}
-  .lcount{flex:none;font-family:var(--font-mono);font-size:14px;color:var(--muted);
-    font-variant-numeric:tabular-nums;min-width:4.5ch;text-align:right}
-
-  /* ---------- painting weather: plain words, no widgets ---------- */
-  .wblock{margin-top:26px;padding-top:20px;border-top:1px solid var(--line-soft)}
-  .wblock:empty{display:none}
-  .wlabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;
-    text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-  .wnow{margin:0;font-size:18px;line-height:1.5;max-width:54ch}
-  .wnow b{font-weight:600}
-  .wahead{margin:7px 0 0;font-size:17px;line-height:1.5;color:var(--muted);max-width:54ch}
-
-  /* ---------- the pulse: right now / next ---------- */
-  .pulse{margin-top:26px;border:1px solid var(--line);border-radius:16px;
-    background:var(--surface);overflow:hidden}
-  .prow{padding:18px var(--card-m)}
-  .prow + .prow{border-top:1px solid var(--line-soft)}
-  .plabel{display:block;font-size:13px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:6px}
-  .prow.now .plabel{color:var(--accent-text)}
-  .ptext{font-size:19px;line-height:1.5;margin:0;max-width:52ch}
-  .prow.now .ptext{font-weight:600}
-
-  /* ---------- sign cards ---------- */
-  .signs{display:grid;gap:16px;grid-template-columns:1fr;margin-top:20px}
-  @media (min-width:700px){ .signs{grid-template-columns:1fr 1fr} }
-  .sign{border:1px solid var(--line);border-radius:16px;background:var(--surface);
-    overflow:hidden;display:flex;flex-direction:column}
-  .thwrap{position:relative}
-  .thwrap img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover;
-    border-bottom:1px solid var(--line-soft)}
-  .thchip{position:absolute;left:12px;top:12px;background:var(--surface);
-    border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:700;
-    letter-spacing:.09em;text-transform:uppercase;padding:5px 10px;border-radius:7px}
-  .sbody{padding:16px var(--card-m) 20px;display:flex;flex-direction:column;flex:1}
-  .sname{font-size:20px;font-weight:700;line-height:1.25;margin:0}
-  .swhere{color:var(--muted);font-size:15px;margin:3px 0 0}
-  .sstatus{font-size:17px;line-height:1.45;color:var(--muted);margin:14px 0 0}
-
-  .stepper{list-style:none;margin:18px 0 0;padding:0;display:flex}
-  .step{flex:1 1 0;display:flex;flex-direction:column;align-items:center;text-align:center;
-    position:relative;min-width:0}
-  .step::before{content:"";position:absolute;top:11px;left:-50%;width:100%;height:2px;
-    background:var(--line);z-index:0}
-  .step:first-child::before{display:none}
-  .step.done::before{background:var(--text)}
-  .knob{position:relative;z-index:1;width:24px;height:24px;border-radius:50%;
-    border:2px solid var(--line);background:var(--surface);
-    display:flex;align-items:center;justify-content:center;transition:transform .2s}
-  .step.done .knob{border-color:var(--text);background:var(--text)}
-  .knob svg{width:12px;height:12px;display:none}
-  .step.done .knob svg{display:block}
-  .slabel{font-size:12px;line-height:1.3;margin-top:8px;color:var(--muted);max-width:9ch}
-  .step.done .slabel{color:var(--text);font-weight:600}
-
-  /* ---------- needs ---------- */
-  .needs{list-style:none;margin:20px 0 0;padding:0;border:1px solid var(--line);
-    border-radius:16px;background:var(--surface);overflow:hidden}
-  .need{display:flex;gap:15px;align-items:flex-start;padding:18px var(--card-m)}
-  .need + .need{border-top:1px solid var(--line-soft)}
-  .nmark{flex:none;width:26px;height:26px;border-radius:50%;margin-top:1px;
-    border:2px solid var(--accent);display:flex;align-items:center;justify-content:center}
-  .nmark::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);
-    animation:livepulse 2.6s ease-in-out infinite}
-  .ntop{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .nitem{font-size:19px;font-weight:700;line-height:1.3}
-  .owner{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid var(--accent);border-radius:999px;padding:3px 10px;
-    color:var(--accent-text);white-space:nowrap}
-  .nnote{font-size:17px;line-height:1.5;color:var(--muted);margin:6px 0 0;max-width:52ch}
-  .allclear{padding:24px var(--card-m);font-size:19px;font-weight:600;text-align:center}
-  .inhand-label{padding:14px var(--card-m) 4px;font-size:12px;font-weight:700;
-    letter-spacing:.11em;text-transform:uppercase;color:var(--figure);
-    border-top:1px solid var(--line-soft)}
-  .got{display:flex;gap:11px;align-items:flex-start;padding:9px var(--card-m)}
-  .got:last-child{padding-bottom:18px}
-  .gotmark{flex:none;width:19px;height:19px;border-radius:50%;background:var(--figure);
-    display:flex;align-items:center;justify-content:center;margin-top:3px}
-  .gotmark svg{width:10px;height:10px}
-  .gottext{font-size:16px;line-height:1.45;color:var(--muted)}
-  .gottext b{font-weight:600;color:var(--muted)}
-
-  /* ---------- photos ---------- */
-  .phero{margin:20px 0 0}
-  .phero img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line)}
-  .pcap{margin:12px 0 0;font-size:17px;line-height:1.5;color:var(--muted)}
-  .pcap b{color:var(--text);font-weight:600}
-  .pstrip{display:flex;gap:10px;overflow-x:auto;margin-top:14px;padding-bottom:4px;
-    -webkit-overflow-scrolling:touch}
-  .pstrip:empty{display:none}
-  .pthumb{flex:none;width:104px;margin:0}
-  .pthumb img{width:100%;height:70px;object-fit:cover;display:block;border-radius:9px;
-    border:1px solid var(--line)}
-  .pthumb figcaption{display:block;font-size:12px;color:var(--muted);margin-top:5px;
-    font-family:var(--font-mono)}
-
-  /* ---------- materials ---------- */
-  .mats{margin-top:20px;border:1px solid var(--line);border-radius:16px;
-    background:var(--surface);overflow:hidden}
-  .mat{border-top:1px solid var(--line-soft)}
-  .mat:first-child{border-top:0}
-  .mat summary{list-style:none;cursor:pointer;padding:18px var(--card-m);
-    display:flex;align-items:center;justify-content:space-between;gap:14px;
-    font-size:19px;font-weight:600;line-height:1.35;min-height:44px;
-    transition:background-color .2s}
-  .mat summary::-webkit-details-marker{display:none}
-  .chev{flex:none;width:12px;height:12px;border-right:2px solid var(--muted);
-    border-bottom:2px solid var(--muted);transform:rotate(45deg);margin-right:4px;
-    transition:transform .25s cubic-bezier(.25,1,.5,1)}
-  .mat[open] .chev{transform:rotate(-135deg)}
-  .matbody{padding:0 var(--card-m) 22px}
-  .matbody p{margin:0 0 13px;font-size:18px;line-height:1.6;color:var(--muted);max-width:56ch}
-  .matbody p:last-child{margin-bottom:0}
-
-  /* ---------- decisions ---------- */
-  .decs{list-style:none;margin:18px 0 0;padding:0;max-width:56ch}
-  .decs li{position:relative;padding-left:30px;margin:0 0 11px;font-size:18px;line-height:1.5;
-    color:var(--muted)}
-  .decs li::before{content:"";position:absolute;left:2px;top:9px;width:12px;height:7px;
-    border-left:2px solid var(--figure);border-bottom:2px solid var(--figure);
-    transform:rotate(-45deg)}
-
-  /* ---------- quiet rows ---------- */
-  .quiet{margin-top:22px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
-  .qrow{padding:18px var(--card-m);font-size:17px;line-height:1.55;color:var(--muted);max-width:62ch}
-  .qrow + .qrow{border-top:1px solid var(--line-soft)}
-  .qlabel{color:var(--text);font-weight:700;display:block;margin-bottom:4px;
-    font-size:13px;letter-spacing:.11em;text-transform:uppercase}
-
-  /* ---------- contact ---------- */
-  .actions{display:grid;gap:12px;grid-template-columns:1fr;margin-top:20px}
-  @media (min-width:560px){ .actions{grid-template-columns:1fr 1fr} }
-  .btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
-    min-height:64px;padding:14px 20px;border-radius:13px;text-decoration:none;text-align:center;
-    line-height:1.3;border:1.5px solid var(--line);color:var(--text);font-size:18px;font-weight:600;
-    transition:transform .2s, border-color .2s}
-  .btn .sub{font-size:15px;font-weight:400;color:var(--muted);
-    font-variant-numeric:tabular-nums;white-space:nowrap}
-
-  footer{margin-top:calc(var(--m) * 1.55);border-top:1px solid var(--line);padding-top:22px}
-  .fine{color:var(--muted);font-size:15px;line-height:1.55;margin:10px 0;max-width:64ch}
-  .fine a{color:inherit;display:inline-block;min-height:44px;padding:12px 0}
-
-  .noscript{border:1px solid var(--accent);border-radius:14px;padding:18px var(--card-m);
-    margin-top:24px;font-size:18px;line-height:1.5}
-
-  /* ---------- motion ---------- */
-  @keyframes rise{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
-  .reveal{animation:rise .5s cubic-bezier(.25,1,.5,1) both}
-  .pre{opacity:0;transform:translateY(14px);
-    transition:opacity .55s ease, transform .55s cubic-bezier(.25,1,.5,1)}
-  .pre.in{opacity:1;transform:none}
-  @media (hover:hover){
-    .sign{transition:transform .25s cubic-bezier(.25,1,.5,1), border-color .25s}
-    .sign:hover{transform:translateY(-3px);border-color:var(--figure)}
-    .btn:hover{transform:translateY(-2px);border-color:var(--muted)}
-    .toggle:hover{border-color:var(--muted)}
-    .mat summary:hover{background-color:var(--line-soft)}
-  }
-  @media (prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important}
-    .pre{opacity:1;transform:none}
-  }
-</style>
+<link rel="stylesheet" href="app.css">
 </head>
-<body>
-<div class="wrap">
+<body class="m-0 pb-16">
+<div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
+     style="padding-left:max(1.25rem,env(safe-area-inset-left));padding-right:max(1.25rem,env(safe-area-inset-right))">
 
-  <header class="reveal">
+  <!-- ===================== HEADER ===================== -->
+  <header class="u-rise flex items-start justify-between gap-4">
     <div>
-      <img class="wordmark" src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media">
-      <h1>Your signs, underway</h1>
-      <p class="deck">This page always shows where your job stands. Check it any time.</p>
-      <p class="fresh"><span class="dot-live" aria-hidden="true"></span><span id="fresh"></span></p>
+      <img src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media"
+           class="block h-6 w-auto" style="filter:invert(var(--umm-wordmark-invert))">
+      <h1 class="text-heading-32 sm:text-heading-40 mt-4 max-w-[14ch] text-balance">Your signs, underway</h1>
+      <p class="text-copy-18 mt-2.5 max-w-[44ch] text-muted">This page always shows where your job stands. Check it any time.</p>
+      <p class="text-label-16 mt-3 flex items-start gap-2.5 text-muted">
+        <span class="u-breathe mt-[9px] block size-2 flex-none rounded-full bg-accent" aria-hidden="true"></span>
+        <span id="fresh"></span>
+      </p>
     </div>
-    <button type="button" class="toggle" id="themeToggle" aria-pressed="false">Light</button>
+    <button type="button" id="themeToggle" aria-pressed="false"
+            class="text-label-16 min-h-12 min-w-12 flex-none cursor-pointer rounded-xl border border-line bg-surface px-4 py-2.5 font-medium text-ink transition-colors hover:border-muted">Light</button>
   </header>
 
   <noscript>
-    <div class="noscript">
+    <div class="text-copy-18 mt-6 rounded-2xl border border-accent px-6 py-4">
       This page needs JavaScript turned on to show your progress.
       For the latest, text Spencer at (205) 451-8061.
     </div>
   </noscript>
 
-  <section class="sec" aria-labelledby="glanceH">
-    <p class="eyebrow">The whole job</p>
-    <h2 id="glanceH">How far along is it?</h2>
-    <p class="intro">Every finished step fills the circle. When it closes, all your signs are done.</p>
-    <div class="glance">
-      <div class="ringwrap" id="ringwrap"></div>
-      <div class="legend" id="legend" role="list"></div>
+  <!-- ===================== THE WHOLE JOB ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="glanceH">
+    <p class="text-eyebrow text-muted">The whole job</p>
+    <h2 id="glanceH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How far along is it?</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every finished step fills the circle. Tap any sign to see its steps.</p>
+
+    <div class="mt-6 flex flex-col items-center gap-7 sm:flex-row sm:gap-10">
+      <div id="ringwrap" class="relative size-[210px] flex-none"></div>
+      <div id="signList" class="material-flush w-full flex-1 self-stretch"></div>
     </div>
-    <div class="wblock" id="weather"></div>
-    <section class="pulse" aria-labelledby="pulseH">
-      <h3 id="pulseH" class="vh">Right now and next</h3>
-      <div class="prow now"><span class="plabel">Right now</span><p class="ptext" id="rightNow"></p></div>
-      <div class="prow"><span class="plabel">Next</span><p class="ptext" id="next"></p></div>
-    </section>
-  </section>
 
-  <section class="sec" aria-labelledby="signsH">
-    <p class="eyebrow">Sign by sign</p>
-    <h2 id="signsH">The four signs</h2>
-    <p class="intro">The photos show each spot today. They change as the work moves.</p>
-    <div class="signs" id="signs"></div>
-  </section>
+    <div id="weather" class="mt-7 border-t border-line-soft pt-5 empty:hidden"></div>
 
-  <section class="sec" aria-labelledby="needsH">
-    <p class="eyebrow">Your side</p>
-    <h2 id="needsH">Where I need you</h2>
-    <p class="intro">A red circle means I am waiting on you. Everything else is handled.</p>
-    <ul class="needs" id="needs" role="list"></ul>
-  </section>
-
-  <section class="sec" aria-labelledby="photoH">
-    <p class="eyebrow">Proof</p>
-    <h2 id="photoH">Latest picture</h2>
-    <p class="intro">The newest photo is always first.</p>
-    <figure class="phero" id="phero"></figure>
-    <div class="pstrip" id="pstrip"></div>
-  </section>
-
-  <section class="sec" aria-labelledby="matsH">
-    <p class="eyebrow">The craft</p>
-    <h2 id="matsH">What your money is buying</h2>
-    <p class="intro">Open any card to see why I picked it.</p>
-    <div class="mats" id="mats"></div>
-  </section>
-
-  <section class="sec" aria-labelledby="decH">
-    <p class="eyebrow">Locked in</p>
-    <h2 id="decH">Decided, and staying decided</h2>
-    <p class="intro">Written here so no one has to search old texts.</p>
-    <ul class="decs" id="decs" role="list"></ul>
-    <div class="quiet">
-      <div class="qrow"><span class="qlabel">Money</span><span id="payment"></span></div>
-      <div class="qrow"><span class="qlabel">If anything goes wrong</span><span id="warranty"></span></div>
+    <div class="material-flush mt-7">
+      <div class="pad-card py-[18px]">
+        <span class="text-label-12 mb-1.5 block font-bold tracking-[0.11em] text-accent-text uppercase">Right now</span>
+        <p id="rightNow" class="text-copy-19 m-0 max-w-[52ch] font-semibold"></p>
+      </div>
+      <div class="pad-card border-t border-line-soft py-[18px]">
+        <span class="text-label-12 mb-1.5 block font-bold tracking-[0.11em] text-muted uppercase">Next</span>
+        <p id="next" class="text-copy-19 m-0 max-w-[52ch]"></p>
+      </div>
     </div>
   </section>
 
-  <section class="sec" aria-labelledby="contactH">
-    <p class="eyebrow">Anytime</p>
-    <h2 id="contactH">Questions?</h2>
-    <p class="intro">Ask me anything, any time.</p>
-    <div class="actions" id="actions"></div>
+  <!-- ===================== NEEDS ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="needsH">
+    <p class="text-eyebrow text-muted">Your side</p>
+    <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Where I need you</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">A red circle means I am waiting on you. Everything else is handled.</p>
+    <ul id="needs" role="list" class="material-flush mt-5 list-none p-0"></ul>
   </section>
 
-  <footer>
-    <p class="fine">Spencer Bennett &middot; Untitled Mixed Media LLC<br><a id="mail" href="#"></a></p>
-    <p class="fine">This page keeps you updated. It is the quick version. Your exact scope, price, and
+  <!-- ===================== THE STOREFRONT NOW ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="photoH">
+    <p class="text-eyebrow text-muted">Your storefront</p>
+    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How it looks today</h2>
+    <figure id="phero" class="mt-5"></figure>
+  </section>
+
+  <!-- ===================== CRAFT ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="matsH">
+    <p class="text-eyebrow text-muted">The craft</p>
+    <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">What your money is buying</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Open any card to see why I picked it.</p>
+    <div id="mats" class="material-flush mt-5"></div>
+  </section>
+
+  <!-- ===================== DECIDED ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="decH">
+    <p class="text-eyebrow text-muted">Locked in</p>
+    <h2 id="decH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Decided, and staying decided</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Written here so no one has to search old texts.</p>
+    <ul id="decs" role="list" class="mt-4 max-w-[56ch] list-none p-0"></ul>
+    <div class="material-flush mt-6">
+      <div class="pad-card py-[18px]">
+        <span class="text-label-12 mb-1 block font-bold tracking-[0.11em] text-ink uppercase">Money</span>
+        <span id="payment" class="text-copy-17 block max-w-[62ch] text-muted"></span>
+      </div>
+      <div class="pad-card border-t border-line-soft py-[18px]">
+        <span class="text-label-12 mb-1 block font-bold tracking-[0.11em] text-ink uppercase">If anything goes wrong</span>
+        <span id="warranty" class="text-copy-17 block max-w-[62ch] text-muted"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="contactH">
+    <p class="text-eyebrow text-muted">Anytime</p>
+    <h2 id="contactH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Questions?</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Ask me anything, any time.</p>
+    <div id="actions" class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+  </section>
+
+  <footer class="mt-14 border-t border-line pt-6">
+    <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
+      Spencer Bennett &middot; Untitled Mixed Media LLC<br>
+      <a id="mail" href="#" class="inline-block min-h-11 py-3 text-inherit"></a>
+    </p>
+    <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
+      This page keeps you updated. It is the quick version. Your exact scope, price, and
       payment terms are on your estimate and invoice. If this page and the paperwork ever say
       different things, the paperwork wins.</p>
-    <p class="fine">Pictures marked as previews or goals are digital mockups. Painted color and texture
-      vary slightly in real light. This is hand-painted work.</p>
-    <p class="fine">The one year coverage on painted work includes lifting, peeling, and fading.
+    <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
+      Photos of finished work are real. Anything marked as a preview is a digital mockup.
+      Painted color and texture vary slightly in real light. This is hand-painted work.</p>
+    <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
+      The one year coverage on painted work includes lifting, peeling, and fading.
       It does not include damage from impact, vandalism, or building repairs.</p>
-    <p class="fine">&copy; 2026 Untitled Mixed Media LLC</p>
+    <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">&copy; 2026 Untitled Mixed Media LLC</p>
   </footer>
 </div>
 
@@ -370,8 +140,8 @@
   var REDUCE = false;
   try{ REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches; }catch(e){}
 
-  /* Small DOM builder. Everything user-visible goes in via textContent,
-     so nothing from the data file is ever parsed as markup. */
+  /* DOM builder. Text always via textContent, so nothing in data.js is ever
+     parsed as markup. `cls` takes Tailwind class strings. */
   function h(tag, opts, kids){
     var e = document.createElement(tag);
     opts = opts || {};
@@ -386,11 +156,21 @@
     for(var k in attrs){ e.setAttribute(k, attrs[k]); }
     return e;
   }
-  function check(stroke){
+  function check(stroke, cls){
     var svg = svgEl("svg", {viewBox:"0 0 16 16", fill:"none", "aria-hidden":"true"});
+    if(cls){ svg.setAttribute("class", cls); }
     svg.appendChild(svgEl("path", {
-      d:"M2.5 8.5L6 12L13.5 4", stroke:stroke || "var(--bg)",
+      d:"M2.5 8.5L6 12L13.5 4", stroke:stroke,
       "stroke-width":"2.4", "stroke-linecap":"round", "stroke-linejoin":"round"
+    }));
+    return svg;
+  }
+  function chevron(){
+    var svg = svgEl("svg", {viewBox:"0 0 16 16", fill:"none", "aria-hidden":"true"});
+    svg.setAttribute("class", "u-chev size-4 flex-none text-muted");
+    svg.appendChild(svgEl("path", {
+      d:"M4 6L8 10L12 6", stroke:"currentColor",
+      "stroke-width":"2", "stroke-linecap":"round", "stroke-linejoin":"round"
     }));
     return svg;
   }
@@ -423,7 +203,7 @@
   el("rightNow").textContent = D.rightNow;
   el("next").textContent     = D.next;
 
-  /* ---------- the glance: one ring for the whole job ---------- */
+  /* ---------- the ring ---------- */
   (function(){
     var total = 0, done = 0;
     D.signs.forEach(function(s){
@@ -433,131 +213,182 @@
 
     var R = 84, C = 2 * Math.PI * R;
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
-    svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, "class":"ring-track"}));
-    var arc = svgEl("circle", {cx:105, cy:105, r:R, "class":"ring-fill",
-      "stroke-dasharray": C.toFixed(2),
-      "stroke-dashoffset": C.toFixed(2)});
+    svg.setAttribute("class", "block size-full -rotate-90");
+    svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
+      stroke:"var(--umm-line-soft)", "stroke-width":"15"}));
+    var arc = svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
+      stroke:"var(--umm-ink)", "stroke-width":"15", "stroke-linecap":"round",
+      "stroke-dasharray": C.toFixed(2), "stroke-dashoffset": C.toFixed(2)});
+    arc.setAttribute("class", "u-ring-fill");
     svg.appendChild(arc);
 
     var num = document.createTextNode(REDUCE ? String(pct) : "0");
-    var pctEl = h("div", {cls:"ringpct"});
+    var pctEl = h("div", {cls:"font-mono text-[44px] font-bold leading-none tracking-[-0.02em] tabular-nums"});
     pctEl.appendChild(num);
-    pctEl.appendChild(h("small", {text:"%"}));
+    pctEl.appendChild(h("small", {cls:"text-2xl font-bold", text:"%"}));
 
     var wrap = el("ringwrap");
     wrap.setAttribute("role", "img");
     wrap.setAttribute("aria-label",
       done + " of " + total + " steps finished, about " + pct + " percent of the whole job");
-    fill(wrap, [svg, h("div", {cls:"ringcenter", attrs:{"aria-hidden":"true"}}, [
-      pctEl,
-      h("div", {cls:"ringsub", text: done + " of " + total + " steps finished"})
-    ])]);
+    fill(wrap, [svg,
+      h("div", {cls:"absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center",
+                attrs:{"aria-hidden":"true"}}, [
+        pctEl,
+        h("div", {cls:"text-label-14 max-w-[12ch] text-muted", text: done + " of " + total + " steps finished"})
+      ])
+    ]);
 
     var target = C * (1 - done / total);
     if(REDUCE){
       arc.style.strokeDashoffset = target.toFixed(2);
     } else {
-      /* let layout settle, then draw the arc and count the number up together */
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
         arc.style.strokeDashoffset = target.toFixed(2);
         var t0 = null, DUR = 950;
         function tick(ts){
           if(t0 === null){ t0 = ts; }
           var p = Math.min((ts - t0) / DUR, 1);
-          var ease = 1 - Math.pow(1 - p, 3);
-          num.nodeValue = String(Math.round(pct * ease));
+          num.nodeValue = String(Math.round(pct * (1 - Math.pow(1 - p, 3))));
           if(p < 1){ requestAnimationFrame(tick); }
         }
         requestAnimationFrame(tick);
       }); });
     }
+  })();
 
-    /* legend: one row per sign, finished dots pop in one after another */
-    var delay = 0;
-    fill(el("legend"), D.signs.map(function(s){
+  /* ---------- sign collapse group ----------
+     Each sign is a button row showing name + dots + count. Opening it reveals
+     what that count means: the four named steps, the photo of that spot, and
+     the status line. One open at a time, first open by default. */
+  (function(){
+    var rows = [];
+    var dotDelay = 0;
+
+    D.signs.forEach(function(s, i){
       var d = s.steps.filter(function(st){ return st.done; }).length;
+      var panelId = "signpanel-" + i;
+
+      /* progress dots in the trigger */
       var dots = s.steps.map(function(st){
-        var dot = h("span", {cls:"ldot" + (st.done ? " on" : "")});
+        var dot = h("span", {cls:"size-[9px] rounded-full " + (st.done ? "bg-ink u-pop" : "bg-line")});
         if(st.done && !REDUCE){
-          delay += 90;
-          dot.style.animationDelay = (350 + delay) + "ms";
+          dotDelay += 90;
+          dot.style.animationDelay = (350 + dotDelay) + "ms";
         }
         return dot;
       });
-      var row = h("div", {cls:"lrow", attrs:{role:"listitem"}}, [
-        h("span", {cls:"lname", text:s.name}),
-        h("span", {cls:"ldots", attrs:{"aria-hidden":"true"}}, dots),
-        h("span", {cls:"lcount", text: d + " of " + s.steps.length})
+
+      var trigger = h("button", {
+        cls:"pad-card flex w-full cursor-pointer items-center gap-3.5 py-4 text-left transition-colors hover:bg-line-soft",
+        attrs:{type:"button", "aria-expanded": i === 0 ? "true" : "false", "aria-controls": panelId}
+      }, [
+        h("span", {cls:"text-label-16 min-w-0 flex-1 font-semibold", text:s.name}),
+        h("span", {cls:"flex flex-none gap-1.5", attrs:{"aria-hidden":"true"}}, dots),
+        h("span", {cls:"text-label-14 min-w-[4.5ch] flex-none text-right font-mono text-muted tabular-nums",
+                   text: d + " of " + s.steps.length}),
+        chevron()
       ]);
-      row.setAttribute("aria-label", s.name + ": " + d + " of " + s.steps.length + " steps finished");
-      return row;
-    }));
-  })();
 
-  /* ---------- sign cards ---------- */
-  (function(){
-    var cards = D.signs.map(function(s){
-      var kids = [];
+      /* the panel: named steps, the photo, the status */
+      var stepList = h("ol", {cls:"m-0 list-none space-y-2.5 p-0", attrs:{role:"list"}},
+        s.steps.map(function(st){
+          return h("li", {cls:"flex items-center gap-2.5"}, [
+            h("span", {
+              cls:"flex size-5 flex-none items-center justify-center rounded-full " +
+                  (st.done ? "bg-ink" : "border-2 border-line"),
+              attrs:{"aria-hidden":"true"}
+            }, st.done ? [check("var(--umm-bg)", "size-2.5")] : []),
+            h("span", {cls:"text-copy-17 " + (st.done ? "font-semibold text-ink" : "text-muted"),
+                       text: st.label + (st.done ? "" : "")}),
+            st.done ? h("span", {cls:"sr-only", text:"finished"}) : h("span", {cls:"sr-only", text:"not started"})
+          ]);
+        })
+      );
+
+      var inner = [stepList];
       if(s.thumb){
-        var thKids = [h("img", {attrs:{
-          src:s.thumb, alt:s.name + ", " + s.where,
-          width:"600", height:"400", loading:"lazy"
-        }})];
-        if(s.thumbLabel){
-          thKids.push(h("span", {cls:"thchip", text:s.thumbLabel}));
-        }
-        kids.push(h("div", {cls:"thwrap"}, thKids));
-      }
-      var steps = s.steps.map(function(st){
-        var label = h("span", {cls:"slabel", text:st.label});
-        if(st.done){ label.appendChild(h("span", {cls:"vh", text:" (finished)"})); }
-        return h("li", {cls:"step" + (st.done ? " done" : "")}, [
-          h("span", {cls:"knob", attrs:{"aria-hidden":"true"}}, [check()]),
-          label
+        var fig = h("figure", {cls:"relative m-0 mt-4"}, [
+          h("img", {cls:"block aspect-3/2 w-full rounded-xl border border-line-soft object-cover",
+                    attrs:{src:s.thumb, alt:s.name + ", " + s.where, width:"600", height:"400", loading:"lazy"}})
         ]);
+        if(s.thumbLabel){
+          fig.appendChild(h("figcaption", {
+            cls:"text-label-12 absolute left-3 top-3 rounded-md border border-line bg-surface px-2.5 py-1 font-bold tracking-[0.09em] text-muted uppercase",
+            text:s.thumbLabel}));
+        }
+        inner.push(fig);
+      }
+      inner.push(h("p", {cls:"text-copy-17 mt-4 mb-0 text-muted", text:s.status}));
+
+      var panel = h("div", {cls:"u-panel", attrs:{id:panelId, role:"region", "aria-label":s.name}}, [
+        h("div", null, [ h("div", {cls:"pad-card pb-5"}, inner) ])
+      ]);
+
+      var row = h("div", {
+        cls:"border-t border-line-soft first:border-t-0",
+        attrs:{"data-open": i === 0 ? "true" : "false"}
+      }, [
+        h("div", {cls:"text-label-13 pad-card pt-3 text-figure", text:s.where}),
+        trigger, panel
+      ]);
+
+      trigger.addEventListener("click", function(){
+        var isOpen = row.getAttribute("data-open") === "true";
+        /* one open at a time, the Geist CollapseGroup default */
+        rows.forEach(function(r){
+          r.setAttribute("data-open", "false");
+          r.querySelector("button").setAttribute("aria-expanded", "false");
+        });
+        if(!isOpen){
+          row.setAttribute("data-open", "true");
+          trigger.setAttribute("aria-expanded", "true");
+        }
       });
-      kids.push(h("div", {cls:"sbody"}, [
-        h("h3", {cls:"sname",  text:s.name}),
-        h("p",  {cls:"swhere", text:s.where}),
-        h("ol", {cls:"stepper", attrs:{role:"list"}}, steps),
-        h("p",  {cls:"sstatus", text:s.status})
-      ]));
-      return h("article", {cls:"sign"}, kids);
+
+      rows.push(row);
     });
-    fill(el("signs"), cards);
+
+    fill(el("signList"), rows);
   })();
 
-  /* ---------- needs: open items big, received items small and checked ---------- */
+  /* ---------- needs ---------- */
   (function(){
     var open = D.needs.filter(function(n){ return n.state !== "received"; });
     var got  = D.needs.filter(function(n){ return n.state === "received"; });
     var rows = [];
 
     if(!open.length){
-      rows.push(h("li", {cls:"allclear",
+      rows.push(h("li", {cls:"pad-card text-copy-19 py-6 text-center font-semibold",
         text:"Nothing! I have everything I need from you right now."}));
     }
     open.forEach(function(n){
-      rows.push(h("li", {cls:"need"}, [
-        h("span", {cls:"nmark", attrs:{"aria-hidden":"true"}}),
+      rows.push(h("li", {cls:"pad-card flex items-start gap-4 py-[18px] [&+li]:border-t [&+li]:border-line-soft"}, [
+        h("span", {cls:"mt-px flex size-[26px] flex-none items-center justify-center rounded-full border-2 border-accent",
+                   attrs:{"aria-hidden":"true"}}, [
+          h("span", {cls:"u-breathe size-2 rounded-full bg-accent"})
+        ]),
         h("div", null, [
-          h("div", {cls:"ntop"}, [
-            h("span", {cls:"nitem", text:n.item}),
-            h("span", {cls:"owner", text:n.owner}),
-            h("span", {cls:"vh", text:"Still needed"})
+          h("div", {cls:"flex flex-wrap items-baseline gap-2.5"}, [
+            h("span", {cls:"text-label-16 font-bold", text:n.item}),
+            h("span", {cls:"text-label-12 rounded-full border border-accent px-2.5 py-0.5 font-bold tracking-[0.1em] whitespace-nowrap text-accent-text uppercase",
+                       text:n.owner}),
+            h("span", {cls:"sr-only", text:"Still needed"})
           ]),
-          h("p", {cls:"nnote", text:n.note})
+          h("p", {cls:"text-copy-17 mt-1.5 mb-0 max-w-[52ch] text-muted", text:n.note})
         ])
       ]));
     });
     if(got.length){
-      rows.push(h("li", {cls:"inhand-label", attrs:{"aria-hidden":"true"}, text:"Already in hand"}));
-      got.forEach(function(n){
-        var t = h("span", {cls:"gottext"});
-        t.appendChild(h("b", {text:n.item + ". "}));
+      rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-figure uppercase",
+        attrs:{"aria-hidden":"true"}, text:"Already in hand"}));
+      got.forEach(function(n, i){
+        var t = h("span", {cls:"text-copy-16 text-muted"});
+        t.appendChild(h("b", {cls:"font-semibold", text:n.item + ". "}));
         t.appendChild(document.createTextNode(n.note));
-        var row = h("li", {cls:"got"}, [
-          h("span", {cls:"gotmark", attrs:{"aria-hidden":"true"}}, [check("var(--surface)")]),
+        var row = h("li", {cls:"pad-card flex items-start gap-3 py-2.5" + (i === got.length - 1 ? " pb-[18px]" : "")}, [
+          h("span", {cls:"mt-[3px] flex size-[19px] flex-none items-center justify-center rounded-full bg-figure",
+                     attrs:{"aria-hidden":"true"}}, [check("var(--umm-surface)", "size-2.5")]),
           t
         ]);
         row.setAttribute("aria-label", "Received: " + n.item + ". " + n.note);
@@ -567,58 +398,64 @@
     fill(el("needs"), rows);
   })();
 
-  /* ---------- photos ---------- */
+  /* ---------- the storefront right now: one photo ---------- */
   (function(){
-    var list = D.photos || [];
-    if(!list.length){ return; }
-    var p = list[0];
+    var p = D.currentPhoto;
+    if(!p){ return; }
     fill(el("phero"), [
-      h("img", {attrs:{src:p.src, alt:p.caption}}),
-      h("figcaption", {cls:"pcap"}, [
-        h("b", {text:p.date + "."}),
+      h("img", {cls:"block h-auto w-full rounded-2xl border border-line",
+                attrs:{src:p.src, alt:p.caption}}),
+      h("figcaption", {cls:"text-copy-17 mt-3 text-muted"}, [
+        h("b", {cls:"font-semibold text-ink", text:p.date + "."}),
         document.createTextNode(" " + p.caption)
       ])
     ]);
-    fill(el("pstrip"), list.slice(1).map(function(q){
-      return h("figure", {cls:"pthumb"}, [
-        h("img", {attrs:{src:q.src, alt:q.caption, loading:"lazy"}}),
-        h("figcaption", {text:q.date})
-      ]);
-    }));
   })();
 
   /* ---------- materials ---------- */
   (function(){
     fill(el("mats"), D.materials.map(function(m, i){
-      var summary = h("summary", null, [
+      var summary = h("summary", {
+        cls:"pad-card flex min-h-11 cursor-pointer list-none items-center justify-between gap-3.5 py-[18px] text-label-16 font-semibold transition-colors hover:bg-line-soft"
+      }, [
         document.createTextNode(m.title),
-        h("span", {cls:"chev", attrs:{"aria-hidden":"true"}})
+        chevron()
       ]);
-      var body = h("div", {cls:"matbody"}, m.body.map(function(par){
-        return h("p", {text:par});
+      var body = h("div", {cls:"pad-card pb-5.5"}, m.body.map(function(par){
+        return h("p", {cls:"text-copy-18 mt-0 mb-3.5 max-w-[56ch] text-muted last:mb-0", text:par});
       }));
-      var d = h("details", {cls:"mat"}, [summary, body]);
+      var d = h("details", {cls:"border-t border-line-soft first:border-t-0 [&[open]_.u-chev]:rotate-180"},
+                [summary, body]);
       if(i === 0){ d.setAttribute("open",""); }
       return d;
     }));
   })();
 
   /* ---------- decisions, money, warranty ---------- */
-  fill(el("decs"), D.decisions.map(function(d){ return h("li", {text:d}); }));
+  fill(el("decs"), D.decisions.map(function(d){
+    return h("li", {cls:"text-copy-18 relative mb-3 pl-7 text-muted"}, [
+      h("span", {cls:"absolute left-0 top-[9px] block h-[7px] w-3 -rotate-45 border-b-2 border-l-2 border-figure",
+                 attrs:{"aria-hidden":"true"}}),
+      document.createTextNode(d)
+    ]);
+  }));
   el("payment").textContent  = D.payment;
   el("warranty").textContent = D.warranty;
 
   /* ---------- contact ---------- */
   (function(){
     var c = D.contact;
+    var btn = "flex min-h-16 flex-col items-center justify-center gap-1 rounded-xl border-[1.5px] " +
+              "border-line px-5 py-3.5 text-center text-label-16 font-semibold text-ink no-underline " +
+              "transition-transform transition-colors hover:-translate-y-0.5 hover:border-muted";
     fill(el("actions"), [
-      h("a", {cls:"btn", attrs:{href:"sms:" + c.sms}}, [
+      h("a", {cls:btn, attrs:{href:"sms:" + c.sms}}, [
         h("span", {text:"Text me"}),
-        h("span", {cls:"sub", text:c.display})
+        h("span", {cls:"text-label-14 font-normal whitespace-nowrap text-muted tabular-nums", text:c.display})
       ]),
-      h("a", {cls:"btn", attrs:{href:"tel:" + c.tel}}, [
+      h("a", {cls:btn, attrs:{href:"tel:" + c.tel}}, [
         h("span", {text:"Call me"}),
-        h("span", {cls:"sub", text:"I will pick up"})
+        h("span", {cls:"text-label-14 font-normal whitespace-nowrap text-muted", text:"I will pick up"})
       ])
     ]);
     var m = el("mail");
@@ -626,38 +463,32 @@
     m.textContent = c.email;
   })();
 
-  /* ---------- gentle scroll reveal for sections below the fold ---------- */
+  /* ---------- scroll reveal ---------- */
   (function(){
     if(REDUCE || !("IntersectionObserver" in window)){ return; }
-    var secs = Array.prototype.slice.call(document.querySelectorAll(".sec"));
-    /* never hide the first section; it must be visible before any scroll */
+    var secs = Array.prototype.slice.call(document.querySelectorAll("section"));
     secs.shift();
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
-        if(en.isIntersecting){
-          en.target.classList.add("in");
-          io.unobserve(en.target);
-        }
+        if(en.isIntersecting){ en.target.classList.add("is-in"); io.unobserve(en.target); }
       });
     }, {rootMargin:"0px 0px -8% 0px"});
     secs.forEach(function(s){
-      /* only pre-hide sections that start off screen */
       if(s.getBoundingClientRect().top > window.innerHeight){
-        s.classList.add("pre");
+        s.classList.add("u-pre");
         io.observe(s);
       }
     });
   })();
 
   /* ---------- painting weather ----------
-     Plain words only. The one thing clients care about: does rain touch
-     the schedule. Fahrenheit and America/New_York are explicit because
-     the API defaults to Celsius and GMT. Any failure renders nothing. */
+     Plain words. The only thing that matters to them: does rain touch the
+     schedule. Fahrenheit and America/New_York are explicit because the API
+     defaults to Celsius and GMT. Any failure renders nothing at all. */
   (function(){
     var loc = D.location;
     if(!loc || !window.fetch){ return; }
 
-    /* Hard date guard: past the deadline this block retires itself. */
     var today = new Date();
     if(today > new Date(loc.deadline + "T23:59:59")){ return; }
 
@@ -725,18 +556,18 @@
         ahead = "Rain is likely on a few days. I paint on the dry ones. Your opening does not move.";
       }
 
-      var now = h("p", {cls:"wnow"});
-      now.appendChild(h("b", {text: temp + "°" + (word ? " and " + word : "") + " at the store right now."}));
+      var now = h("p", {cls:"text-copy-18 m-0 max-w-[54ch]"});
+      now.appendChild(h("b", {cls:"font-semibold",
+        text: temp + "°" + (word ? " and " + word : "") + " at the store right now."}));
       now.appendChild(document.createTextNode(" " + verdict));
 
       fill(el("weather"), [
-        h("span", {cls:"wlabel", text:"Painting weather"}),
+        h("span", {cls:"text-label-12 mb-2 block font-bold tracking-[0.11em] text-muted uppercase",
+                   text:"Painting weather"}),
         now,
-        h("p", {cls:"wahead", text: ahead})
+        h("p", {cls:"text-copy-17 mt-1.5 mb-0 max-w-[54ch] text-muted", text: ahead})
       ]);
-    }).catch(function(){
-      /* No error state by design. The block simply never appears. */
-    });
+    }).catch(function(){ /* silent by design */ });
   })();
 
 })();
