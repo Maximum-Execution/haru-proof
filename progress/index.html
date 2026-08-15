@@ -10,7 +10,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=7">
+<link rel="stylesheet" href="app.css?v=8">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -21,9 +21,9 @@
     <div>
       <img src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media"
            class="block h-6 w-auto" style="filter:invert(var(--umm-wordmark-invert))">
-      <h1 class="text-heading-32 sm:text-heading-40 mt-4 max-w-[14ch] text-balance">Your signs, underway</h1>
-      <p class="text-copy-18 mt-2.5 max-w-[44ch] text-muted">This page always shows where your job stands. Check it any time.</p>
-      <p class="text-label-16 mt-3 flex items-start gap-2.5 text-muted">
+      <h1 class="text-heading-32 sm:text-heading-40 mt-5 max-w-[14ch] text-balance">Your signs, underway</h1>
+      <p class="text-copy-18 mt-3 max-w-[44ch] text-muted">This page always shows where your job stands. Check it any time.</p>
+      <p class="text-label-16 mt-4 flex items-start gap-2.5 text-muted">
         <span class="u-breathe mt-[9px] block size-2 flex-none rounded-full bg-accent" aria-hidden="true"></span>
         <span id="fresh"></span>
       </p>
@@ -42,88 +42,94 @@
   </noscript>
 
   <!-- ===================== THE WHOLE JOB ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="glanceH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="glanceH">
     <p class="text-eyebrow text-muted">The whole job</p>
     <h2 id="glanceH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How far along is it?</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every finished step fills the circle. Tap a sign to see its four steps.</p>
 
-    <div class="mt-6 flex flex-col items-center gap-7 sm:flex-row sm:gap-10">
+    <div class="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
       <div id="ringwrap" class="relative size-[210px] flex-none"></div>
       <div id="signList" class="material-flush w-full flex-1 self-stretch"></div>
     </div>
+  </section>
 
-    <div id="weather" class="mt-7 border-t border-line-soft pt-5 empty:hidden"></div>
+  <!-- ===================== TODAY ===================== -->
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="todayH">
+    <p class="text-eyebrow text-muted">Today</p>
+    <h2 id="todayH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">What is happening now</h2>
 
-    <div class="material-flush mt-7">
-      <div class="pad-card py-[18px]">
-        <span class="text-label-12 mb-1.5 block font-bold tracking-[0.11em] text-accent-text uppercase">Right now</span>
+    <div class="material-flush mt-6">
+      <div class="pad-card py-5">
+        <span class="text-label-12 mb-2 block font-bold tracking-[0.11em] text-accent-text uppercase">Right now</span>
         <p id="rightNow" class="text-copy-19 m-0 max-w-[52ch] font-semibold"></p>
       </div>
-      <div class="pad-card border-t border-line-soft py-[18px]">
-        <span class="text-label-12 mb-1.5 block font-bold tracking-[0.11em] text-muted uppercase">Next</span>
+      <div class="pad-card border-t border-line-soft py-5">
+        <span class="text-label-12 mb-2 block font-bold tracking-[0.11em] text-muted uppercase">Next</span>
         <p id="next" class="text-copy-19 m-0 max-w-[52ch]"></p>
       </div>
     </div>
+
+    <div id="weather" class="mt-8 empty:hidden"></div>
   </section>
 
   <!-- ===================== SIGN CARDS ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="signsH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="signsH">
     <p class="text-eyebrow text-muted">Sign by sign</p>
     <h2 id="signsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The four signs</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">The photos show each spot today. They change as the work moves.</p>
-    <div id="signs" class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"></div>
+    <div id="signs" class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2"></div>
   </section>
 
   <!-- ===================== NEEDS ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="needsH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="needsH">
     <p class="text-eyebrow text-muted">Your side</p>
     <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Where I need you</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">A red circle means I am waiting on you. Everything else is handled.</p>
-    <ul id="needs" role="list" class="material-flush mt-5 list-none p-0"></ul>
+    <ul id="needs" role="list" class="material-flush mt-6 list-none p-0"></ul>
   </section>
 
   <!-- ===================== THE STOREFRONT NOW ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="photoH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
     <p class="text-eyebrow text-muted">Your storefront</p>
     <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How it looks today</h2>
-    <figure id="phero" class="mt-5"></figure>
+    <figure id="phero" class="mt-6"></figure>
   </section>
 
   <!-- ===================== CRAFT ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="matsH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="matsH">
     <p class="text-eyebrow text-muted">The craft</p>
-    <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">What your money is buying</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Open any card to see why I picked it.</p>
-    <div id="mats" class="material-flush mt-5"></div>
+    <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The thinking behind your signs</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every choice here has a reason. Open any one to read it. This list grows as the job does.</p>
+    <div id="mats" class="material-flush mt-6"></div>
   </section>
 
   <!-- ===================== DECIDED ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="decH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="decH">
     <p class="text-eyebrow text-muted">Locked in</p>
     <h2 id="decH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Decided, and staying decided</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Written here so no one has to search old texts.</p>
-    <ul id="decs" role="list" class="mt-4 max-w-[56ch] list-none p-0"></ul>
-    <div class="material-flush mt-6">
-      <div class="pad-card py-[18px]">
-        <span class="text-label-12 mb-1 block font-bold tracking-[0.11em] text-ink uppercase">Money</span>
+    <ul id="decs" role="list" class="mt-6 max-w-[56ch] list-none p-0"></ul>
+    <div class="material-flush mt-8">
+      <div class="pad-card py-5">
+        <span class="text-label-12 mb-2 block font-bold tracking-[0.11em] text-ink uppercase">Money</span>
         <span id="payment" class="text-copy-17 block max-w-[62ch] text-muted"></span>
       </div>
-      <div class="pad-card border-t border-line-soft py-[18px]">
-        <span class="text-label-12 mb-1 block font-bold tracking-[0.11em] text-ink uppercase">If anything goes wrong</span>
+      <div class="pad-card border-t border-line-soft py-5">
+        <span class="text-label-12 mb-2 block font-bold tracking-[0.11em] text-ink uppercase">If anything goes wrong</span>
         <span id="warranty" class="text-copy-17 block max-w-[62ch] text-muted"></span>
       </div>
     </div>
   </section>
 
   <!-- ===================== CONTACT ===================== -->
-  <section class="mt-14 border-t border-line pt-6" aria-labelledby="contactH">
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="contactH">
     <p class="text-eyebrow text-muted">Anytime</p>
     <h2 id="contactH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Questions?</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Ask me anything, any time.</p>
-    <div id="actions" class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
+    <div id="actions" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
   </section>
 
-  <footer class="mt-14 border-t border-line pt-6">
+  <footer class="mt-16 border-t border-line pt-6">
     <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
       Spencer Bennett &middot; Untitled Mixed Media LLC<br>
       <a id="mail" href="#" class="inline-block min-h-11 py-3 text-inherit"></a>
@@ -142,7 +148,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=7"></script>
+<script src="data.js?v=8"></script>
 <script>
 (function(){
   "use strict";

@@ -152,35 +152,47 @@ window.HARU = {
 
   materials: [
     {
-      title: "The Paint Going On Your Building",
+      title: "Why the green is flat and the letters shine",
       body: [
-        "Sherwin-Williams Emerald Urethane Trim Enamel. It is the toughest exterior enamel they make, and it holds a crisp edge. That matters when a letter is only a few inches wide.",
-        "Two finishes, for a reason. The green goes on flat. The white letters go on gloss.",
-        "Flat green kills glare. Walk past your store at any angle, at any hour, and the green stays green instead of turning into reflection. White is the opposite. White cannot really glare, it glows. On a bright afternoon your name will look lit from inside.",
-        "One more benefit: flat green next to gloss white looks a little darker than it is. Your letters stand out more, and your brand color does not change at all."
+        "Almost nobody sees your sign straight on. Your sidewalk runs right along the building, so people read it from the side while they walk past.",
+        "That angle is where most signs quietly fail, and it is why I am using two different finishes instead of one.",
+        "If the whole sign were shiny, sunlight would bounce off the letters and the green at the same moment. Both would flare together, and your name would disappear into the shine.",
+        "If the whole sign were flat, there would be no flare, but then the only thing separating white from green is the color itself. I measured that difference on your wall. It is weaker than it looks. From a sharp angle it is not enough, and the letters go soft.",
+        "So I split them. Flat green behind, glossy white in front. The flat green stays steady no matter where you stand. The white letters catch the light and brighten. The two surfaces never react to light the same way, so there is always a difference holding your letters apart from the background.",
+        "It is a second kind of contrast, working underneath the color. Most people never think about it, and it is free. It only costs the knowledge to do it."
       ]
     },
     {
-      title: "Your Green, Written Down",
+      title: "Why your letters are the size they are",
+      body: [
+        "Sign painters size letters with a simple rule: about one inch of letter height for every ten feet you want people to read from.",
+        "I measured your corner from the satellite view. The far sidewalk across West Cary is about 56 feet away. Where traffic stops at the light is about 150 feet.",
+        "Most people will read your sign from somewhere between 30 and 90 feet, walking or driving past. Your name is sized for that, not for someone standing at your door.",
+        "That is also why the small line above your name is small. The two are doing different jobs at different distances. Haru has to reach the corner. The tagline only has to reach the sidewalk, where someone is already deciding whether to come in."
+      ]
+    },
+    {
+      title: "Your green, written down",
       body: [
         "SW 6717 Lime Rickey. The exact green already on your building. It is in my file and on the paint order, so none of us ever has to guess.",
         "Anything we make for the inside gets matched to the same can, not to a memory of it."
       ]
     },
     {
-      title: "How Letters Get On A Wall",
+      title: "How the letters get on the wall",
       body: [
         "Nothing goes up freehand. I print every letter at full size on paper, then punch thousands of tiny holes along every edge.",
         "The paper gets taped to your wall and patted with a bag of chalk dust. The dust falls through the holes and leaves a dotted outline of your logo, exactly where it belongs and exactly the right size. I paint over the dots, and the chalk brushes away.",
-        "Sign painters call this pouncing. It is a couple hundred years old, and it is the difference between letters that look right and letters that look almost right.",
-        "The transfer happens late at night, when Cary Street is empty and nobody has to walk around a ladder."
+        "Sign painters call this pouncing. It is a couple hundred years old, and it is the difference between letters that look right and letters that look almost right."
       ]
     },
     {
-      title: "Why Paint And Not Vinyl",
+      title: "Staying out of your way while you move in",
       body: [
-        "Vinyl is a sticker. It lifts at the edges, collects dirt underneath, and turns chalky after a few summers. Then someone has to scrape it off.",
-        "Paint becomes part of the wall. Richmond still has hand-painted signs from a hundred years ago that read fine from across the street. Yours is built the same way."
+        "You are opening a store. The last thing you need is a ladder in your doorway.",
+        "The messiest part, getting the design onto the wall, happens late at night when Cary Street is empty. Your sidewalk stays clear during the hours people are coming and going.",
+        "Everything gets covered before I start. Your windows, the green you already paid for, the sidewalk under me. It all gets taped and dropped, and it all leaves with me.",
+        "I also carry general liability insurance, and the certificate goes out with your invoice. If something happens while I am on your building, it is on my policy, not yours."
       ]
     }
   ],
