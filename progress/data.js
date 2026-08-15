@@ -57,7 +57,7 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "This empty wall is about to carry your name. White letters, the orange triangle, and your tagline on the green panel.",
+      status: "This empty wall is about to carry your name.",
       facts: [
         { label: "Colors",  value: "White letters and orange triangle on your green" },
         { label: "Finish",  value: "Flat green, gloss white" },
@@ -76,7 +76,7 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "Painted above the door, in the darker green you picked. If your font arrives in time, I will paint the numbers in your real font.",
+      status: "In the darker green you picked. Your real font if it arrives in time.",
       facts: [
         { label: "Color",   value: "The darker green you approved" },
         { label: "Font",    value: "A close match for now, your real font if it arrives" },
@@ -95,7 +95,7 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "The green panel next to the window is the spot. White letters, the exact forms you approved.",
+      status: "White letters on the green panel, the exact forms you approved.",
       facts: [
         { label: "Colors",  value: "White, straight onto your green wall" },
         { label: "Finish",  value: "Gloss white" },
@@ -114,7 +114,7 @@ window.HARU = {
         { label: "Pick each sign", done: false },
         { label: "Made and installed", done: false }
       ],
-      status: "After the outside is done and you are moved in, we walk the store together and pick the right sign for each spot. Painted, vinyl, or printed. The goal is simple: customers find what they came for.",
+      status: "Once you are moved in, we walk the store and pick the right sign for each spot. So customers find what they came for.",
       facts: [
         { label: "Choices", value: "Hand-painted, vinyl, or printed" },
         { label: "Green",   value: "Matched to SW 6717, the same can as outside" },
@@ -150,49 +150,46 @@ window.HARU = {
     caption: "Your storefront right now, before the first letter goes up."
   },
 
+  /* Titles are the benefit, so a scanner knows what is inside before opening.
+     Bodies stay under about 60 words. These clients do not read long. */
   materials: [
     {
-      title: "Why the green is flat and the letters shine",
+      title: "Readable from every angle",
       body: [
-        "Almost nobody sees your sign straight on. Your sidewalk runs right along the building, so people read it from the side while they walk past.",
-        "That angle is where most signs quietly fail, and it is why I am using two different finishes instead of one.",
-        "If the whole sign were shiny, sunlight would bounce off the letters and the green at the same moment. Both would flare together, and your name would disappear into the shine.",
-        "If the whole sign were flat, there would be no flare, but then the only thing separating white from green is the color itself. I measured that difference on your wall. It is weaker than it looks. From a sharp angle it is not enough, and the letters go soft.",
-        "So I split them. Flat green behind, glossy white in front. The flat green stays steady no matter where you stand. The white letters catch the light and brighten. The two surfaces never react to light the same way, so there is always a difference holding your letters apart from the background.",
-        "It is a second kind of contrast, working underneath the color. Most people never think about it, and it is free. It only costs the knowledge to do it."
+        "Nobody reads your sign straight on. They see it from the side, walking past.",
+        "So the green goes flat and the letters go glossy. The two never catch light the same way, and your name stays sharp from anywhere on the sidewalk. If it were all shiny, sun would flare off the whole thing at once and your name would vanish.",
+        "Most shops use one finish for everything. Doing it right costs nothing but knowing."
       ]
     },
     {
-      title: "Why your letters are the size they are",
+      title: "Sized to read from the street",
       body: [
-        "Sign painters size letters with a simple rule: about one inch of letter height for every ten feet you want people to read from.",
-        "I measured your corner from the satellite view. The far sidewalk across West Cary is about 56 feet away. Where traffic stops at the light is about 150 feet.",
-        "Most people will read your sign from somewhere between 30 and 90 feet, walking or driving past. Your name is sized for that, not for someone standing at your door.",
-        "That is also why the small line above your name is small. The two are doing different jobs at different distances. Haru has to reach the corner. The tagline only has to reach the sidewalk, where someone is already deciding whether to come in."
+        "The rule is one inch of letter for every ten feet you want to be read from.",
+        "I measured your corner. The far sidewalk is 56 feet. The stoplight is 150 feet.",
+        "Your name is sized for that. The small line above it only has to reach the sidewalk, where someone is already at your door."
       ]
     },
     {
-      title: "Your green, written down",
+      title: "Your green, on file",
       body: [
-        "SW 6717 Lime Rickey. The exact green already on your building. It is in my file and on the paint order, so none of us ever has to guess.",
-        "Anything we make for the inside gets matched to the same can, not to a memory of it."
+        "SW 6717 Lime Rickey. The exact green already on your building.",
+        "It is on the paint order, so anything we add inside matches the same can. Not close. The same."
       ]
     },
     {
-      title: "How the letters get on the wall",
+      title: "Nothing is drawn freehand",
       body: [
-        "Nothing goes up freehand. I print every letter at full size on paper, then punch thousands of tiny holes along every edge.",
-        "The paper gets taped to your wall and patted with a bag of chalk dust. The dust falls through the holes and leaves a dotted outline of your logo, exactly where it belongs and exactly the right size. I paint over the dots, and the chalk brushes away.",
-        "Sign painters call this pouncing. It is a couple hundred years old, and it is the difference between letters that look right and letters that look almost right."
+        "I print every letter full size and punch tiny holes along the edges. Taped to your wall and patted with chalk dust, it leaves a perfect dotted outline.",
+        "I paint the dots, then brush the chalk away.",
+        "It is called pouncing. It is why letters land right instead of almost right."
       ]
     },
     {
-      title: "Staying out of your way while you move in",
+      title: "No ladder in your doorway",
       body: [
-        "You are opening a store. The last thing you need is a ladder in your doorway.",
-        "The messiest part, getting the design onto the wall, happens late at night when Cary Street is empty. Your sidewalk stays clear during the hours people are coming and going.",
-        "Everything gets covered before I start. Your windows, the green you already paid for, the sidewalk under me. It all gets taped and dropped, and it all leaves with me.",
-        "I also carry general liability insurance, and the certificate goes out with your invoice. If something happens while I am on your building, it is on my policy, not yours."
+        "You are moving a store in. The messy part happens late at night, when Cary Street is empty.",
+        "Your windows, your paint, and the sidewalk get covered before I start. It all leaves with me.",
+        "I carry general liability insurance. The certificate comes with your invoice."
       ]
     }
   ],

@@ -10,7 +10,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=8">
+<link rel="stylesheet" href="app.css?v=9">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -22,7 +22,7 @@
       <img src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media"
            class="block h-6 w-auto" style="filter:invert(var(--umm-wordmark-invert))">
       <h1 class="text-heading-32 sm:text-heading-40 mt-5 max-w-[14ch] text-balance">Your signs, underway</h1>
-      <p class="text-copy-18 mt-3 max-w-[44ch] text-muted">This page always shows where your job stands. Check it any time.</p>
+      <p class="text-copy-18 mt-3 max-w-[44ch] text-muted">Where your job stands, any time you look.</p>
       <p class="text-label-16 mt-4 flex items-start gap-2.5 text-muted">
         <span class="u-breathe mt-[9px] block size-2 flex-none rounded-full bg-accent" aria-hidden="true"></span>
         <span id="fresh"></span>
@@ -45,7 +45,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="glanceH">
     <p class="text-eyebrow text-muted">The whole job</p>
     <h2 id="glanceH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How far along is it?</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every finished step fills the circle. Tap a sign to see its four steps.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a sign to see its steps.</p>
 
     <div class="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
       <div id="ringwrap" class="relative size-[210px] flex-none"></div>
@@ -76,7 +76,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="signsH">
     <p class="text-eyebrow text-muted">Sign by sign</p>
     <h2 id="signsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The four signs</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">The photos show each spot today. They change as the work moves.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Each spot as it looks today.</p>
     <div id="signs" class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2"></div>
   </section>
 
@@ -84,7 +84,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="needsH">
     <p class="text-eyebrow text-muted">Your side</p>
     <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Where I need you</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">A red circle means I am waiting on you. Everything else is handled.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Red means I am waiting on you.</p>
     <ul id="needs" role="list" class="material-flush mt-6 list-none p-0"></ul>
   </section>
 
@@ -99,7 +99,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="matsH">
     <p class="text-eyebrow text-muted">The craft</p>
     <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The thinking behind your signs</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every choice here has a reason. Open any one to read it. This list grows as the job does.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap any one. Each is short.</p>
     <div id="mats" class="material-flush mt-6"></div>
   </section>
 
@@ -107,7 +107,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="decH">
     <p class="text-eyebrow text-muted">Locked in</p>
     <h2 id="decH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Decided, and staying decided</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Written here so no one has to search old texts.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">So no one has to search old texts.</p>
     <ul id="decs" role="list" class="mt-6 max-w-[56ch] list-none p-0"></ul>
     <div class="material-flush mt-8">
       <div class="pad-card py-5">
@@ -125,7 +125,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="contactH">
     <p class="text-eyebrow text-muted">Anytime</p>
     <h2 id="contactH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Questions?</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Ask me anything, any time.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Any time. Really.</p>
     <div id="actions" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
   </section>
 
@@ -148,7 +148,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=8"></script>
+<script src="data.js?v=9"></script>
 <script>
 (function(){
   "use strict";
