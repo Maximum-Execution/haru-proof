@@ -39,15 +39,15 @@
 
 window.HARU = {
 
-  updated: "Friday night, August 14",
+  updated: "Saturday, August 15",
 
-  rightNow: "Your files are in and your green is matched. I am printing your letters at full size.",
-  next: "I punch the patterns. Then the design goes on the wall, late on a dry night.",
+  rightNow: "Two of your three patterns are punched and ready for the wall.",
+  next: "Tomorrow I paint your Japanese and Korean letters, and the green panel your name sits on.",
 
   signs: [
     {
       name: "The Haru sign",
-      short: "Printing the letters",
+      short: "Panel goes on tomorrow",
       where: "Front wall, West Cary Street",
       thumb: "../img/progress/now-haru.jpg",
       thumbLabel: "The wall today",
@@ -66,13 +66,13 @@ window.HARU = {
     },
     {
       name: "The 3030",
-      short: "Printing the letters",
+      short: "Pattern ready",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
       thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
-        { label: "Patterns made", done: false },
+        { label: "Patterns made", done: true },
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
@@ -85,13 +85,13 @@ window.HARU = {
     },
     {
       name: "Haru in Japanese and Korean",
-      short: "Printing the letters",
+      short: "Painting tomorrow",
       where: "By the front window",
       thumb: "../img/progress/now-characters.jpg",
       thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
-        { label: "Patterns made", done: false },
+        { label: "Patterns made", done: true },
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
@@ -151,6 +151,8 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
+    { date: "August 15", text: "All paint and materials bought and on the truck." },
     { date: "August 14", text: "Deposit received. Thank you, Kim." },
     { date: "August 14", text: "Vector logo files and paint color both in hand. Nothing is blocking the start." },
     { date: "August 14", text: "Front wall approved. The tagline goes on the logo." },
