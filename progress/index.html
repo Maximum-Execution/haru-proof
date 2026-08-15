@@ -329,7 +329,7 @@
         cls:"border-t border-line-soft first:border-t-0",
         attrs:{"data-open": i === 0 ? "true" : "false"}
       }, [
-        h("div", {cls:"text-label-13 pad-card pt-3 text-figure", text:s.where}),
+        h("div", {cls:"text-label-13 pad-card pt-3 text-muted", text:s.where}),
         trigger, panel
       ]);
 
@@ -380,7 +380,7 @@
       ]));
     });
     if(got.length){
-      rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-figure uppercase",
+      rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-muted uppercase",
         attrs:{"aria-hidden":"true"}, text:"Already in hand"}));
       got.forEach(function(n, i){
         var t = h("span", {cls:"text-copy-16 text-muted"});
