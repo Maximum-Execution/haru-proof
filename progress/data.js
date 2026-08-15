@@ -162,7 +162,7 @@ window.HARU = {
     { date: "August 9",  text: "You approved the Japanese and Korean lettering." },
     { date: "August 7",  text: "Sign package agreed. One price, opening day on the 20th." },
     { date: "August 7",  text: "Green confirmed. Keeping the color already on the building." },
-    { date: "August 1",  text: "Walked the building with Kim and Lea and marked where every sign goes." },
+    { date: "August 1",  text: "Walked the building with Kim and marked where every sign goes." },
     { date: "July 30",   text: "Site visit to check the walls before scheduling anything." },
     { date: "July 16",   text: "Back on, focused on the signs." },
     { date: "May 7",     text: "First full estimate sent." },
