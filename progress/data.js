@@ -144,6 +144,24 @@ window.HARU = {
     }
   ],
 
+  /* The record of the job, newest FIRST. The first `logShown` entries render,
+     the rest hide behind "Show all". Dates are the real ones from the project
+     file in Notion, so this doubles as proof of how long this has been going.
+     Client-facing rules apply: no pricing history, no negotiation, nothing
+     about who was or was not on an email thread. Progress only. */
+  logShown: 4,
+  log: [
+    { date: "August 14", text: "Deposit received. Thank you, Kim." },
+    { date: "August 14", text: "Logo files and paint color both in hand. Nothing is blocking the start." },
+    { date: "August 14", text: "Front wall approved. The tagline goes on the logo." },
+    { date: "August 13", text: "Final picture sent to you both for approval." },
+    { date: "August 11", text: "Corner lettering reviewed line by line, and the J redrawn by hand." },
+    { date: "August 9",  text: "You approved the Japanese and Korean lettering." },
+    { date: "August 7",  text: "Sign package agreed. One price, opening day on the 20th." },
+    { date: "July 16",   text: "Back on, focused on the signs." },
+    { date: "May 5",     text: "First walk of the building and the brand questions." }
+  ],
+
   currentPhoto: {
     src: "../img/progress/front-2026-08-14.jpg",
     date: "August 14",

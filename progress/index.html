@@ -35,7 +35,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=10">
+<link rel="stylesheet" href="app.css?v=11">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -120,6 +120,14 @@
     <figure id="phero" class="mt-6"></figure>
   </section>
 
+  <!-- ===================== THE RECORD ===================== -->
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="logH">
+    <p class="text-eyebrow text-muted">The record</p>
+    <h2 id="logH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Everything so far</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Newest first.</p>
+    <div id="log" class="mt-6"></div>
+  </section>
+
   <!-- ===================== CRAFT ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="matsH">
     <p class="text-eyebrow text-muted">The craft</p>
@@ -173,7 +181,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=10"></script>
+<script src="data.js?v=11"></script>
 <script>
 (function(){
   "use strict";
@@ -565,6 +573,65 @@
       });
     }
     fill(el("needs"), rows);
+  })();
+
+  /* ---------- the record ----------
+     A vertical timeline, newest first. The first few entries show; the rest
+     sit behind one button so the section stays short as this list grows over
+     the life of the job. */
+  (function(){
+    var list = D.log || [];
+    if(!list.length){ return; }
+    var host = el("log");
+    var shown = Math.min(D.logShown || 4, list.length);
+    var hidden = list.length - shown;
+
+    function entry(item, isNewest){
+      return h("li", {cls:"relative flex gap-4 pb-6 last:pb-0"}, [
+        /* the rail, drawn per item so it stops cleanly at the last one */
+        h("span", {cls:"absolute left-[5px] top-3 h-full w-px bg-line-soft last:hidden",
+                   attrs:{"aria-hidden":"true"}}),
+        h("span", {cls:"relative z-[1] mt-1.5 size-2.5 flex-none rounded-full " +
+                       (isNewest ? "bg-accent" : "bg-figure"),
+                   attrs:{"aria-hidden":"true"}}),
+        h("div", {cls:"min-w-0 flex-1"}, [
+          h("span", {cls:"text-label-12 block font-bold tracking-[0.09em] text-muted uppercase",
+                     text:item.date}),
+          h("span", {cls:"text-copy-17 mt-1 block " + (isNewest ? "font-semibold text-ink" : "text-muted"),
+                     text:item.text})
+        ])
+      ]);
+    }
+
+    var visible = h("ol", {cls:"m-0 list-none p-0", attrs:{role:"list"}},
+      list.slice(0, shown).map(function(it, i){ return entry(it, i === 0); }));
+    host.appendChild(visible);
+
+    if(!hidden){ return; }
+
+    var rest = h("ol", {cls:"m-0 list-none p-0 pt-6", attrs:{role:"list"}},
+      list.slice(shown).map(function(it){ return entry(it, false); }));
+    var panel = h("div", {cls:"u-panel", attrs:{id:"logRest"}}, [h("div", null, [rest])]);
+
+    var wrap = h("div", {attrs:{"data-open":"false"}});
+    var btn = h("button", {
+      cls:"text-label-16 mt-2 flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 " +
+          "rounded-xl border border-line bg-surface px-5 py-3 font-semibold text-ink " +
+          "transition-colors hover:border-muted",
+      attrs:{type:"button", "aria-expanded":"false", "aria-controls":"logRest"}
+    }, [
+      h("span", {text:"Show all " + list.length}),
+      chevron()
+    ]);
+    btn.addEventListener("click", function(){
+      var open = wrap.getAttribute("data-open") === "true";
+      wrap.setAttribute("data-open", open ? "false" : "true");
+      btn.setAttribute("aria-expanded", open ? "false" : "true");
+      btn.firstChild.textContent = open ? "Show all " + list.length : "Show less";
+    });
+    wrap.appendChild(panel);
+    host.appendChild(wrap);
+    host.appendChild(btn);
   })();
 
   /* ---------- the storefront right now: one photo ---------- */
