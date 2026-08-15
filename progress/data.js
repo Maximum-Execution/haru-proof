@@ -227,10 +227,13 @@ window.HARU = {
     "The 3030 goes in the darker green.",
     "The green panel sits off to the side, not centered.",
     "The triangle stays orange, above the name.",
-    "Inside signs get chosen together after the outside is finished and you are moved in."
+    "Inside signs get chosen together after the outside is finished and you are moved in.",
+    "Nothing gets painted on a wall until you have seen the picture and said yes."
   ],
 
-  payment: "Deposit received, and that is it for now. When everything is finished, outside and in, we walk it all together and the rest is due. Nothing gets added along the way.",
+  /* This must always match Estimate #354 and the invoice. If they ever
+     disagree, the paperwork wins, and the footer says so. */
+  payment: "Deposit received, and that is it for now. When everything is finished, outside and in, we walk it all together and the rest is due. We pick the inside signs within 30 days of the outside being done. Nothing gets added along the way.",
 
   warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
