@@ -13,13 +13,16 @@
    updated        Human phrase. No timestamps.
    rightNow/next  One sentence each.
 
-   signs[]        One collapse row per sign, in display order.
+   signs[]        Drives BOTH the at-a-glance dropdown and the card below it.
      name         client language
+     short        2 to 5 words. The current state, read at a glance in the
+                  dropdown row without opening anything. e.g. "Ready to print"
      where        one short line placing it
      thumb        photo of that spot, relative to this folder
      thumbLabel   chip on the photo: "The wall today", "Patterns up", "Painted"
-     steps[]      {label, done} - shown inside the panel when opened
-     status       one or two short sentences
+     steps[]      {label, done} - the dropdown panel lists these and nothing else
+     status       one or two short sentences, card only
+     facts[]      {label, value} - 2 or 3 concrete details, card only
 
    needs[]        state "needed" renders big with a red mark (client's move);
                   "received" collapses to a small checked line. NEVER delete
@@ -44,6 +47,7 @@ window.HARU = {
   signs: [
     {
       name: "The Haru sign",
+      short: "Printing the letters",
       where: "Front wall, West Cary Street",
       thumb: "../img/progress/now-haru.jpg",
       thumbLabel: "The wall today",
@@ -53,10 +57,16 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "This empty wall is about to carry your name. White letters, the orange triangle, and your tagline on the green panel."
+      status: "This empty wall is about to carry your name. White letters, the orange triangle, and your tagline on the green panel.",
+      facts: [
+        { label: "Colors",  value: "White letters and orange triangle on your green" },
+        { label: "Finish",  value: "Flat green, gloss white" },
+        { label: "Reads from", value: "Across West Cary Street" }
+      ]
     },
     {
       name: "The 3030",
+      short: "Printing the letters",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
       thumbLabel: "The wall today",
@@ -66,10 +76,16 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "Painted above the door, in the darker green you picked. If your font arrives in time, I will paint the numbers in your real font."
+      status: "Painted above the door, in the darker green you picked. If your font arrives in time, I will paint the numbers in your real font.",
+      facts: [
+        { label: "Color",   value: "The darker green you approved" },
+        { label: "Font",    value: "A close match for now, your real font if it arrives" },
+        { label: "Reads from", value: "The sidewalk, at your door" }
+      ]
     },
     {
       name: "Haru in Japanese and Korean",
+      short: "Printing the letters",
       where: "By the front window",
       thumb: "../img/progress/now-characters.jpg",
       thumbLabel: "The wall today",
@@ -79,10 +95,16 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "The green panel next to the window is the spot. White letters, the exact forms you approved."
+      status: "The green panel next to the window is the spot. White letters, the exact forms you approved.",
+      facts: [
+        { label: "Colors",  value: "White, straight onto your green wall" },
+        { label: "Finish",  value: "Gloss white" },
+        { label: "Reads from", value: "The sidewalk and the crosswalk" }
+      ]
     },
     {
       name: "Signs inside the store",
+      short: "Waiting on the outside",
       where: "Planned after the outside is done",
       thumb: "../img/progress/inside-placeholder.jpg",
       thumbLabel: "Planned together",
@@ -92,7 +114,12 @@ window.HARU = {
         { label: "Pick each sign", done: false },
         { label: "Made and installed", done: false }
       ],
-      status: "After the outside is done and you are moved in, we walk the store together and pick the right sign for each spot. Painted, vinyl, or printed. The goal is simple: customers find what they came for."
+      status: "After the outside is done and you are moved in, we walk the store together and pick the right sign for each spot. Painted, vinyl, or printed. The goal is simple: customers find what they came for.",
+      facts: [
+        { label: "Choices", value: "Hand-painted, vinyl, or printed" },
+        { label: "Green",   value: "Matched to SW 6717, the same can as outside" },
+        { label: "Timing",  value: "After you are moved in and can see the space" }
+      ]
     }
   ],
 

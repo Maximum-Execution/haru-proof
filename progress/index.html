@@ -10,7 +10,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=5">
+<link rel="stylesheet" href="app.css?v=6">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -45,7 +45,7 @@
   <section class="mt-14 border-t border-line pt-6" aria-labelledby="glanceH">
     <p class="text-eyebrow text-muted">The whole job</p>
     <h2 id="glanceH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How far along is it?</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every finished step fills the circle. Tap any sign to see its steps.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Every finished step fills the circle. Tap a sign to see its four steps.</p>
 
     <div class="mt-6 flex flex-col items-center gap-7 sm:flex-row sm:gap-10">
       <div id="ringwrap" class="relative size-[210px] flex-none"></div>
@@ -64,6 +64,14 @@
         <p id="next" class="text-copy-19 m-0 max-w-[52ch]"></p>
       </div>
     </div>
+  </section>
+
+  <!-- ===================== SIGN CARDS ===================== -->
+  <section class="mt-14 border-t border-line pt-6" aria-labelledby="signsH">
+    <p class="text-eyebrow text-muted">Sign by sign</p>
+    <h2 id="signsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The four signs</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">The photos show each spot today. They change as the work moves.</p>
+    <div id="signs" class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2"></div>
   </section>
 
   <!-- ===================== NEEDS ===================== -->
@@ -134,7 +142,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=5"></script>
+<script src="data.js?v=6"></script>
 <script>
 (function(){
   "use strict";
@@ -337,10 +345,12 @@
     }
   })();
 
-  /* ---------- sign collapse group ----------
-     Each sign is a button row showing name + dots + count. Opening it reveals
-     what that count means: the four named steps, the photo of that spot, and
-     the status line. One open at a time, first open by default. */
+  /* ---------- at-a-glance dropdown ----------
+     Closed, every row already answers "which sign, how far, what now":
+     name, a short current-state phrase, dots, and the count. Opening adds the
+     one thing the count cannot say by itself, which is what the four steps
+     ARE. Nothing else goes in the panel. Photos and depth live in the cards
+     below, and every row starts closed so the page opens compact. */
   (function(){
     var rows = [];
     var dotDelay = 0;
@@ -349,9 +359,8 @@
       var d = s.steps.filter(function(st){ return st.done; }).length;
       var panelId = "signpanel-" + i;
 
-      /* progress dots in the trigger */
       var dots = s.steps.map(function(st){
-        var dot = h("span", {cls:"size-[9px] rounded-full " + (st.done ? "bg-ink u-pop" : "bg-line")});
+        var dot = h("span", {cls:"size-[7px] rounded-full " + (st.done ? "bg-ink u-pop" : "bg-line")});
         if(st.done && !REDUCE){
           dotDelay += 90;
           dot.style.animationDelay = (350 + dotDelay) + "ms";
@@ -360,62 +369,46 @@
       });
 
       var trigger = h("button", {
-        cls:"pad-card flex w-full cursor-pointer items-center gap-3.5 py-4 text-left transition-colors hover:bg-line-soft",
-        attrs:{type:"button", "aria-expanded": i === 0 ? "true" : "false", "aria-controls": panelId}
+        cls:"pad-card flex w-full cursor-pointer items-center gap-3 py-3 text-left transition-colors hover:bg-line-soft",
+        attrs:{type:"button", "aria-expanded":"false", "aria-controls":panelId}
       }, [
-        h("span", {cls:"text-label-16 min-w-0 flex-1 font-semibold", text:s.name}),
-        h("span", {cls:"flex flex-none gap-1.5", attrs:{"aria-hidden":"true"}}, dots),
-        h("span", {cls:"text-label-14 min-w-[4.5ch] flex-none text-right font-mono text-muted tabular-nums",
+        h("span", {cls:"min-w-0 flex-1"}, [
+          h("span", {cls:"text-label-16 block truncate font-semibold", text:s.name}),
+          h("span", {cls:"text-label-13 mt-0.5 block truncate text-muted", text:s.short})
+        ]),
+        h("span", {cls:"flex flex-none gap-1", attrs:{"aria-hidden":"true"}}, dots),
+        h("span", {cls:"text-label-13 min-w-[4.5ch] flex-none text-right font-mono text-muted tabular-nums",
                    text: d + " of " + s.steps.length}),
         chevron()
       ]);
 
-      /* the panel: named steps, the photo, the status */
-      var stepList = h("ol", {cls:"m-0 list-none space-y-2.5 p-0", attrs:{role:"list"}},
+      /* panel: the four steps and nothing more */
+      var stepList = h("ol", {cls:"m-0 list-none space-y-2 p-0", attrs:{role:"list"}},
         s.steps.map(function(st){
           return h("li", {cls:"flex items-center gap-2.5"}, [
             h("span", {
-              cls:"flex size-5 flex-none items-center justify-center rounded-full " +
+              cls:"flex size-[18px] flex-none items-center justify-center rounded-full " +
                   (st.done ? "bg-ink" : "border-2 border-line"),
               attrs:{"aria-hidden":"true"}
             }, st.done ? [check("var(--umm-bg)", "size-2.5")] : []),
-            h("span", {cls:"text-copy-17 " + (st.done ? "font-semibold text-ink" : "text-muted"),
-                       text: st.label + (st.done ? "" : "")}),
-            st.done ? h("span", {cls:"sr-only", text:"finished"}) : h("span", {cls:"sr-only", text:"not started"})
+            h("span", {cls:"text-label-16 " + (st.done ? "font-semibold text-ink" : "text-muted"),
+                       text:st.label}),
+            h("span", {cls:"sr-only", text: st.done ? "finished" : "not started"})
           ]);
         })
       );
 
-      var inner = [stepList];
-      if(s.thumb){
-        var fig = h("figure", {cls:"relative m-0 mt-4"}, [
-          h("img", {cls:"block aspect-3/2 w-full rounded-xl border border-line-soft object-cover",
-                    attrs:{src:s.thumb, alt:s.name + ", " + s.where, width:"600", height:"400", loading:"lazy"}})
-        ]);
-        if(s.thumbLabel){
-          fig.appendChild(h("figcaption", {
-            cls:"text-label-12 absolute left-3 top-3 rounded-md border border-line bg-surface px-2.5 py-1 font-bold tracking-[0.09em] text-muted uppercase",
-            text:s.thumbLabel}));
-        }
-        inner.push(fig);
-      }
-      inner.push(h("p", {cls:"text-copy-17 mt-4 mb-0 text-muted", text:s.status}));
-
       var panel = h("div", {cls:"u-panel", attrs:{id:panelId, role:"region", "aria-label":s.name}}, [
-        h("div", null, [ h("div", {cls:"pad-card pb-5"}, inner) ])
+        h("div", null, [ h("div", {cls:"pad-card pb-4"}, [stepList]) ])
       ]);
 
       var row = h("div", {
         cls:"border-t border-line-soft first:border-t-0",
-        attrs:{"data-open": i === 0 ? "true" : "false"}
-      }, [
-        h("div", {cls:"text-label-13 pad-card pt-3 text-muted", text:s.where}),
-        trigger, panel
-      ]);
+        attrs:{"data-open":"false"}
+      }, [trigger, panel]);
 
       trigger.addEventListener("click", function(){
         var isOpen = row.getAttribute("data-open") === "true";
-        /* one open at a time, the Geist CollapseGroup default */
         rows.forEach(function(r){
           r.setAttribute("data-open", "false");
           r.querySelector("button").setAttribute("aria-expanded", "false");
@@ -430,6 +423,70 @@
     });
 
     fill(el("signList"), rows);
+  })();
+
+  /* ---------- sign cards ----------
+     Where the depth lives: the photo of that spot, the full stepper, the
+     status in Spencer's voice, and the concrete facts. */
+  (function(){
+    fill(el("signs"), D.signs.map(function(s){
+      var kids = [];
+
+      if(s.thumb){
+        var fig = h("figure", {cls:"relative m-0"}, [
+          h("img", {cls:"block aspect-3/2 w-full border-b border-line-soft object-cover",
+                    attrs:{src:s.thumb, alt:s.name + ", " + s.where,
+                           width:"600", height:"400", loading:"lazy"}})
+        ]);
+        if(s.thumbLabel){
+          fig.appendChild(h("figcaption", {
+            cls:"text-label-12 absolute left-3 top-3 rounded-md border border-line bg-surface px-2.5 py-1 font-bold tracking-[0.09em] text-muted uppercase",
+            text:s.thumbLabel}));
+        }
+        kids.push(fig);
+      }
+
+      /* horizontal stepper, the version that reads at a glance */
+      var stepper = h("ol", {cls:"mt-4 flex list-none p-0", attrs:{role:"list"}},
+        s.steps.map(function(st, idx){
+          var line = idx === 0 ? null :
+            h("span", {cls:"absolute left-[-50%] top-[11px] -z-px h-0.5 w-full " +
+                          (st.done ? "bg-ink" : "bg-line"), attrs:{"aria-hidden":"true"}});
+          return h("li", {cls:"relative flex min-w-0 flex-1 flex-col items-center text-center"}, [
+            line,
+            h("span", {
+              cls:"relative z-[1] flex size-6 items-center justify-center rounded-full border-2 " +
+                  (st.done ? "border-ink bg-ink" : "border-line bg-surface"),
+              attrs:{"aria-hidden":"true"}
+            }, st.done ? [check("var(--umm-bg)", "size-3")] : []),
+            h("span", {cls:"text-label-12 mt-2 max-w-[9ch] " +
+                          (st.done ? "font-semibold text-ink" : "text-muted"), text:st.label}),
+            h("span", {cls:"sr-only", text: st.done ? "finished" : "not started"})
+          ]);
+        })
+      );
+
+      var body = [
+        h("h3", {cls:"text-heading-20", text:s.name}),
+        h("p",  {cls:"text-label-14 mt-1 text-muted", text:s.where}),
+        stepper,
+        h("p",  {cls:"text-copy-17 mt-4 text-muted", text:s.status})
+      ];
+
+      if(s.facts && s.facts.length){
+        body.push(h("dl", {cls:"mt-4 border-t border-line-soft pt-3"},
+          s.facts.reduce(function(acc, f){
+            acc.push(h("dt", {cls:"text-label-12 mt-2.5 font-bold tracking-[0.09em] text-muted uppercase first:mt-0",
+                              text:f.label}));
+            acc.push(h("dd", {cls:"text-copy-16 mt-0.5 ml-0 text-ink", text:f.value}));
+            return acc;
+          }, [])
+        ));
+      }
+
+      kids.push(h("div", {cls:"pad-card flex flex-1 flex-col py-5"}, body));
+      return h("article", {cls:"material-flush flex flex-col"}, kids);
+    }));
   })();
 
   /* ---------- needs ---------- */
