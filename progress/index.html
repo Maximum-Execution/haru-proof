@@ -10,7 +10,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=6">
+<link rel="stylesheet" href="app.css?v=7">
 </head>
 <body class="m-0 pb-16">
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
@@ -142,7 +142,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=6"></script>
+<script src="data.js?v=7"></script>
 <script>
 (function(){
   "use strict";
@@ -372,9 +372,10 @@
         cls:"pad-card flex w-full cursor-pointer items-center gap-3 py-3 text-left transition-colors hover:bg-line-soft",
         attrs:{type:"button", "aria-expanded":"false", "aria-controls":panelId}
       }, [
+        /* never truncate: the sign name is the whole point of the row */
         h("span", {cls:"min-w-0 flex-1"}, [
-          h("span", {cls:"text-label-16 block truncate font-semibold", text:s.name}),
-          h("span", {cls:"text-label-13 mt-0.5 block truncate text-muted", text:s.short})
+          h("span", {cls:"text-label-16 block font-semibold", text:s.name}),
+          h("span", {cls:"text-label-13 mt-0.5 block text-muted", text:s.short})
         ]),
         h("span", {cls:"flex flex-none gap-1", attrs:{"aria-hidden":"true"}}, dots),
         h("span", {cls:"text-label-13 min-w-[4.5ch] flex-none text-right font-mono text-muted tabular-nums",
