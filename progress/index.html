@@ -532,7 +532,8 @@
 
   /* ---------- needs ---------- */
   (function(){
-    var open = D.needs.filter(function(n){ return n.state !== "received"; });
+    var open = D.needs.filter(function(n){ return n.state === "needed"; });
+    var opt  = D.needs.filter(function(n){ return n.state === "optional"; });
     var got  = D.needs.filter(function(n){ return n.state === "received"; });
     var rows = [];
 
@@ -557,6 +558,28 @@
         ])
       ]));
     });
+    /* optional: a nice-to-have, never a nag. Quiet row, dashed ring, no red. */
+    if(opt.length){
+      rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-muted uppercase",
+        attrs:{"aria-hidden":"true"}, text:"Only if you want it"}));
+      opt.forEach(function(n){
+        var row = h("li", {cls:"pad-card flex items-start gap-3.5 py-3"}, [
+          h("span", {cls:"mt-0.5 size-[22px] flex-none rounded-full border-2 border-dashed border-figure",
+                     attrs:{"aria-hidden":"true"}}),
+          h("div", {cls:"min-w-0"}, [
+            h("div", {cls:"flex flex-wrap items-baseline gap-2.5"}, [
+              h("span", {cls:"text-label-16 font-semibold", text:n.item}),
+              h("span", {cls:"text-label-12 rounded-full border border-line px-2.5 py-0.5 font-bold tracking-[0.1em] whitespace-nowrap text-muted uppercase",
+                         text:n.owner})
+            ]),
+            h("p", {cls:"text-copy-16 mt-1 mb-0 max-w-[52ch] text-muted", text:n.note})
+          ])
+        ]);
+        row.setAttribute("aria-label", "Optional, from " + n.owner + ": " + n.item + ". " + n.note);
+        rows.push(row);
+      });
+    }
+
     if(got.length){
       rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-muted uppercase",
         attrs:{"aria-hidden":"true"}, text:"Already in hand"}));

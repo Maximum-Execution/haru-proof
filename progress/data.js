@@ -24,9 +24,13 @@
      status       one or two short sentences, card only
      facts[]      {label, value} - 2 or 3 concrete details, card only
 
-   needs[]        state "needed" renders big with a red mark (client's move);
-                  "received" collapses to a small checked line. NEVER delete
-                  received items. Answered asks make the next ask easy.
+   needs[]        THREE states:
+                  "needed"   big, red mark. A real blocker. Their move.
+                  "optional" quiet row, no red. A nice-to-have, never a nag.
+                  "received" small checked line under "Already in hand".
+                  NEVER delete received items. Answered asks make the next
+                  ask easy. If nothing is "needed", the section says so
+                  outright, which is a good thing for a client to read.
 
    currentPhoto   THE photo of the storefront right now. One picture, replaced
                   each time a newer one exists. Drop new shots in
@@ -76,10 +80,10 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "In the darker green you picked. Your real font if it arrives in time.",
+      status: "In the darker green you picked, drawn to match your logo.",
       facts: [
         { label: "Size",    value: "33.5 inches wide, 9.5 inches tall" },
-        { label: "Font",    value: "A close match for now, your real font if it arrives" },
+        { label: "Numbers", value: "Drawn to match your logo" },
         { label: "Reads from", value: "95 feet, the whole block front" }
       ]
     },
@@ -125,10 +129,10 @@ window.HARU = {
 
   needs: [
     {
-      item: "The font name",
+      item: "Your font",
       owner: "Lea",
-      state: "needed",
-      note: "I need it for the 3030, and for any lettering inside later. The name alone works. The files are even better."
+      state: "optional",
+      note: "Only if you want me to design the inside signs. If your designer is doing them, I do not need anything."
     },
     {
       item: "The logo files",
@@ -151,6 +155,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 15", text: "The 3030 is settled. Nothing is waiting on you." },
     { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
     { date: "August 15", text: "All paint and materials bought and on the truck." },
     { date: "August 14", text: "Deposit received. Thank you, Kim." },
