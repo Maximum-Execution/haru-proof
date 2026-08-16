@@ -178,10 +178,27 @@
   [data-open="true"] .u-chev{ transform: rotate(180deg); }
 
   .u-ring-fill{ transition: stroke-dashoffset 1.1s cubic-bezier(.25,1,.5,1); }
+
+  /* ---- photo strip: horizontal snap scroll -------------------------------
+     scroll-padding-inline-end leaves a sliver of the next thumb visible, so
+     the strip reads as scrollable instead of looking flush and finished.   */
+  .u-strip{
+    display:flex; gap:10px; overflow-x:auto; scroll-snap-type:x mandatory;
+    scroll-padding-inline: 0 2rem;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    padding-bottom:4px;
+  }
+  .u-strip::-webkit-scrollbar{ display:none; }
+  .u-strip > *{ scroll-snap-align:start; flex:none; }
 }
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{ animation:none !important; transition:none !important; }
   .u-pre{ opacity:1; transform:none; }
-  .u-panel{ grid-template-rows:1fr; }
+  /* NOTE: do NOT force .u-panel open here. The blanket transition:none above
+     already removes the animation; setting grid-template-rows:1fr would also
+     defeat the collapse itself, leaving every disclosure permanently expanded
+     while its trigger still reports aria-expanded="false". That bug shipped
+     once - see the plan file. Closed stays closed; [data-open=true] opens. */
+  .u-strip{ scroll-behavior:auto; }
 }

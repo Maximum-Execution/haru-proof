@@ -32,9 +32,20 @@
                   ask easy. If nothing is "needed", the section says so
                   outright, which is a good thing for a client to read.
 
-   currentPhoto   THE photo of the storefront right now. One picture, replaced
-                  each time a newer one exists. Drop new shots in
-                  04-working/PROGRESSION, then point this at the web copy.
+   photos[]       The storefront over time, NEWEST FIRST. photos[0] is the
+                  default hero; the rest become the swipe strip beneath it.
+                  NEVER delete an older photo - the before/after is the whole
+                  point, and the empty-wall shot only gets more valuable.
+                    src     1500x1000 hero (3:2)
+                    thumb   300x200 strip thumbnail (3:2)
+                    date    short human label, e.g. "August 16"
+                    caption client voice, one short line, shown under the hero
+                    alt     DESCRIBES THE FRAME for screen readers. Must NOT
+                            repeat the caption or it gets announced twice.
+                  Drop raw shots in 04-working/PROGRESSION; only web-sized
+                  derivatives go in web/img/progress/.
+                  TIP: shoot from the same spot every time and the before/after
+                  lines up by itself.
 
    materials[]    Craft cards. Add one when a decision is worth showing.
    decisions[]    One line each.
@@ -43,15 +54,15 @@
 
 window.HARU = {
 
-  updated: "Saturday, August 15",
+  updated: "Sunday, August 16",
 
-  rightNow: "Two of your three patterns are punched and ready for the wall.",
-  next: "Tomorrow I paint your Japanese and Korean letters, and the green panel your name sits on.",
+  rightNow: "Your Japanese and Korean letters are painted and finished.",
+  next: "The green panel is up and curing. Tomorrow I paint the 3030 above your door.",
 
   signs: [
     {
       name: "The Haru sign",
-      short: "Panel goes on tomorrow",
+      short: "Panel painted, curing",
       where: "Front wall, West Cary Street",
       thumb: "../img/progress/now-haru.jpg",
       thumbLabel: "The wall today",
@@ -61,7 +72,7 @@ window.HARU = {
         { label: "On the wall", done: false },
         { label: "Painted", done: false }
       ],
-      status: "This empty wall is about to carry your name.",
+      status: "The green panel is painted and curing. Your name goes on top of it.",
       facts: [
         { label: "Size",    value: "12 feet wide, 6 feet tall. Your name 32 inches" },
         { label: "Finish",  value: "Flat green, gloss white" },
@@ -70,7 +81,7 @@ window.HARU = {
     },
     {
       name: "The 3030",
-      short: "Pattern ready",
+      short: "Painting Monday",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
       thumbLabel: "The wall today",
@@ -89,17 +100,17 @@ window.HARU = {
     },
     {
       name: "Haru in Japanese and Korean",
-      short: "Painting tomorrow",
+      short: "Finished",
       where: "By the front window",
       thumb: "../img/progress/now-characters.jpg",
-      thumbLabel: "The wall today",
+      thumbLabel: "Painted",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
-        { label: "On the wall", done: false },
-        { label: "Painted", done: false }
+        { label: "On the wall", done: true },
+        { label: "Painted", done: true }
       ],
-      status: "White letters on the green panel, the exact forms you approved.",
+      status: "Done. White on your green, the exact forms you approved.",
       facts: [
         { label: "Size",    value: "Each character 12 to 13 inches tall" },
         { label: "Finish",  value: "Gloss white on your green" },
@@ -155,6 +166,8 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 16", text: "Japanese and Korean letters painted and finished. Your first sign is done." },
+    { date: "August 16", text: "Green panel painted on the front wall. It cures for a few days before your name goes on." },
     { date: "August 15", text: "The 3030 is settled. Nothing is waiting on you." },
     { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
     { date: "August 15", text: "All paint and materials bought and on the truck." },
@@ -178,11 +191,22 @@ window.HARU = {
     { date: "April 29",  text: "Haru project opened." }
   ],
 
-  currentPhoto: {
-    src: "../img/progress/front-2026-08-14.jpg",
-    date: "August 14",
-    caption: "Your storefront right now, before the first letter goes up."
-  },
+  photos: [
+    {
+      src:   "../img/progress/front-2026-08-16.jpg",
+      thumb: "../img/progress/thumb-2026-08-16.jpg",
+      date: "August 16",
+      caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
+      alt: "The Haru storefront on West Cary Street. White Japanese and Korean characters are painted on the green wall beside the front window, and a large green rectangle has been painted on the upper white wall where the main sign will go."
+    },
+    {
+      src:   "../img/progress/front-2026-08-14.jpg",
+      thumb: "../img/progress/thumb-2026-08-14.jpg",
+      date: "August 14",
+      caption: "Where we started. Nothing on the walls yet.",
+      alt: "The same storefront before any sign work. The upper wall is plain white and the green lower wall beside the window is bare."
+    }
+  ],
 
   /* Titles are the benefit, so a scanner knows what is inside before opening.
      Bodies stay under about 60 words. These clients do not read long. */

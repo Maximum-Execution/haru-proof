@@ -36,17 +36,25 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=15">
+<link rel="stylesheet" href="app.css?v=16">
 </head>
 <body class="m-0 pb-16">
+<a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
 <div class="relative z-[1] mx-auto max-w-[660px] px-5 pt-5 pb-6 sm:px-10 sm:pt-10 md:max-w-[900px]"
      style="padding-left:max(1.25rem,env(safe-area-inset-left));padding-right:max(1.25rem,env(safe-area-inset-right))">
 
   <!-- ===================== HEADER ===================== -->
-  <header class="u-rise flex items-start justify-between gap-4">
-    <div>
+  <header class="u-rise">
+    <!-- Wordmark and theme switcher share one row; the heading gets the FULL
+         width beneath them. Previously the switcher was a flex sibling of the
+         heading and squeezed it into ~212px on a 390px phone. -->
+    <div class="flex items-center justify-between gap-4">
       <img src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media"
            class="block h-6 w-auto" style="filter:invert(var(--umm-wordmark-invert))">
+      <div id="themeSwitch" role="radiogroup" aria-label="Color theme"
+           class="flex flex-none items-center gap-0.5 rounded-full border border-line bg-surface p-1"></div>
+    </div>
+    <div>
       <h1 class="text-heading-32 sm:text-heading-40 mt-5 max-w-[14ch] text-balance">Your signs, underway</h1>
       <p class="text-copy-18 mt-3 max-w-[44ch] text-muted">Where your job stands, any time you look.</p>
       <p class="text-label-16 mt-4 flex items-start gap-2.5 text-muted">
@@ -54,10 +62,6 @@
         <span id="fresh"></span>
       </p>
     </div>
-    <!-- Geist Theme Switcher: a segmented control, three options, System included.
-         Built as a radiogroup so arrow keys move between options like a real one. -->
-    <div id="themeSwitch" role="radiogroup" aria-label="Color theme"
-         class="flex flex-none items-center gap-0.5 rounded-full border border-line bg-surface p-1"></div>
   </header>
 
   <noscript>
@@ -67,6 +71,7 @@
     </div>
   </noscript>
 
+  <main>
   <!-- ===================== THE WHOLE JOB ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="glanceH">
     <p class="text-eyebrow text-muted">The whole job</p>
@@ -95,7 +100,7 @@
       </div>
     </div>
 
-    <div id="weather" class="mt-8 empty:hidden"></div>
+    <div id="weather" class="mt-8 empty:hidden" aria-live="polite"></div>
   </section>
 
   <!-- ===================== SIGN CARDS ===================== -->
@@ -117,8 +122,10 @@
   <!-- ===================== THE STOREFRONT NOW ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
     <p class="text-eyebrow text-muted">Your storefront</p>
-    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">How it looks today</h2>
-    <figure id="phero" class="mt-6"></figure>
+    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
+    <figure id="phero" class="mt-6" aria-live="polite"></figure>
+    <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
   </section>
 
   <!-- ===================== THE RECORD ===================== -->
@@ -163,10 +170,12 @@
     <div id="actions" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
   </section>
 
+  </main>
+
   <footer class="mt-16 border-t border-line pt-6">
     <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
       Spencer Bennett &middot; Untitled Mixed Media LLC<br>
-      <a id="mail" href="#" class="inline-block min-h-11 py-3 text-inherit"></a>
+      <a id="mail" href="mailto:hello@untitledmixedmedia.com" class="inline-block min-h-11 py-3 text-inherit">hello@untitledmixedmedia.com</a>
     </p>
     <p class="text-label-14 my-2.5 max-w-[64ch] leading-relaxed text-muted">
       This page keeps you updated. It is the quick version. Your exact scope, price, and
@@ -182,7 +191,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=15"></script>
+<script src="data.js?v=16"></script>
 <script>
 (function(){
   "use strict";
@@ -280,7 +289,7 @@
         btns[k].setAttribute("aria-checked", on ? "true" : "false");
         btns[k].setAttribute("tabindex", on ? "0" : "-1");
         btns[k].className =
-          "flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors " +
+          "flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors " +
           (on ? "bg-line text-ink" : "text-muted hover:text-ink");
       });
     }
@@ -305,6 +314,8 @@
         var i = ORDER.indexOf(k), n = null;
         if(ev.key === "ArrowRight" || ev.key === "ArrowDown"){ n = (i + 1) % ORDER.length; }
         if(ev.key === "ArrowLeft"  || ev.key === "ArrowUp"){   n = (i + ORDER.length - 1) % ORDER.length; }
+        if(ev.key === "Home"){ n = 0; }
+        if(ev.key === "End"){  n = ORDER.length - 1; }
         if(n === null){ return; }
         ev.preventDefault();
         choice = ORDER[n];
@@ -459,6 +470,14 @@
           trigger.setAttribute("aria-expanded", "true");
         }
       });
+      /* Escape closes the open panel and keeps focus where the user is */
+      trigger.addEventListener("keydown", function(ev){
+        if(ev.key !== "Escape"){ return; }
+        if(row.getAttribute("data-open") !== "true"){ return; }
+        ev.preventDefault();
+        row.setAttribute("data-open", "false");
+        trigger.setAttribute("aria-expanded", "false");
+      });
 
       rows.push(row);
     });
@@ -491,7 +510,7 @@
       var stepper = h("ol", {cls:"mt-4 flex list-none p-0", attrs:{role:"list"}},
         s.steps.map(function(st, idx){
           var line = idx === 0 ? null :
-            h("span", {cls:"absolute left-[-50%] top-[11px] -z-px h-0.5 w-full " +
+            h("span", {cls:"absolute left-[-50%] top-[11px] -z-10 h-0.5 w-full " +
                           (st.done ? "bg-ink" : "bg-line"), attrs:{"aria-hidden":"true"}});
           return h("li", {cls:"relative flex min-w-0 flex-1 flex-col items-center text-center"}, [
             line,
@@ -561,7 +580,7 @@
     /* optional: a nice-to-have, never a nag. Quiet row, dashed ring, no red. */
     if(opt.length){
       rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-muted uppercase",
-        attrs:{"aria-hidden":"true"}, text:"Only if you want it"}));
+        text:"Only if you want it"}));
       opt.forEach(function(n){
         var row = h("li", {cls:"pad-card flex items-start gap-3.5 py-3"}, [
           h("span", {cls:"mt-0.5 size-[22px] flex-none rounded-full border-2 border-dashed border-figure",
@@ -582,7 +601,7 @@
 
     if(got.length){
       rows.push(h("li", {cls:"text-label-12 pad-card border-t border-line-soft pt-3.5 pb-1 font-bold tracking-[0.11em] text-muted uppercase",
-        attrs:{"aria-hidden":"true"}, text:"Already in hand"}));
+        text:"Already in hand"}));
       got.forEach(function(n, i){
         var t = h("span", {cls:"text-copy-16 text-muted"});
         t.appendChild(h("b", {cls:"font-semibold", text:n.item + ". "}));
@@ -658,18 +677,67 @@
     host.appendChild(btn);
   })();
 
-  /* ---------- the storefront right now: one photo ---------- */
+  /* ---------- the storefront over time: hero + swipe strip ----------
+     One large photo with a scrollable row of days beneath it. Thumbnails are
+     real buttons so they are keyboard reachable; the hero is aria-live so a
+     swap is announced rather than silently replaced. Each photo carries its
+     own alt describing the FRAME, distinct from the caption, so a screen
+     reader is not read the same sentence twice. */
   (function(){
-    var p = D.currentPhoto;
-    if(!p){ return; }
-    fill(el("phero"), [
-      h("img", {cls:"block h-auto w-full rounded-2xl border border-line",
-                attrs:{src:p.src, alt:p.caption}}),
-      h("figcaption", {cls:"text-copy-17 mt-3 text-muted"}, [
-        h("b", {cls:"font-semibold text-ink", text:p.date + "."}),
-        document.createTextNode(" " + p.caption)
-      ])
-    ]);
+    var list = D.photos || [];
+    if(!list.length){ return; }
+    var hero = el("phero"), strip = el("pstrip"), current = 0;
+
+    function paintHero(i){
+      var p = list[i];
+      fill(hero, [
+        h("img", {cls:"block h-auto w-full rounded-2xl border border-line",
+                  attrs:{src:p.src, alt:p.alt || p.caption,
+                         width:"1500", height:"1000"}}),
+        h("figcaption", {cls:"text-copy-17 mt-3 text-muted"}, [
+          h("b", {cls:"font-semibold text-ink", text:p.date + "."}),
+          document.createTextNode(" " + p.caption)
+        ])
+      ]);
+    }
+
+    function select(i){
+      if(i === current){ return; }
+      current = i;
+      paintHero(i);
+      Array.prototype.forEach.call(strip.querySelectorAll("button"), function(btn, n){
+        var on = n === i;
+        btn.setAttribute("aria-current", on ? "true" : "false");
+        btn.className = thumbCls(on);
+      });
+    }
+    function thumbCls(on){
+      return "relative flex-none cursor-pointer rounded-xl border-2 p-0 " +
+             "transition-colors " + (on ? "border-ink" : "border-line hover:border-muted");
+    }
+
+    paintHero(0);
+
+    /* only build the strip when there is more than one day to choose from */
+    if(list.length > 1){
+      fill(strip, list.map(function(p, i){
+        var btn = h("button", {
+          cls: thumbCls(i === 0),
+          attrs:{type:"button", "aria-current": i === 0 ? "true" : "false",
+                 "aria-label": "Show " + p.date}
+        }, [
+          h("img", {cls:"block w-[132px] rounded-[10px]",
+                    attrs:{src:p.thumb || p.src, alt:"",
+                           width:"300", height:"200", loading:"lazy"}}),
+          h("span", {cls:"text-label-12 block px-2 py-1.5 font-bold tracking-[0.06em] text-muted uppercase",
+                     text:p.date})
+        ]);
+        btn.addEventListener("click", function(){ select(i); });
+        return btn;
+      }));
+    } else {
+      strip.classList.add("hidden");
+    }
   })();
 
   /* ---------- materials ---------- */
