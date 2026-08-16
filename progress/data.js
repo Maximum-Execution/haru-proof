@@ -32,8 +32,10 @@
                   ask easy. If nothing is "needed", the section says so
                   outright, which is a good thing for a client to read.
 
-   photos[]       The storefront over time, NEWEST FIRST. photos[0] is the
-                  default hero; the rest become the swipe strip beneath it.
+   photos[]       The storefront over time, OLDEST FIRST - a timeline reads
+                  left to right. The strip shows them in that order; the HERO
+                  opens on the LAST one, so they see today first and can walk
+                  backwards. Add a new day by pasting a block at the BOTTOM.
                   NEVER delete an older photo - the before/after is the whole
                   point, and the empty-wall shot only gets more valuable.
                     src     1500x1000 hero (3:2)
@@ -193,18 +195,18 @@ window.HARU = {
 
   photos: [
     {
-      src:   "../img/progress/front-2026-08-16.jpg",
-      thumb: "../img/progress/thumb-2026-08-16.jpg",
-      date: "August 16",
-      caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
-      alt: "The Haru storefront on West Cary Street. White Japanese and Korean characters are painted on the green wall beside the front window, and a large green rectangle has been painted on the upper white wall where the main sign will go."
-    },
-    {
       src:   "../img/progress/front-2026-08-14.jpg",
       thumb: "../img/progress/thumb-2026-08-14.jpg",
       date: "August 14",
       caption: "Where we started. Nothing on the walls yet.",
-      alt: "The same storefront before any sign work. The upper wall is plain white and the green lower wall beside the window is bare."
+      alt: "The Haru storefront before any sign work. The upper wall is plain white and the green lower wall beside the window is bare."
+    },
+    {
+      src:   "../img/progress/front-2026-08-16.jpg",
+      thumb: "../img/progress/thumb-2026-08-16.jpg",
+      date: "August 16",
+      caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
+      alt: "The same storefront with white Japanese and Korean characters painted on the green wall beside the front window, and a large green rectangle painted on the upper white wall where the main sign will go."
     }
   ],
 
@@ -212,10 +214,11 @@ window.HARU = {
      Bodies stay under about 60 words. These clients do not read long. */
   materials: [
     {
-      title: "Readable from every angle",
+      title: "Readable in every light",
       body: [
-        "Nobody reads your sign straight on. They see it from the side, walking past.",
-        "So the green goes flat and the letters go glossy. The two never catch light the same way, and your name stays sharp from anywhere on the sidewalk. If it were all shiny, sun would flare off the whole thing at once and your name would vanish.",
+        "People see your sign from across Cary Street, from the sidewalk, and from passing cars. And the sun moves all day.",
+        "If it were all glossy, sun would flare off the whole thing at once and your name would vanish into the shine. If it were all flat, the only thing separating white from green is the color, and that difference is weaker than it looks.",
+        "So the green goes flat and the letters go glossy. The green never glares. The white brightens when light hits it. They never behave the same way, so your name stays separate from the background in any light.",
         "Most shops use one finish for everything. Doing it right costs nothing but knowing."
       ]
     },

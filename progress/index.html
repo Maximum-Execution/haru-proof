@@ -36,7 +36,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=17">
+<link rel="stylesheet" href="app.css?v=18">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -103,6 +103,17 @@
     <div id="weather" class="mt-8 empty:hidden" aria-live="polite"></div>
   </section>
 
+  <!-- ===================== THE STOREFRONT NOW ===================== -->
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
+    <p class="text-eyebrow text-muted">Your storefront</p>
+    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
+    <!-- aria-live is added by JS AFTER the first render. In static markup it
+         makes VoiceOver read the caption unprompted the moment the page opens. -->
+    <figure id="phero" class="mt-6"></figure>
+    <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
+  </section>
+
   <!-- ===================== SIGN CARDS ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="signsH">
     <p class="text-eyebrow text-muted">Sign by sign</p>
@@ -117,17 +128,6 @@
     <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Where I need you</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Anything I need from you shows up in red here.</p>
     <ul id="needs" role="list" class="material-flush mt-6 list-none p-0"></ul>
-  </section>
-
-  <!-- ===================== THE STOREFRONT NOW ===================== -->
-  <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
-    <p class="text-eyebrow text-muted">Your storefront</p>
-    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
-    <!-- aria-live is added by JS AFTER the first render. In static markup it
-         makes VoiceOver read the caption unprompted the moment the page opens. -->
-    <figure id="phero" class="mt-6"></figure>
-    <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
   </section>
 
   <!-- ===================== THE RECORD ===================== -->
@@ -193,7 +193,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=17"></script>
+<script src="data.js?v=18"></script>
 <script>
 (function(){
   "use strict";
@@ -686,7 +686,10 @@
   (function(){
     var list = D.photos || [];
     if(!list.length){ return; }
-    var hero = el("phero"), strip = el("pstrip"), current = 0;
+    /* Strip is chronological (oldest to newest) because a timeline reads left
+       to right. The hero opens on the LAST one so they see today first and can
+       walk backwards through it. */
+    var hero = el("phero"), strip = el("pstrip"), current = list.length - 1;
 
     function paintHero(i){
       var p = list[i];
@@ -716,7 +719,7 @@
              "transition-colors " + (on ? "border-ink" : "border-line hover:border-muted");
     }
 
-    paintHero(0);
+    paintHero(current);
     /* Live region goes on AFTER the first paint: opening the page stays silent,
        and only a real swap gets announced. */
     hero.setAttribute("aria-live", "polite");
@@ -725,9 +728,10 @@
     /* only build the strip when there is more than one day to choose from */
     if(list.length > 1){
       fill(strip, list.map(function(p, i){
+        var isNewest = i === current;
         var btn = h("button", {
-          cls: thumbCls(i === 0),
-          attrs:{type:"button", "aria-current": i === 0 ? "true" : "false",
+          cls: thumbCls(isNewest),
+          attrs:{type:"button", "aria-current": isNewest ? "true" : "false",
                  "aria-label": "Show " + p.date}
         }, [
           h("img", {cls:"block w-[132px] rounded-[10px]",
@@ -745,6 +749,8 @@
         });
         return btn;
       }));
+      /* Land on today when the strip is long enough to scroll. */
+      strip.scrollLeft = strip.scrollWidth;
     } else {
       strip.classList.add("hidden");
     }
