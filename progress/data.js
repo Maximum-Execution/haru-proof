@@ -170,7 +170,6 @@ window.HARU = {
   log: [
     { date: "August 16", text: "Japanese and Korean letters painted and finished. Your first sign is done." },
     { date: "August 16", text: "Green panel painted on the front wall. It cures for a few days before your name goes on." },
-    { date: "August 15", text: "The 3030 is settled. Nothing is waiting on you." },
     { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
     { date: "August 15", text: "All paint and materials bought and on the truck." },
     { date: "August 14", text: "Deposit received. Thank you, Kim." },
@@ -195,11 +194,18 @@ window.HARU = {
 
   photos: [
     {
+      src:   "../img/progress/front-2026-05-06.jpg",
+      thumb: "../img/progress/thumb-2026-05-06.jpg",
+      date: "May 6",
+      caption: "The first day I saw your building.",
+      alt: "The same corner storefront before the renovation. The upper wall is mustard yellow, the lower storefront is white with a yellow door, and the window still carries the previous shop's lettering."
+    },
+    {
       src:   "../img/progress/front-2026-08-14.jpg",
       thumb: "../img/progress/thumb-2026-08-14.jpg",
       date: "August 14",
-      caption: "Where we started. Nothing on the walls yet.",
-      alt: "The Haru storefront before any sign work. The upper wall is plain white and the green lower wall beside the window is bare."
+      caption: "Your green is on. The walls are ready for me.",
+      alt: "The storefront after your painters finished. The upper wall is plain white, the lower wall is green, and no signs are painted yet."
     },
     {
       src:   "../img/progress/front-2026-08-16.jpg",
