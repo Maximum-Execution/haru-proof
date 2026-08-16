@@ -36,7 +36,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=19">
+<link rel="stylesheet" href="app.css?v=20">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -56,7 +56,11 @@
     </div>
     <div>
       <h1 class="text-heading-32 sm:text-heading-40 mt-5 max-w-[14ch] text-balance">Your signs, underway</h1>
-      <p class="text-copy-18 mt-3 max-w-[44ch] text-muted">Where your job stands, any time you look.</p>
+      <!-- Computed from the sign data so it can never go stale. Answers the
+           three questions an anxious client actually opens this page with:
+           how much is done, how much is left, and is anything my job. -->
+      <p id="headline" class="text-copy-19 mt-3 max-w-[40ch] font-semibold"></p>
+      <p id="askline" class="text-copy-18 mt-2 max-w-[44ch] text-muted"></p>
       <p class="text-label-16 mt-4 flex items-start gap-2.5 text-muted">
         <span class="u-breathe mt-[9px] block size-2 flex-none rounded-full bg-accent" aria-hidden="true"></span>
         <span id="fresh"></span>
@@ -84,6 +88,17 @@
     </div>
   </section>
 
+  <!-- ===================== THE STOREFRONT NOW ===================== -->
+  <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
+    <p class="text-eyebrow text-muted">Your storefront</p>
+    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
+    <!-- aria-live is added by JS AFTER the first render. In static markup it
+         makes VoiceOver read the caption unprompted the moment the page opens. -->
+    <figure id="phero" class="mt-6"></figure>
+    <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
+  </section>
+
   <!-- ===================== TODAY ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="todayH">
     <p class="text-eyebrow text-muted">Today</p>
@@ -101,17 +116,6 @@
     </div>
 
     <div id="weather" class="mt-8 empty:hidden" aria-live="polite"></div>
-  </section>
-
-  <!-- ===================== THE STOREFRONT NOW ===================== -->
-  <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
-    <p class="text-eyebrow text-muted">Your storefront</p>
-    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
-    <!-- aria-live is added by JS AFTER the first render. In static markup it
-         makes VoiceOver read the caption unprompted the moment the page opens. -->
-    <figure id="phero" class="mt-6"></figure>
-    <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
   </section>
 
   <!-- ===================== SIGN CARDS ===================== -->
@@ -193,7 +197,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=19"></script>
+<script src="data.js?v=20"></script>
 <script>
 (function(){
   "use strict";
@@ -339,7 +343,43 @@
     }
   })();
 
-  /* ---------- header + pulse ---------- */
+  /* ---------- header: the three answers, computed ----------
+     Kim opens this page wanting to know one thing: is it going to be ready.
+     Lea opens it wanting to know it looks right. A percentage answers neither.
+     A count of finished signs answers the first and the photos answer the
+     second, so the count goes here and the photos come straight after. */
+  (function(){
+    var WORD = ["no","one","two","three","four","five","six"];
+    function count(n){ return WORD[n] !== undefined ? WORD[n] : String(n); }
+
+    /* outside signs only - the interior package is not part of opening day */
+    var outside = D.signs.filter(function(s){ return s.name.indexOf("inside") === -1; });
+    var done = outside.filter(function(s){
+      return s.steps.every(function(st){ return st.done; });
+    }).length;
+    var left = outside.length - done;
+
+    var line;
+    if(done === 0){
+      line = "All " + count(outside.length) + " of your outside signs are underway.";
+    } else if(left === 0){
+      line = "Every sign outside is finished.";
+    } else {
+      line = count(done).charAt(0).toUpperCase() + count(done).slice(1) +
+             (done === 1 ? " sign finished. " : " signs finished. ") +
+             count(left).charAt(0).toUpperCase() + count(left).slice(1) +
+             (left === 1 ? " more before you open." : " more before you open.");
+    }
+    el("headline").textContent = line;
+
+    /* The most reassuring sentence on the page when it is true. */
+    var needed = D.needs.filter(function(x){ return x.state === "needed"; });
+    el("askline").textContent = needed.length === 0
+      ? "Nothing needed from you."
+      : (needed.length === 1 ? "One thing needed from you, below."
+                             : count(needed.length) + " things needed from you, below.");
+  })();
+
   el("fresh").textContent    = "Updated " + D.updated;
   el("rightNow").textContent = D.rightNow;
   el("next").textContent     = D.next;
@@ -428,7 +468,11 @@
         /* never truncate: the sign name is the whole point of the row */
         h("span", {cls:"min-w-0 flex-1"}, [
           h("span", {cls:"text-label-16 block font-semibold", text:s.name}),
-          h("span", {cls:"text-label-13 mt-0.5 block text-muted", text:s.short})
+          /* A finished sign has to LOOK finished in a two-second scan. Dropping
+             text-muted lets it inherit full-strength ink, so the done row reads
+             brighter and heavier than the ones still in progress. */
+          h("span", {cls:"text-label-13 mt-0.5 block " +
+                         (d === s.steps.length ? "font-semibold" : "text-muted"), text:s.short})
         ]),
         h("span", {cls:"flex flex-none gap-1", attrs:{"aria-hidden":"true"}}, dots),
         h("span", {cls:"text-label-13 min-w-[4.5ch] flex-none text-right font-mono text-muted tabular-nums",
