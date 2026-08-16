@@ -36,7 +36,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=16">
+<link rel="stylesheet" href="app.css?v=17">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -52,7 +52,7 @@
       <img src="../img/wordmark_white.png" width="537" height="108" alt="Untitled Mixed Media"
            class="block h-6 w-auto" style="filter:invert(var(--umm-wordmark-invert))">
       <div id="themeSwitch" role="radiogroup" aria-label="Color theme"
-           class="flex flex-none items-center gap-0.5 rounded-full border border-line bg-surface p-1"></div>
+           class="flex flex-none items-center gap-1 rounded-full border border-line bg-surface p-1"></div>
     </div>
     <div>
       <h1 class="text-heading-32 sm:text-heading-40 mt-5 max-w-[14ch] text-balance">Your signs, underway</h1>
@@ -124,7 +124,9 @@
     <p class="text-eyebrow text-muted">Your storefront</p>
     <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
-    <figure id="phero" class="mt-6" aria-live="polite"></figure>
+    <!-- aria-live is added by JS AFTER the first render. In static markup it
+         makes VoiceOver read the caption unprompted the moment the page opens. -->
+    <figure id="phero" class="mt-6"></figure>
     <div id="pstrip" class="u-strip mt-4" role="group" aria-label="Choose a day to view"></div>
   </section>
 
@@ -191,7 +193,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=16"></script>
+<script src="data.js?v=17"></script>
 <script>
 (function(){
   "use strict";
@@ -594,7 +596,6 @@
             h("p", {cls:"text-copy-16 mt-1 mb-0 max-w-[52ch] text-muted", text:n.note})
           ])
         ]);
-        row.setAttribute("aria-label", "Optional, from " + n.owner + ": " + n.item + ". " + n.note);
         rows.push(row);
       });
     }
@@ -611,7 +612,6 @@
                      attrs:{"aria-hidden":"true"}}, [check("var(--umm-surface)", "size-2.5")]),
           t
         ]);
-        row.setAttribute("aria-label", "Received: " + n.item + ". " + n.note);
         rows.push(row);
       });
     }
@@ -717,6 +717,10 @@
     }
 
     paintHero(0);
+    /* Live region goes on AFTER the first paint: opening the page stays silent,
+       and only a real swap gets announced. */
+    hero.setAttribute("aria-live", "polite");
+    hero.setAttribute("aria-atomic", "true");
 
     /* only build the strip when there is more than one day to choose from */
     if(list.length > 1){
@@ -732,7 +736,13 @@
           h("span", {cls:"text-label-12 block px-2 py-1.5 font-bold tracking-[0.06em] text-muted uppercase",
                      text:p.date})
         ]);
-        btn.addEventListener("click", function(){ select(i); });
+        btn.addEventListener("click", function(){
+          select(i);
+          /* block:"nearest" is load-bearing - without it this scrolls the PAGE
+             vertically and yanks the hero out of view. */
+          btn.scrollIntoView({behavior: REDUCE ? "auto" : "smooth",
+                              inline:"nearest", block:"nearest"});
+        });
         return btn;
       }));
     } else {
