@@ -36,7 +36,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=20">
+<link rel="stylesheet" href="app.css?v=21">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -197,12 +197,37 @@
   </footer>
 </div>
 
-<script src="data.js?v=20"></script>
+<script src="data.js?v=21"></script>
 <script>
 (function(){
   "use strict";
   var D = window.HARU;
   if(!D){ return; }
+
+  /* ---------- sign order is computed here, never authored in data.js -------
+     Rule: signs render most-finished first, down to whatever has not been
+     started yet. Sorting once, here, is also what keeps the at-a-glance rows
+     and the cards below them in the SAME order - both read this one array,
+     and two lists of the same four signs in different orders would be worse
+     than either order alone.
+
+     Percent rather than raw step count, so a future sign with three steps
+     and one with five still compare fairly. Array.prototype.sort is stable,
+     so signs tied on percent keep the order they were written in data.js -
+     which makes the authoring order the tiebreaker rather than dead weight.
+
+     Everything else that reads D.signs (the ring, the header count) only
+     sums or filters, so it is order-independent and unaffected. */
+  function pctDone(s){
+    var n = s.steps ? s.steps.length : 0;
+    if(!n){ return 0; }
+    var d = 0;
+    s.steps.forEach(function(st){ if(st.done){ d++; } });
+    return d / n;
+  }
+  D.signs = (D.signs || []).slice().sort(function(a, b){
+    return pctDone(b) - pctDone(a);
+  });
 
   var SVGNS = "http://www.w3.org/2000/svg";
   var REDUCE = false;

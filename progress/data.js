@@ -14,6 +14,11 @@
    rightNow/next  One sentence each.
 
    signs[]        Drives BOTH the at-a-glance dropdown and the card below it.
+                  ORDER HERE DOES NOT SET DISPLAY ORDER. The page sorts them
+                  most-finished first, down to not-started, every time it
+                  loads. Tick a step off below and the sign climbs on its own.
+                  Order here only breaks ties between signs at equal percent,
+                  so keep related signs near each other and forget about it.
      name         client language
      short        2 to 5 words. The current state, read at a glance in the
                   dropdown row without opening anything. e.g. "Ready to print"
