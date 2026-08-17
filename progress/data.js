@@ -61,10 +61,10 @@
 
 window.HARU = {
 
-  updated: "Sunday, August 16",
+  updated: "Monday, August 17",
 
-  rightNow: "Your Japanese and Korean letters are painted and finished.",
-  next: "The green panel is up and curing. Tomorrow I paint the 3030 above your door.",
+  rightNow: "The rain left your wall wet this morning. Paint will not stick to a wet wall.",
+  next: "I come back later today, once it dries, to paint the 3030 above your door.",
 
   signs: [
     {
@@ -88,7 +88,7 @@ window.HARU = {
     },
     {
       name: "The 3030",
-      short: "Painting Monday",
+      short: "Waiting for a dry wall",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
       thumbLabel: "The wall today",
@@ -173,6 +173,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 17", text: "Rain left the wall too wet to paint. The 3030 waits for it to dry." },
     { date: "August 16", text: "Japanese and Korean letters painted and finished. Your first sign is done." },
     { date: "August 16", text: "Green panel painted on the front wall. It cures for a few days before your name goes on." },
     { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
