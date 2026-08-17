@@ -88,17 +88,17 @@ window.HARU = {
     },
     {
       name: "The 3030",
-      short: "Waiting for a dry wall",
+      short: "Ready to paint",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
       thumbLabel: "The wall today",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
-        { label: "On the wall", done: false },
+        { label: "On the wall", done: true },
         { label: "Painted", done: false }
       ],
-      status: "In the darker green you picked, drawn to match your logo.",
+      status: "The outline is on the wall now, in the darker green you picked. Paint goes on next.",
       facts: [
         { label: "Size",    value: "33.5 inches wide, 9.5 inches tall" },
         { label: "Numbers", value: "Drawn to match your logo" },
@@ -173,7 +173,8 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
-    { date: "August 17", text: "Rain left the wall too wet to paint. The 3030 waits for it to dry." },
+    { date: "August 17", text: "The 3030's outline is on the wall now. Ready for paint next." },
+    { date: "August 17", text: "Rain left the wall too wet to paint in the morning." },
     { date: "August 16", text: "Japanese and Korean letters painted and finished. Your first sign is done." },
     { date: "August 16", text: "Green panel painted on the front wall. It cures for a few days before your name goes on." },
     { date: "August 15", text: "Patterns punched for the 3030 and the Japanese and Korean letters." },
