@@ -63,8 +63,8 @@ window.HARU = {
 
   updated: "Monday, August 17",
 
-  rightNow: "The rain left your wall wet this morning. Paint will not stick to a wet wall.",
-  next: "I come back later today, once it dries, to paint the 3030 above your door.",
+  rightNow: "I am making the pattern for your Haru sign and the wording underneath it.",
+  next: "Once that is ready, I paint the 3030 and put your name up.",
 
   signs: [
     {
