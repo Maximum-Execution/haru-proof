@@ -5,6 +5,14 @@
    To update: edit below, commit, push. Live in about a minute.
    Never edit index.html for a content change, and never rebuild CSS for one.
 
+   ALWAYS RUN THIS BEFORE COMMITTING:
+       node --check web/progress/data.js
+   This file is JavaScript, not JSON. One missing comma between top-level keys
+   is a syntax error, window.HARU never gets assigned, and the page renders
+   COMPLETELY BLANK - no error visible to the client, just an empty screen.
+   A dropped comma after `next` shipped this way once. Two seconds of checking
+   prevents the worst possible failure mode on a page a client is watching.
+
    WRITING RULES: short sentences, plain words, no idioms. Kim and Lea read
    English as a second language. Clear beats clever. Never name exact times of
    night or day counts we might have to walk back. "Late at night" always holds.
@@ -61,10 +69,10 @@
 
 window.HARU = {
 
-  updated: "Monday, August 17",
+  updated: "Tuesday, August 18",
 
-  rightNow: "I am making the pattern for your Haru sign and the wording above it.",
-  next: "Once that is ready, I paint the 3030 and put your name up.",
+  rightNow: "Your 3030 above the door is painted and finished.",
+  next: "Your name goes up on the green panel. That is the last one outside.",
 
   signs: [
     {
@@ -88,17 +96,17 @@ window.HARU = {
     },
     {
       name: "The 3030",
-      short: "Ready to paint",
+      short: "Finished",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
-      thumbLabel: "The wall today",
+      thumbLabel: "Painted",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
         { label: "On the wall", done: true },
-        { label: "Painted", done: false }
+        { label: "Painted", done: true }
       ],
-      status: "The outline is on the wall now, in the darker green you picked. Paint goes on next.",
+      status: "Done. Two coats, in the darker green you picked.",
       facts: [
         { label: "Size",    value: "33.5 inches wide, 9.5 inches tall" },
         { label: "Numbers", value: "Drawn to match your logo" },
@@ -173,6 +181,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 18", text: "Your 3030 is painted and finished. Two coats, clean edges." },
     { date: "August 17", text: "The 3030's outline is on the wall now. Ready for paint next." },
     { date: "August 17", text: "Rain left the wall too wet to paint in the morning." },
     { date: "August 16", text: "Japanese and Korean letters painted and finished. Your first sign is done." },
