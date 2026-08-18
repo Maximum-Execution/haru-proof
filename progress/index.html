@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=29">
+<link rel="stylesheet" href="app.css?v=30">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=29"></script>
+<script src="data.js?v=30"></script>
 <script>
 (function(){
   "use strict";
@@ -472,9 +472,28 @@
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
     svg.setAttribute("class", "block size-full -rotate-90");
 
-    /* red -> verdict gradient along the arc */
+    /* Red at the START of the arc, verdict colour at the CURRENT end.
+       objectBoundingBox units paint the gradient diagonally across the
+       circle's BOX with no relation to where the stroke begins or ends - at
+       56% that landed the red near the arc's end and read as "falling
+       behind", the exact opposite of the truth. Shipped that way once.
+
+       userSpaceOnUse lets the gradient axis be aimed at real geometry: from
+       the point where the arc starts to the point it currently reaches. An
+       SVG circle's path begins at 3 o'clock and runs clockwise; the -rotate-90
+       on the <svg> spins the gradient with it, so this is all computed in the
+       unrotated frame and comes out right on screen. */
+    var A0 = 0;                                   /* path start, 3 o'clock */
+    var A1 = 2 * Math.PI * (done / total);        /* how far it sweeps now  */
     var defs = svgEl("defs", {});
-    var grad = svgEl("linearGradient", {id:"ringGrad", x1:"0", y1:"0", x2:"1", y2:"1"});
+    var grad = svgEl("linearGradient", {
+      id: "ringGrad",
+      gradientUnits: "userSpaceOnUse",
+      x1: (105 + R * Math.cos(A0)).toFixed(2),
+      y1: (105 + R * Math.sin(A0)).toFixed(2),
+      x2: (105 + R * Math.cos(A1)).toFixed(2),
+      y2: (105 + R * Math.sin(A1)).toFixed(2)
+    });
     grad.appendChild(svgEl("stop", {offset:"0%",   "stop-color":"var(--umm-danger)"}));
     grad.appendChild(svgEl("stop", {offset:"100%", "stop-color":verdict.color}));
     defs.appendChild(grad);
