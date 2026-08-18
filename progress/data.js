@@ -99,7 +99,7 @@ window.HARU = {
       short: "Finished",
       where: "Above your front door",
       thumb: "../img/progress/now-3030.jpg",
-      thumbLabel: "Painted",
+      thumbLabel: "Painted",   /* refreshed 8/18 - finished close-up */
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
@@ -229,6 +229,13 @@ window.HARU = {
       date: "August 16",
       caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
       alt: "The same storefront with white Japanese and Korean characters painted on the green wall beside the front window, and a large green rectangle painted on the upper white wall where the main sign will go."
+    },
+    {
+      src:   "../img/progress/front-2026-08-18.jpg",
+      thumb: "../img/progress/thumb-2026-08-18.jpg",
+      date: "August 18",
+      caption: "Your address is up. Two of your three outside signs are finished.",
+      alt: "The storefront on a clear morning, photographed straight on from across the street. The address numbers are painted in dark green on the white upper wall, the Japanese and Korean characters are on the green wall by the window, and the large green panel above is still empty."
     }
   ],
 
