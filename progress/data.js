@@ -84,7 +84,7 @@ window.HARU = {
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: false },
-        { label: "On the wall", done: false },
+        { label: "Outline on the wall", done: false },
         { label: "Painted", done: false }
       ],
       status: "The green panel is painted and curing. Your name goes on top of it.",
@@ -103,7 +103,7 @@ window.HARU = {
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
-        { label: "On the wall", done: true },
+        { label: "Outline on the wall", done: true },
         { label: "Painted", done: true }
       ],
       status: "Done. Two coats, in the darker green you picked.",
@@ -122,7 +122,7 @@ window.HARU = {
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
-        { label: "On the wall", done: true },
+        { label: "Outline on the wall", done: true },
         { label: "Painted", done: true }
       ],
       status: "Done. White on your green, the exact forms you approved.",
@@ -268,11 +268,12 @@ window.HARU = {
       ]
     },
     {
-      title: "Nothing is drawn freehand",
+      title: "Chalk lines first, then paint",
       body: [
-        "I print every letter full size and punch tiny holes along the edges. Taped to your wall and patted with chalk dust, it leaves a perfect dotted outline.",
-        "I paint the dots, then brush the chalk away.",
-        "It is called pouncing. It is why letters land right instead of almost right."
+        "I print your letters full size on paper, then punch tiny holes along every edge.",
+        "I tape it to your wall and pat chalk dust through the holes. That leaves a dotted outline.",
+        "Nothing is painted yet. The chalk is only a guide, and it brushes off.",
+        "Then I paint over the dots. This is called pouncing, and it is why letters land exactly right."
       ]
     },
     {
