@@ -28,13 +28,22 @@
   --umm-surface:     #26272B;
   --umm-line:        #3C3D3E;
   --umm-line-soft:   #313235;
-  --umm-figure:      #545557;
-  --umm-ink:         #EEECE9;
-  --umm-muted:       #959494;
-  --umm-accent:      #e41a1c;
-  --umm-accent-text: #F5787A;
+  --umm-figure:      #595A5B;   /* Smoke Gray, brand value */
+  --umm-ink:         #EEECE9;   /* Titanium White */
+  --umm-muted:       #959494;   /* Shadow Gray - correct muted for DARK */
+  --umm-accent:      #e41a1c;   /* Pyrrole Red, the anchor */
+  --umm-accent-text: #EA5152;   /* brand-solved, 4.56:1 on Midnight Graphite */
   --umm-ground:      #26272B;
   --umm-wordmark-invert: 0;
+
+  /* Semantic pigments from the UMM table. Used ONLY for schedule state on the
+     ring. Sap Green = "complete, confirmed, safe". Cadmium Orange = "caution,
+     pending". Pyrrole Red = "urgency, danger". These are fills and dots, never
+     text - Sap Green measures 2.36 on a light ground and fails badly. The
+     meaning is always repeated in words, per the interface baseline. */
+  --umm-ok:     #4daf4a;
+  --umm-warn:   #ff7f00;
+  --umm-danger: #e41a1c;
 }
 [data-theme="light"]{
   --umm-bg:          #EEECE9;
@@ -44,8 +53,8 @@
   --umm-figure:      #BCBBB9;
   --umm-ink:         #000205;
   --umm-muted:       #595A5B;
-  --umm-accent:      #C4141C;
-  --umm-accent-text: #B3121A;
+  --umm-accent:      #e41a1c;   /* Pyrrole Red unchanged across themes */
+  --umm-accent-text: #D4181A;   /* brand-solved, 4.51:1 on Titanium White */
   --umm-ground:      #F6F5F3;
   --umm-wordmark-invert: 1;
 }
@@ -80,10 +89,10 @@
    lines. Headings tighten their tracking as they grow. We implement that
    system, sized up at the small end to respect the 18px client floor.
 --------------------------------------------------------------------------- */
-@utility text-heading-40{ font-size:2.5rem;   line-height:2.75rem; letter-spacing:-0.051em; font-weight:700; }
-@utility text-heading-32{ font-size:2rem;     line-height:2.25rem; letter-spacing:-0.049em; font-weight:700; }
-@utility text-heading-24{ font-size:1.5rem;   line-height:2rem;    letter-spacing:-0.029em; font-weight:700; }
-@utility text-heading-20{ font-size:1.25rem;  line-height:1.625rem;letter-spacing:-0.02em;  font-weight:700; }
+@utility text-heading-40{ font-size:2.5rem;   line-height:2.75rem; letter-spacing:-0.051em; font-weight:600; }
+@utility text-heading-32{ font-size:2rem;     line-height:2.25rem; letter-spacing:-0.049em; font-weight:600; }
+@utility text-heading-24{ font-size:1.5rem;   line-height:2rem;    letter-spacing:-0.029em; font-weight:600; }
+@utility text-heading-20{ font-size:1.25rem;  line-height:1.625rem;letter-spacing:-0.02em;  font-weight:600; }
 @utility text-heading-16{ font-size:1rem;     line-height:1.5rem;  letter-spacing:-0.008em; font-weight:600; }
 
 @utility text-copy-20{ font-size:1.25rem;  line-height:1.875rem; letter-spacing:-0.01em; }

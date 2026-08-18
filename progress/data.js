@@ -309,6 +309,15 @@ window.HARU = {
     email: "hello@untitledmixedmedia.com"
   },
 
+  /* Drives the RING COLOUR. Counts only the outside signs against the
+     deadline, because the inside ones are not due until after Kim moves in.
+       stepsPerDay  how many steps you can realistically clear in a day.
+                    This is the honest input - raise it only if you mean it.
+       override     force the verdict: "ontrack" | "tight" | "behind" | "done".
+                    Leave it out to let the date do the work. Use it when you
+                    KNOW something the arithmetic cannot see. */
+  schedule: { stepsPerDay: 2, override: "ontrack" },
+
   /* Haru, 3030 W Cary St, Richmond VA 23221 */
   location: { lat: 37.5537, lon: -77.4839, deadline: "2026-08-20" }
 };

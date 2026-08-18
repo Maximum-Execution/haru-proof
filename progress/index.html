@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=28">
+<link rel="stylesheet" href="app.css?v=29">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -93,7 +93,12 @@
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a sign to see its steps.</p>
 
     <div class="mt-8 flex flex-col items-center gap-8 sm:flex-row sm:gap-12">
-      <div id="ringwrap" class="relative size-[210px] flex-none"></div>
+      <div class="flex flex-none flex-col items-center gap-4">
+        <div id="ringwrap" class="relative size-[210px] flex-none"></div>
+        <!-- The schedule verdict in words. Filled by JS; empty:hidden keeps
+             the gap from collapsing oddly if it ever renders blank. -->
+        <p id="ringstate" class="flex items-center justify-center gap-2.5 text-center empty:hidden"></p>
+      </div>
       <div id="signList" class="material-flush w-full flex-1 self-stretch"></div>
     </div>
   </section>
@@ -207,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=28"></script>
+<script src="data.js?v=29"></script>
 <script>
 (function(){
   "use strict";
@@ -284,24 +289,22 @@
   }
 
   /* ---------- theme switcher ----------
-     Geist's segmented control: Light / System / Dark. "System" follows the
-     phone's own setting and keeps following it if that setting changes while
-     the page is open, which a two-state toggle can never do. */
+     Two states only: Light and Dark, opening on Dark. A "System" option was
+     removed 2026-08-18 - offering a setting the brand never lets win is a
+     control that lies. UMM launches dark and never hands the opening state to
+     the OS, so System could only ever be a manual pick, which is what Light
+     and Dark already are. */
   (function(){
     var doc  = document.documentElement;
     var host = el("themeSwitch");
     if(!host){ return; }
 
-    var mq = null;
-    try{ mq = window.matchMedia("(prefers-color-scheme: dark)"); }catch(e){}
-
     var ICONS = {
       light: "M8 1.5v1.6M8 12.9v1.6M14.5 8h-1.6M3.1 8H1.5M12.6 3.4l-1.1 1.1M4.5 11.5l-1.1 1.1M12.6 12.6l-1.1-1.1M4.5 4.5L3.4 3.4",
       dark:  "M13.5 9.6A5.8 5.8 0 0 1 6.4 2.5 5.9 5.9 0 1 0 13.5 9.6z",
-      system:"M2.5 3.2h11v7.3h-11zM5.8 13.3h4.4"
     };
-    var LABEL = { light:"Light", system:"System", dark:"Dark" };
-    var ORDER = ["light", "system", "dark"];
+    var LABEL = { light:"Light", dark:"Dark" };
+    var ORDER = ["light", "dark"];
 
     function iconFor(name){
       var svg = svgEl("svg", {viewBox:"0 0 16 16", fill:"none", "aria-hidden":"true"});
@@ -315,12 +318,8 @@
       return svg;
     }
 
-    /* choice = what the user picked (light|system|dark).
-       resolved = what actually gets painted (light|dark). */
-    function resolve(choice){
-      if(choice !== "system"){ return choice; }
-      return (mq && mq.matches) ? "dark" : "light";
-    }
+    /* choice IS the painted theme now - there is no resolution step left. */
+    function resolve(choice){ return choice; }
 
     var btns = {};
     function paint(choice){
@@ -337,8 +336,8 @@
 
     var choice = new URLSearchParams(location.search).get("theme");
     try{ choice = choice || localStorage.getItem("haru-theme"); }catch(e){}
-    /* First visit opens dark. UMM launches dark and never lets the OS pick the
-       opening state; System is offered as a choice, not as the default. */
+    /* First visit opens dark. UMM launches dark, always. A stored "system"
+       from before the option was removed falls through to dark here. */
     if(ORDER.indexOf(choice) === -1){ choice = "dark"; }
 
     ORDER.forEach(function(k){
@@ -369,13 +368,6 @@
     });
 
     paint(choice);
-
-    /* keep following the phone while System is selected */
-    if(mq){
-      var onChange = function(){ if(choice === "system"){ paint("system"); } };
-      if(mq.addEventListener){ mq.addEventListener("change", onChange); }
-      else if(mq.addListener){ mq.addListener(onChange); }
-    }
   })();
 
   /* ---------- header: the three answers, computed ----------
@@ -419,7 +411,21 @@
   el("rightNow").textContent = D.rightNow;
   el("next").textContent     = D.next;
 
-  /* ---------- the ring ---------- */
+  /* ---------- the ring ----------
+     The arc is overall progress. Its COLOUR answers a different question:
+     will the outside be finished by opening day. Those are deliberately not
+     the same number - the interior signs are in the ring but are not due
+     until after Kim moves in, so counting them against the deadline would
+     make an on-schedule job look late.
+
+     Colour runs Pyrrole Red at 0% to the verdict colour at the current
+     percent, so the arc shows distance travelled out of risk. Pigments are
+     UMM's own semantic set: Sap Green "complete, confirmed, safe", Cadmium
+     Orange "caution, pending", Pyrrole Red "urgency, danger".
+
+     Colour NEVER carries this alone - a worded verdict sits under the ring
+     and the same words go in the aria-label. Roughly 8% of men cannot
+     separate red from green, and this is the one graphic that has to land. */
   (function(){
     var total = 0, done = 0;
     D.signs.forEach(function(s){
@@ -427,13 +433,57 @@
     });
     var pct = total ? Math.round(done / total * 100) : 0;
 
+    /* --- schedule verdict, outside signs only --- */
+    var sched = (function(){
+      var out = D.signs.filter(function(s){ return s.name.indexOf("inside") === -1; });
+      var left = 0;
+      out.forEach(function(s){
+        s.steps.forEach(function(st){ if(!st.done){ left++; } });
+      });
+      if(D.schedule && D.schedule.override){
+        return { state: D.schedule.override, left: left, days: null };
+      }
+      var days = null;
+      if(D.location && D.location.deadline){
+        var dl = new Date(D.location.deadline + "T00:00:00");
+        var now = new Date(); now.setHours(0,0,0,0);
+        days = Math.round((dl - now) / 86400000);
+      }
+      if(left === 0){ return { state:"done", left:0, days:days }; }
+      if(days === null){ return { state:"ontrack", left:left, days:null }; }
+      if(days < 0){ return { state:"behind", left:left, days:days }; }
+      /* Steps he can clear in a day. Tunable in data.js - the honest input. */
+      var rate = (D.schedule && D.schedule.stepsPerDay) || 2;
+      var capacity = Math.max(days, 0) * rate;
+      if(left <= capacity)        { return { state:"ontrack", left:left, days:days }; }
+      if(left <= capacity + rate) { return { state:"tight",   left:left, days:days }; }
+      return { state:"behind", left:left, days:days };
+    })();
+
+    var STATE = {
+      done:    { color:"var(--umm-ok)",     text:"Everything outside is finished." },
+      ontrack: { color:"var(--umm-ok)",     text:"On track for your opening." },
+      tight:   { color:"var(--umm-warn)",   text:"Close, but still on for your opening." },
+      behind:  { color:"var(--umm-danger)", text:"Running behind. I will call you." }
+    };
+    var verdict = STATE[sched.state] || STATE.ontrack;
+
     var R = 84, C = 2 * Math.PI * R;
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
     svg.setAttribute("class", "block size-full -rotate-90");
+
+    /* red -> verdict gradient along the arc */
+    var defs = svgEl("defs", {});
+    var grad = svgEl("linearGradient", {id:"ringGrad", x1:"0", y1:"0", x2:"1", y2:"1"});
+    grad.appendChild(svgEl("stop", {offset:"0%",   "stop-color":"var(--umm-danger)"}));
+    grad.appendChild(svgEl("stop", {offset:"100%", "stop-color":verdict.color}));
+    defs.appendChild(grad);
+    svg.appendChild(defs);
+
     svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
       stroke:"var(--umm-line-soft)", "stroke-width":"15"}));
     var arc = svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
-      stroke:"var(--umm-ink)", "stroke-width":"15", "stroke-linecap":"round",
+      stroke:"url(#ringGrad)", "stroke-width":"15", "stroke-linecap":"round",
       "stroke-dasharray": C.toFixed(2), "stroke-dashoffset": C.toFixed(2)});
     arc.setAttribute("class", "u-ring-fill");
     svg.appendChild(arc);
@@ -446,7 +496,8 @@
     var wrap = el("ringwrap");
     wrap.setAttribute("role", "img");
     wrap.setAttribute("aria-label",
-      done + " of " + total + " steps finished, about " + pct + " percent of the whole job");
+      done + " of " + total + " steps finished, about " + pct
+      + " percent of the whole job. " + verdict.text);
     fill(wrap, [svg,
       h("div", {cls:"absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center",
                 attrs:{"aria-hidden":"true"}}, [
@@ -454,6 +505,19 @@
         h("div", {cls:"text-label-14 max-w-[12ch] text-muted", text: done + " of " + total + " steps finished"})
       ])
     ]);
+
+    /* The verdict in WORDS. Ink-coloured so it always passes contrast; the
+       state is echoed by a coloured dot, so colour is reinforcement and never
+       the only channel. Sap Green as text measures 2.36 on light and fails. */
+    var badge = el("ringstate");
+    if(badge){
+      fill(badge, [
+        h("span", {cls:"block size-2.5 flex-none rounded-full",
+                   attrs:{"aria-hidden":"true"}}),
+        h("span", {cls:"text-label-16 font-semibold text-ink", text: verdict.text})
+      ]);
+      badge.firstChild.style.background = verdict.color;
+    }
 
     var target = C * (1 - done / total);
     if(REDUCE){
