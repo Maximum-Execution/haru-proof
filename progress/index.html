@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=30">
+<link rel="stylesheet" href="app.css?v=31">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -106,7 +106,7 @@
   <!-- ===================== THE STOREFRONT NOW ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="photoH">
     <p class="text-eyebrow text-muted">Your storefront</p>
-    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Watch it change</h2>
+    <h2 id="photoH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Your wall, day by day</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap a day to see it.</p>
     <!-- aria-live is added by JS AFTER the first render. In static markup it
          makes VoiceOver read the caption unprompted the moment the page opens. -->
@@ -143,8 +143,8 @@
 
   <!-- ===================== NEEDS ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="needsH">
-    <p class="text-eyebrow text-muted">Your side</p>
-    <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Where I need you</h2>
+    <p class="text-eyebrow text-muted">Your part</p>
+    <h2 id="needsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">What I need from you</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Anything I need from you shows up in red here.</p>
     <ul id="needs" role="list" class="material-flush mt-6 list-none p-0"></ul>
   </section>
@@ -160,7 +160,7 @@
   <!-- ===================== CRAFT ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="matsH">
     <p class="text-eyebrow text-muted">The craft</p>
-    <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">The thinking behind your signs</h2>
+    <h2 id="matsH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Why your signs will work</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Tap any one. Each is short.</p>
     <div id="mats" class="material-flush mt-6"></div>
   </section>
@@ -168,7 +168,7 @@
   <!-- ===================== DECIDED ===================== -->
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="decH">
     <p class="text-eyebrow text-muted">Locked in</p>
-    <h2 id="decH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Decided, and staying decided</h2>
+    <h2 id="decH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">What we already decided</h2>
     <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">So no one has to search old texts.</p>
     <ul id="decs" role="list" class="mt-6 max-w-[56ch] list-none p-0"></ul>
     <div class="material-flush mt-8">
@@ -187,7 +187,7 @@
   <section class="mt-16 border-t border-line pt-6" aria-labelledby="contactH">
     <p class="text-eyebrow text-muted">Anytime</p>
     <h2 id="contactH" class="text-heading-24 mt-1.5 max-w-[24ch] text-balance">Questions?</h2>
-    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Any time. Really.</p>
+    <p class="text-copy-18 mt-3 max-w-[54ch] text-muted">Text or call me. I answer.</p>
     <div id="actions" class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2"></div>
   </section>
 
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=30"></script>
+<script src="data.js?v=31"></script>
 <script>
 (function(){
   "use strict";
@@ -243,6 +243,107 @@
   D.signs = (D.signs || []).slice().sort(function(a, b){
     return pctDone(b) - pctDone(a);
   });
+
+  /* ---------- schedule verdict, computed ONCE and shared ----------
+     The ring and the sign rows must agree, so this lives here rather than
+     inside either. Only the OUTSIDE signs are measured against opening day.
+     The interior package is explicitly scheduled for after Kim moves in, so
+     it has no deadline to be early or late against and never takes a colour.
+     That is a real distinction, not an omission. */
+  function isOutside(sign){ return sign.name.indexOf("inside") === -1; }
+
+  var PIGMENT = { danger:"#e41a1c", warn:"#ff7f00", ok:"#4daf4a" };
+
+  var SCHED = (function(){
+    var left = 0;
+    D.signs.filter(isOutside).forEach(function(s){
+      s.steps.forEach(function(st){ if(!st.done){ left++; } });
+    });
+    if(D.schedule && D.schedule.override){
+      return { state: D.schedule.override, left: left, days: null };
+    }
+    var days = null;
+    if(D.location && D.location.deadline){
+      var dl = new Date(D.location.deadline + "T00:00:00");
+      var now = new Date(); now.setHours(0,0,0,0);
+      days = Math.round((dl - now) / 86400000);
+    }
+    if(left === 0){ return { state:"done", left:0, days:days }; }
+    if(days === null){ return { state:"ontrack", left:left, days:null }; }
+    if(days < 0){ return { state:"behind", left:left, days:days }; }
+    var rate = (D.schedule && D.schedule.stepsPerDay) || 2;
+    var cap = Math.max(days, 0) * rate;
+    if(left <= cap)        { return { state:"ontrack", left:left, days:days }; }
+    if(left <= cap + rate) { return { state:"tight",   left:left, days:days }; }
+    return { state:"behind", left:left, days:days };
+  })();
+
+  var STATE = {
+    done:    { key:"ok",     text:"Everything outside is finished." },
+    ontrack: { key:"ok",     text:"On track for your opening." },
+    tight:   { key:"warn",   text:"Close, but still on for your opening." },
+    behind:  { key:"danger", text:"Running behind. I will call you." }
+  };
+  var VERDICT = STATE[SCHED.state] || STATE.ontrack;
+  VERDICT.color = PIGMENT[VERDICT.key];
+
+  /* ---------- the colour ramp ----------
+     Red does NOT get half the arc. The ramp is eased so red is spent quickly
+     and the verdict colour holds most of the sweep - a job that is on track
+     should look on track, and a linear red-to-green ramp reads as "half in
+     trouble" at every percentage.
+
+     RED_BIAS < 1 compresses red. At 0.45, five percent along the arc is
+     already about a third of the way up the ramp. Raise it toward 1 for a
+     straight linear ramp; lower it to crush red further.
+
+     The path runs red -> Cadmium Orange -> Sap Green rather than mixing red
+     straight into green, which in sRGB passes through a muddy olive. It is
+     also the honest semantic order: danger, caution, safe. */
+  var RED_BIAS = 0.45;
+
+  function hex2rgb(h){
+    return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  }
+  function rgb2hex(c){
+    return "#" + c.map(function(v){
+      return ("0" + Math.max(0, Math.min(255, Math.round(v))).toString(16)).slice(-2);
+    }).join("");
+  }
+  function mix(a, b, t){ return a.map(function(v, i){ return v + (b[i] - v) * t; }); }
+
+  /* Sample a multi-stop path at u in [0,1]. */
+  function rampAt(way, u){
+    if(way.length === 1){ return way[0]; }
+    var seg = Math.max(0, Math.min(1, u)) * (way.length - 1);
+    var i = Math.min(Math.floor(seg), way.length - 2);
+    return mix(way[i], way[i + 1], seg - i);
+  }
+
+  /* Stops from the arc start to its current end, eased by RED_BIAS. */
+  function rampStops(endKey){
+    if(endKey === "danger"){ return [{o:0, c:PIGMENT.danger}, {o:1, c:PIGMENT.danger}]; }
+    var way = (endKey === "warn")
+      ? [hex2rgb(PIGMENT.danger), hex2rgb(PIGMENT.warn)]
+      : [hex2rgb(PIGMENT.danger), hex2rgb(PIGMENT.warn), hex2rgb(PIGMENT.ok)];
+    var out = [], N = 10;
+    for(var k = 0; k <= N; k++){
+      var o = k / N;
+      out.push({ o:o, c: rgb2hex(rampAt(way, Math.pow(o, RED_BIAS))) });
+    }
+    return out;
+  }
+
+  /* A sign's colour. Finished outside signs read "complete"; unfinished ones
+     inherit the shared verdict, because one person paints them all - if the
+     schedule slips it slips for every unfinished sign at once. Inside signs
+     return null and stay neutral ink. */
+  function signColor(sign){
+    if(!isOutside(sign)){ return null; }
+    var d = sign.steps.filter(function(st){ return st.done; }).length;
+    if(d === sign.steps.length){ return PIGMENT.ok; }
+    return VERDICT.color;
+  }
 
   var SVGNS = "http://www.w3.org/2000/svg";
   var REDUCE = false;
@@ -433,41 +534,6 @@
     });
     var pct = total ? Math.round(done / total * 100) : 0;
 
-    /* --- schedule verdict, outside signs only --- */
-    var sched = (function(){
-      var out = D.signs.filter(function(s){ return s.name.indexOf("inside") === -1; });
-      var left = 0;
-      out.forEach(function(s){
-        s.steps.forEach(function(st){ if(!st.done){ left++; } });
-      });
-      if(D.schedule && D.schedule.override){
-        return { state: D.schedule.override, left: left, days: null };
-      }
-      var days = null;
-      if(D.location && D.location.deadline){
-        var dl = new Date(D.location.deadline + "T00:00:00");
-        var now = new Date(); now.setHours(0,0,0,0);
-        days = Math.round((dl - now) / 86400000);
-      }
-      if(left === 0){ return { state:"done", left:0, days:days }; }
-      if(days === null){ return { state:"ontrack", left:left, days:null }; }
-      if(days < 0){ return { state:"behind", left:left, days:days }; }
-      /* Steps he can clear in a day. Tunable in data.js - the honest input. */
-      var rate = (D.schedule && D.schedule.stepsPerDay) || 2;
-      var capacity = Math.max(days, 0) * rate;
-      if(left <= capacity)        { return { state:"ontrack", left:left, days:days }; }
-      if(left <= capacity + rate) { return { state:"tight",   left:left, days:days }; }
-      return { state:"behind", left:left, days:days };
-    })();
-
-    var STATE = {
-      done:    { color:"var(--umm-ok)",     text:"Everything outside is finished." },
-      ontrack: { color:"var(--umm-ok)",     text:"On track for your opening." },
-      tight:   { color:"var(--umm-warn)",   text:"Close, but still on for your opening." },
-      behind:  { color:"var(--umm-danger)", text:"Running behind. I will call you." }
-    };
-    var verdict = STATE[sched.state] || STATE.ontrack;
-
     var R = 84, C = 2 * Math.PI * R;
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
     svg.setAttribute("class", "block size-full -rotate-90");
@@ -494,8 +560,10 @@
       x2: (105 + R * Math.cos(A1)).toFixed(2),
       y2: (105 + R * Math.sin(A1)).toFixed(2)
     });
-    grad.appendChild(svgEl("stop", {offset:"0%",   "stop-color":"var(--umm-danger)"}));
-    grad.appendChild(svgEl("stop", {offset:"100%", "stop-color":verdict.color}));
+    rampStops(VERDICT.key).forEach(function(st){
+      grad.appendChild(svgEl("stop", {
+        offset: (st.o * 100).toFixed(1) + "%", "stop-color": st.c }));
+    });
     defs.appendChild(grad);
     svg.appendChild(defs);
 
@@ -516,7 +584,7 @@
     wrap.setAttribute("role", "img");
     wrap.setAttribute("aria-label",
       done + " of " + total + " steps finished, about " + pct
-      + " percent of the whole job. " + verdict.text);
+      + " percent of the whole job. " + VERDICT.text);
     fill(wrap, [svg,
       h("div", {cls:"absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center",
                 attrs:{"aria-hidden":"true"}}, [
@@ -533,9 +601,9 @@
       fill(badge, [
         h("span", {cls:"block size-2.5 flex-none rounded-full",
                    attrs:{"aria-hidden":"true"}}),
-        h("span", {cls:"text-label-16 font-semibold text-ink", text: verdict.text})
+        h("span", {cls:"text-label-16 font-semibold text-ink", text: VERDICT.text})
       ]);
-      badge.firstChild.style.background = verdict.color;
+      badge.firstChild.style.background = VERDICT.color;
     }
 
     var target = C * (1 - done / total);
@@ -570,8 +638,16 @@
       var d = s.steps.filter(function(st){ return st.done; }).length;
       var panelId = "signpanel-" + i;
 
+      /* Finished steps carry this sign's schedule colour; unfinished ones stay
+         a neutral track. Inside signs get null and fall back to plain ink.
+         Dots are aria-hidden - the row already carries the name, the short
+         status and "n of 4" as text, so colour reinforces and never carries
+         the meaning alone. */
+      var sColor = signColor(s);
       var dots = s.steps.map(function(st){
-        var dot = h("span", {cls:"size-[7px] rounded-full " + (st.done ? "bg-ink u-pop" : "bg-line")});
+        var dot = h("span", {cls:"size-[7px] rounded-full " +
+                     (st.done ? (sColor ? "u-pop" : "bg-ink u-pop") : "bg-line")});
+        if(st.done && sColor){ dot.style.background = sColor; }
         if(st.done && !REDUCE){
           dotDelay += 90;
           dot.style.animationDelay = (350 + dotDelay) + "ms";

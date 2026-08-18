@@ -261,7 +261,7 @@ window.HARU = {
       ]
     },
     {
-      title: "Your green, on file",
+      title: "Your exact green is saved",
       body: [
         "SW 6717 Lime Rickey. The exact green already on your building.",
         "It is on the paint order, so anything we add inside matches the same can. Not close. The same."
