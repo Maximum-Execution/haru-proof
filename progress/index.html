@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=32">
+<link rel="stylesheet" href="app.css?v=33">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=32"></script>
+<script src="data.js?v=33"></script>
 <script>
 (function(){
   "use strict";
@@ -298,8 +298,7 @@
      The path runs red -> Cadmium Orange -> Sap Green rather than red mixed
      straight into green, which in sRGB passes through a muddy olive. It is
      also the honest semantic order: danger, caution, safe. */
-  var ORANGE_AT = 0.10;   /* pure Cadmium Orange this far along the arc */
-  var GREEN_AT  = 0.35;   /* pure Sap Green from here on - ~65% solid green */
+  var GREEN_AT = 0.35;   /* verdict colour is pure from here on - ~65% solid */
 
   function hex2rgb(h){
     return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
@@ -324,26 +323,21 @@
     return way[way.length - 1].rgb;
   }
 
+  /* Red blends STRAIGHT into the verdict colour with no orange waypoint.
+     Red and green are complements, so mixing them in sRGB runs through a
+     muddy olive around the midpoint. That is deliberate - it is the same
+     thing that happens knocking a colour down on a palette, and it keeps
+     the ramp to two honest endpoints instead of three. */
   function rampStops(endKey){
     if(endKey === "danger"){
       return [{o:0, c:PIGMENT.danger}, {o:1, c:PIGMENT.danger}];
     }
-    var way = (endKey === "warn")
-      ? [{at:0, rgb:hex2rgb(PIGMENT.danger)},
-         {at:ORANGE_AT, rgb:hex2rgb(PIGMENT.warn)},
-         {at:1, rgb:hex2rgb(PIGMENT.warn)}]
-      : [{at:0, rgb:hex2rgb(PIGMENT.danger)},
-         {at:ORANGE_AT, rgb:hex2rgb(PIGMENT.warn)},
-         {at:GREEN_AT, rgb:hex2rgb(PIGMENT.ok)},
-         {at:1, rgb:hex2rgb(PIGMENT.ok)}];
-
-    /* Dense sampling across the short, fast-changing head of the ramp and
-       sparse across the long green tail, so the transition stays smooth
-       without emitting stops nobody can see. */
-    var pts = [0, 0.03, 0.06, ORANGE_AT, 0.16, 0.22, 0.28, GREEN_AT, 0.6, 1];
-    var out = [];
-    pts.forEach(function(o){ out.push({ o:o, c: rgb2hex(rampAt(way, o)) }); });
-    return out;
+    var end = hex2rgb(PIGMENT[endKey]);          /* ok -> green, warn -> orange */
+    var way = [{at:0,        rgb:hex2rgb(PIGMENT.danger)},
+               {at:GREEN_AT, rgb:end},
+               {at:1,        rgb:end}];
+    var pts = [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, GREEN_AT, 0.6, 1];
+    return pts.map(function(o){ return { o:o, c: rgb2hex(rampAt(way, o)) }; });
   }
 
   /* A sign's colour. Finished outside signs read "complete"; unfinished ones
