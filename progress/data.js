@@ -71,23 +71,23 @@ window.HARU = {
 
   updated: "Tuesday, August 18",
 
-  rightNow: "Your 3030 above the door is painted and finished.",
-  next: "Your name goes up on the green panel. That is the last one outside.",
+  rightNow: "The words above your name are painted. Your name is drawn on the wall, ready for paint.",
+  next: "I paint your name next. Then everything outside is finished.",
 
   signs: [
     {
       name: "The Haru sign",
-      short: "Panel painted, curing",
+      short: "Your name is next",
       where: "Front wall, West Cary Street",
       thumb: "../img/progress/now-haru.jpg",
-      thumbLabel: "The wall today",
+      thumbLabel: "Outline is up",
       steps: [
         { label: "Design approved", done: true },
-        { label: "Patterns made", done: false },
-        { label: "Outline on the wall", done: false },
+        { label: "Patterns made", done: true },
+        { label: "Outline on the wall", done: true },
         { label: "Painted", done: false }
       ],
-      status: "The green panel is painted and curing. Your name goes on top of it.",
+      status: "The words above your name are painted. Your name is drawn on the wall in chalk and ready for paint.",
       facts: [
         { label: "Size",    value: "12 feet wide, 6 feet tall. Your name 32 inches" },
         { label: "Finish",  value: "Flat green, gloss white" },
@@ -181,6 +181,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 18", text: "The words above your name are painted, and your name is drawn on the wall ready for paint." },
     { date: "August 18", text: "Your 3030 is painted and finished. Two coats, clean edges." },
     { date: "August 17", text: "The 3030's outline is on the wall now. Ready for paint next." },
     { date: "August 17", text: "Rain left the wall too wet to paint in the morning." },
@@ -236,6 +237,13 @@ window.HARU = {
       date: "August 18",
       caption: "Your address is up. Two of your three outside signs are finished.",
       alt: "The storefront on a clear morning, photographed straight on from across the street. The address numbers are painted in dark green on the white upper wall, the Japanese and Korean characters are on the green wall by the window, and the large green panel above is still empty."
+    },
+    {
+      src:   "../img/progress/front-2026-08-18-night.jpg",
+      thumb: "../img/progress/thumb-2026-08-18-night.jpg",
+      date: "August 18, night",
+      caption: "The words above your name are painted. Your name is drawn and waiting.",
+      alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
     }
   ],
 
