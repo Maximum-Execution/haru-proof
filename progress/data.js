@@ -245,8 +245,8 @@ window.HARU = {
       alt: "The storefront on a clear morning, photographed straight on from across the street. The address numbers are painted in dark green on the white upper wall, the Japanese and Korean characters are on the green wall by the window, and the large green panel above is still empty."
     },
     {
-      src:   "../img/progress/front-2026-08-18-night-a.jpg",
-      thumb: "../img/progress/thumb-2026-08-18-night-a.jpg",
+      src:   "../img/progress/front-2026-08-18-night-b.jpg",
+      thumb: "../img/progress/thumb-2026-08-18-night-b.jpg",
       date: "August 18, night",
       caption: "The words above your name are painted. Your name is drawn and waiting.",
       alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
