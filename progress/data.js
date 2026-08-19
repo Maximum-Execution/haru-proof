@@ -61,6 +61,12 @@
                   derivatives go in web/img/progress/.
                   TIP: shoot from the same spot every time and the before/after
                   lines up by itself.
+                  IF A PHOTO'S CONTENT IS EVER REPLACED, RENAME THE FILE.
+                  Image URLs carry no ?v= cache-bust, so overwriting a photo
+                  in place leaves every browser that saw the old one showing
+                  it - same trap as the og-image, and it shipped once: the
+                  aligned timeline looked "unchanged" behind cached files.
+                  New content = new filename (-a, -b, ...), repoint here.
 
    materials[]    Craft cards. Add one when a decision is worth showing.
    decisions[]    One line each.
@@ -211,36 +217,36 @@ window.HARU = {
 
   photos: [
     {
-      src:   "../img/progress/front-2026-05-06.jpg",
-      thumb: "../img/progress/thumb-2026-05-06.jpg",
+      src:   "../img/progress/front-2026-05-06-a.jpg",
+      thumb: "../img/progress/thumb-2026-05-06-a.jpg",
       date: "May 6",
       caption: "The first day I saw your building.",
       alt: "The same corner storefront before the renovation. The upper wall is mustard yellow, the lower storefront is white with a yellow door, and the window still carries the previous shop's lettering."
     },
     {
-      src:   "../img/progress/front-2026-08-14.jpg",
-      thumb: "../img/progress/thumb-2026-08-14.jpg",
+      src:   "../img/progress/front-2026-08-14-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-14-a.jpg",
       date: "August 14",
       caption: "Your green is on. The walls are ready for me.",
       alt: "The storefront after your painters finished. The upper wall is plain white, the lower wall is green, and no signs are painted yet."
     },
     {
-      src:   "../img/progress/front-2026-08-16.jpg",
-      thumb: "../img/progress/thumb-2026-08-16.jpg",
+      src:   "../img/progress/front-2026-08-16-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-16-a.jpg",
       date: "August 16",
       caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
       alt: "The same storefront with white Japanese and Korean characters painted on the green wall beside the front window, and a large green rectangle painted on the upper white wall where the main sign will go."
     },
     {
-      src:   "../img/progress/front-2026-08-18.jpg",
-      thumb: "../img/progress/thumb-2026-08-18.jpg",
+      src:   "../img/progress/front-2026-08-18-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-18-a.jpg",
       date: "August 18",
       caption: "Your address is up. Two of your three outside signs are finished.",
       alt: "The storefront on a clear morning, photographed straight on from across the street. The address numbers are painted in dark green on the white upper wall, the Japanese and Korean characters are on the green wall by the window, and the large green panel above is still empty."
     },
     {
-      src:   "../img/progress/front-2026-08-18-night.jpg",
-      thumb: "../img/progress/thumb-2026-08-18-night.jpg",
+      src:   "../img/progress/front-2026-08-18-night-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-18-night-a.jpg",
       date: "August 18, night",
       caption: "The words above your name are painted. Your name is drawn and waiting.",
       alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
