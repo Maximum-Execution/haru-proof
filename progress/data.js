@@ -75,25 +75,25 @@
 
 window.HARU = {
 
-  updated: "Tuesday, August 18",
+  updated: "Wednesday, August 19",
 
-  rightNow: "The words above your name are painted. Your name is drawn on the wall, ready for paint.",
-  next: "I paint your name next. Then everything outside is finished.",
+  rightNow: "Every sign outside is painted and finished, one day early.",
+  next: "Enjoy your opening. The inside signs come after you move in, when you are ready.",
 
   signs: [
     {
       name: "The Haru sign",
-      short: "Your name is next",
+      short: "Finished",
       where: "Front wall, West Cary Street",
       thumb: "../img/progress/now-haru.jpg",
-      thumbLabel: "Outline is up",
+      thumbLabel: "Painted",
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
         { label: "Outline on the wall", done: true },
-        { label: "Painted", done: false }
+        { label: "Painted", done: true }
       ],
-      status: "The words above your name are painted. Your name is drawn on the wall in chalk and ready for paint.",
+      status: "Done. Your name, the words above it, and the orange triangle. All painted by hand.",
       facts: [
         { label: "Size",    value: "12 feet wide, 6 feet tall. Your name 32 inches" },
         { label: "Finish",  value: "Flat green, gloss white" },
@@ -140,12 +140,12 @@ window.HARU = {
     },
     {
       name: "Signs inside the store",
-      short: "Waiting on the outside",
+      short: "Ready when you are",
       where: "Planned after the outside is done",
       thumb: "../img/progress/inside-placeholder.jpg",
       thumbLabel: "Planned together",
       steps: [
-        { label: "Outside finished", done: false },
+        { label: "Outside finished", done: true },
         { label: "Walk the store", done: false },
         { label: "Pick each sign", done: false },
         { label: "Made and installed", done: false }
@@ -187,6 +187,8 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 19", text: "Everything outside is finished, one day before you open." },
+    { date: "August 19", text: "Your name and the orange triangle are painted." },
     { date: "August 18", text: "The words above your name are painted, and your name is drawn on the wall ready for paint." },
     { date: "August 18", text: "Your 3030 is painted and finished. Two coats, clean edges." },
     { date: "August 17", text: "The 3030's outline is on the wall now. Ready for paint next." },
@@ -330,7 +332,7 @@ window.HARU = {
        override     force the verdict: "ontrack" | "tight" | "behind" | "done".
                     Leave it out to let the date do the work. Use it when you
                     KNOW something the arithmetic cannot see. */
-  schedule: { stepsPerDay: 2, override: "ontrack" },
+  schedule: { stepsPerDay: 2 },
 
   /* Haru, 3030 W Cary St, Richmond VA 23221 */
   location: { lat: 37.5537, lon: -77.4839, deadline: "2026-08-20" }
