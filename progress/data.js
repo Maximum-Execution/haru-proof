@@ -82,7 +82,7 @@ window.HARU = {
   updated: "Wednesday, August 19",
 
   rightNow: "Every sign outside is painted and finished, one day early.",
-  next: "Enjoy your opening. The inside signs come after you move in, when you are ready.",
+  next: "Enjoy your opening. When you are ready, text me a day. I will come and look at the store with you.",
 
   signs: [
     {
@@ -144,26 +144,32 @@ window.HARU = {
     },
     {
       name: "Signs inside the store",
-      short: "Ready when you are",
+      short: "Needs a day from you",
       where: "Planned after the outside is done",
       thumb: "../img/progress/inside-placeholder.jpg",
       thumbLabel: "Planned together",
       steps: [
         { label: "Outside finished", done: true },
-        { label: "Walk the store", done: false },
-        { label: "Pick each sign", done: false },
+        { label: "You pick a day", done: false },
+        { label: "I bring the list", done: false },
         { label: "Made and installed", done: false }
       ],
-      status: "Once you are moved in, we walk the store and pick the right sign for each spot. So customers find what they came for.",
+      status: "These signs are already included in your price. Tell me a day and I will come and look at your shelves and your products. I bring the list, and you only say yes or no. So customers find what they came for.",
       facts: [
+        { label: "Cost",    value: "Already included in your price" },
         { label: "Choices", value: "Hand-painted, vinyl, or printed" },
-        { label: "Green",   value: "Matched to SW 6717, the same can as outside" },
-        { label: "Timing",  value: "After you are moved in and can see the space" }
+        { label: "Timing",  value: "We choose them by September 18" }
       ]
     }
   ],
 
   needs: [
+    {
+      item: "A day to look at the store",
+      owner: "Kim",
+      state: "needed",
+      note: "Any day that is good for you. I come and look at your shelves and your products. I bring a list of the signs I think each spot needs. You only say yes or no. We choose them by September 18."
+    },
     {
       item: "Your font",
       owner: "Lea",
@@ -327,7 +333,7 @@ window.HARU = {
 
   /* This must always match Estimate #354 and the invoice. If they ever
      disagree, the paperwork wins, and the footer says so. */
-  payment: "Deposit received, and that is it for now. When everything is finished, outside and in, we walk it all together and the rest is due. We pick the inside signs within 30 days of the outside being done. Nothing gets added along the way.",
+  payment: "Deposit received, and that is it for now. When everything is finished, outside and in, we look at it all together and the rest is due. We pick the inside signs by September 18, which is 30 days after the outside was finished. Nothing gets added along the way.",
 
   warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
