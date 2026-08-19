@@ -192,7 +192,7 @@ window.HARU = {
   logShown: 4,
   log: [
     { date: "August 19", text: "New photos of your finished storefront are on this page." },
-    { date: "August 19", text: "Some chalk guide lines are still on the wall. They wash off in the rain once the paint is fully dry." },
+    { date: "August 19", text: "Some chalk guide lines are still on the wall. Rain usually takes them off. I come by and clean what is left once the paint is fully dry." },
     { date: "August 19", text: "Everything outside is finished, one day before you open." },
     { date: "August 19", text: "Your name and the orange triangle are painted." },
     { date: "August 18", text: "The words above your name are painted, and your name is drawn on the wall ready for paint." },

@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=42">
+<link rel="stylesheet" href="app.css?v=43">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=42"></script>
+<script src="data.js?v=43"></script>
 <script>
 (function(){
   "use strict";
@@ -1070,9 +1070,11 @@
   })();
 
   /* ---------- when the chalk lines wash off ----------
-     The pounce chalk is loose powder. It comes off in the rain once the paint
-     has cured. Kim can see the lines on her own wall, so this answers the one
-     question she actually has: when.
+     The pounce chalk is loose powder. Spencer comes back to clean it off once
+     the paint has cured, and rain often gets there first. BOTH are true and
+     the copy has to carry both - weather alone reads as if the job is waiting
+     on the sky, and it is not. Kim can see the lines on her own wall, so this
+     answers the one question she actually has: when, and by whose hand.
 
      THIS TRIGGERS ON AMOUNT, NOT PROBABILITY, and that distinction is the
      whole point. The painting-weather block this replaces fired on
@@ -1121,10 +1123,10 @@
         }
       });
 
-      var headline, how = " That usually washes the chalk lines off.";
+      var headline, how = " That usually takes the chalk lines off.";
       if(!wet.length){
-        headline = "No heavy rain expected this week.";
-        how = " The chalk lines wash off when it rains.";
+        headline = "No heavy rain is expected this week.";
+        how = " Rain usually takes the chalk lines off.";
       } else if(wet.length === 1){
         headline = "Rain is coming " + wet[0] + ".";
       } else if(wet.length === 2){
@@ -1142,7 +1144,7 @@
                    text:"The chalk lines"}),
         line,
         h("p", {cls:"text-copy-17 mt-1.5 mb-0 max-w-[54ch] text-muted",
-                text:"You do not need to do anything."})
+                text:"I come by and clean off what is left once the paint is fully dry."})
       ]);
     }).catch(function(){ /* silent by design */ });
   })();
