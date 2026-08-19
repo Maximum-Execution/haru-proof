@@ -224,8 +224,8 @@ window.HARU = {
       alt: "The same corner storefront before the renovation. The upper wall is mustard yellow, the lower storefront is white with a yellow door, and the window still carries the previous shop's lettering."
     },
     {
-      src:   "../img/progress/front-2026-08-14-a.jpg",
-      thumb: "../img/progress/thumb-2026-08-14-a.jpg",
+      src:   "../img/progress/front-2026-08-14-b.jpg",
+      thumb: "../img/progress/thumb-2026-08-14-b.jpg",
       date: "August 14",
       caption: "Your green is on. The walls are ready for me.",
       alt: "The storefront after your painters finished. The upper wall is plain white, the lower wall is green, and no signs are painted yet."
