@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=43">
+<link rel="stylesheet" href="app.css?v=44">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=43"></script>
+<script src="data.js?v=44"></script>
 <script>
 (function(){
   "use strict";
@@ -288,56 +288,104 @@
   VERDICT.color = PIGMENT[VERDICT.key];
 
   /* ---------- the colour ramp ----------
-     Red is a TIP, not a half. A job that is on track has to LOOK on track,
-     and the arc should feel like it is filling up with "done", not warning.
+     Three segments, in the proportions UMM wants: a TIP of pure red, a LONG
+     sweep, and a solid run of pure green to finish on. Red is never half the
+     ring - a job on track has to LOOK on track.
 
-     Positions are given outright instead of derived from an easing curve,
-     because "green by 35% of the arc" is a decision worth being able to read
-     and change directly. Move GREEN_AT down for even less red, up for more.
+     Positions are given outright rather than derived from an easing curve,
+     because "pure green from 64% on" is a decision worth reading and changing
+     directly.
 
-     The path runs red -> Cadmium Orange -> Sap Green rather than red mixed
-     straight into green, which in sRGB passes through a muddy olive. It is
-     also the honest semantic order: danger, caution, safe. */
-  var GREEN_AT = 0.35;   /* verdict colour is pure from here on - ~65% solid */
+     INTERPOLATED IN OKLAB, NOT sRGB. Red and green are complements, so mixing
+     their sRGB channels runs the midpoint through #996533 - a dead brown. That
+     mud was previously called deliberate. It is not; it is what a naive channel
+     mix does to complements, and it read as an abrupt red-to-green switch with
+     a dirty smear at the join. OKLab holds perceived lightness and chroma
+     steady across the sweep, so the path stays luminous the whole way.
 
-  function hex2rgb(h){
-    return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+     The hue path does the semantic work by itself. Pyrrole Red sits at hue 27
+     and Sap Green at 142, so the shorter arc between them passes straight
+     through 52 - Cadmium Orange, UMM's own caution pigment. Routing explicitly
+     through Cadmium Orange keeps that hue path identical and lifts the middle
+     to its true lightness (L .730), which is the difference between a dull
+     olive and a live amber. Danger, caution, safe, in pigment order, with no
+     third waypoint invented to get there. */
+  var RED_HOLD = 0.06;   /* pure red ends here    - a tip, nothing more */
+  var GREEN_AT = 0.64;   /* pure green starts here - the arc finishes solid */
+
+  /* OKLab, per Bjorn Ottosson. Small enough to inline, and it removes the only
+     reason this ramp ever needed a hand-placed waypoint. */
+  function s2l(c){ c /= 255; return c <= 0.04045 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4); }
+  function l2s(c){
+    var v = c <= 0.0031308 ? 12.92*c : 1.055*Math.pow(c, 1/2.4) - 0.055;
+    return Math.max(0, Math.min(255, Math.round(v*255)));
   }
-  function rgb2hex(c){
-    return "#" + c.map(function(v){
-      return ("0" + Math.max(0, Math.min(255, Math.round(v))).toString(16)).slice(-2);
+  function hex2lab(h){
+    var r = s2l(parseInt(h.slice(1,3),16)),
+        g = s2l(parseInt(h.slice(3,5),16)),
+        b = s2l(parseInt(h.slice(5,7),16));
+    var l = Math.cbrt(0.4122214708*r + 0.5363325363*g + 0.0514459929*b),
+        m = Math.cbrt(0.2119034982*r + 0.6806995451*g + 0.1073969566*b),
+        s = Math.cbrt(0.0883024619*r + 0.2817188376*g + 0.6299787005*b);
+    return [0.2104542553*l + 0.7936177850*m - 0.0040720468*s,
+            1.9779984951*l - 2.4285922050*m + 0.4505937099*s,
+            0.0259040371*l + 0.7827717662*m - 0.8086757660*s];
+  }
+  function lab2rgb(L, a, b){
+    var l = Math.pow(L + 0.3963377774*a + 0.2158037573*b, 3),
+        m = Math.pow(L - 0.1055613458*a - 0.0638541728*b, 3),
+        s = Math.pow(L - 0.0894841775*a - 1.2914855480*b, 3);
+    return [ 4.0767416621*l - 3.3077115913*m + 0.2309699292*s,
+            -1.2684380046*l + 2.6097574011*m - 0.3413193965*s,
+            -0.0041960863*l - 0.7034186147*m + 1.7076147010*s];
+  }
+  function inGamut(L, a, b){
+    var c = lab2rgb(L, a, b);
+    return c[0] >= -1e-4 && c[0] <= 1.0001 && c[1] >= -1e-4 && c[1] <= 1.0001
+        && c[2] >= -1e-4 && c[2] <= 1.0001;
+  }
+  /* Interpolating two in-gamut colours in OKLCH can leave sRGB in the middle -
+     yellow simply cannot hold red's chroma. Walk chroma down until it fits
+     instead of clipping the channels, which would bend the hue. */
+  function lch2hex(L, C, H){
+    var k = 1;
+    if(!inGamut(L, C*Math.cos(H), C*Math.sin(H))){
+      var lo = 0, hi = 1;
+      for(var i = 0; i < 20; i++){
+        var mid = (lo + hi) / 2;
+        if(inGamut(L, C*mid*Math.cos(H), C*mid*Math.sin(H))){ lo = mid; } else { hi = mid; }
+      }
+      k = lo;
+    }
+    var c = lab2rgb(L, C*k*Math.cos(H), C*k*Math.sin(H));
+    return "#" + [c[0], c[1], c[2]].map(function(v){
+      return ("0" + l2s(v).toString(16)).slice(-2);
     }).join("");
   }
-  function mix(a, b, t){ return a.map(function(v, i){ return v + (b[i] - v) * t; }); }
-
-  /* Sample a ramp of {at, rgb} waypoints at position o along the arc. */
-  function rampAt(way, o){
-    o = Math.max(0, Math.min(1, o));
-    for(var i = 0; i < way.length - 1; i++){
-      if(o <= way[i + 1].at){
-        var span = way[i + 1].at - way[i].at;
-        var t = span > 0 ? (o - way[i].at) / span : 0;
-        return mix(way[i].rgb, way[i + 1].rgb, t);
-      }
-    }
-    return way[way.length - 1].rgb;
+  function mixLCH(h1, h2, t){
+    var A = hex2lab(h1), B = hex2lab(h2);
+    var C1 = Math.sqrt(A[1]*A[1] + A[2]*A[2]), H1 = Math.atan2(A[2], A[1]);
+    var C2 = Math.sqrt(B[1]*B[1] + B[2]*B[2]), H2 = Math.atan2(B[2], B[1]);
+    var d = H2 - H1;                                   /* always the short way */
+    while(d >  Math.PI){ d -= 2*Math.PI; }
+    while(d < -Math.PI){ d += 2*Math.PI; }
+    return lch2hex(A[0] + (B[0]-A[0])*t, C1 + (C2-C1)*t, H1 + d*t);
   }
 
-  /* Red blends STRAIGHT into the verdict colour with no orange waypoint.
-     Red and green are complements, so mixing them in sRGB runs through a
-     muddy olive around the midpoint. That is deliberate - it is the same
-     thing that happens knocking a colour down on a palette, and it keeps
-     the ramp to two honest endpoints instead of three. */
-  function rampStops(endKey){
-    if(endKey === "danger"){
-      return [{o:0, c:PIGMENT.danger}, {o:1, c:PIGMENT.danger}];
-    }
-    var end = hex2rgb(PIGMENT[endKey]);          /* ok -> green, warn -> orange */
-    var way = [{at:0,        rgb:hex2rgb(PIGMENT.danger)},
-               {at:GREEN_AT, rgb:end},
-               {at:1,        rgb:end}];
-    var pts = [0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, GREEN_AT, 0.6, 1];
-    return pts.map(function(o){ return { o:o, c: rgb2hex(rampAt(way, o)) }; });
+  /* Cadmium Orange sits 25 degrees of hue from red and 90 from green, so it is
+     placed at 25/115 of the sweep. Even hue speed across the whole blend. */
+  var WARM_AT = 25 / 115;
+
+  /* Colour at position o along the ARC, 0 at the start, 1 at the current end. */
+  function rampColor(endKey, o){
+    if(endKey === "danger"){ return PIGMENT.danger; }
+    if(o <= RED_HOLD){ return PIGMENT.danger; }
+    if(o >= GREEN_AT){ return PIGMENT[endKey]; }
+    var t = (o - RED_HOLD) / (GREEN_AT - RED_HOLD);
+    if(endKey === "warn"){ return mixLCH(PIGMENT.danger, PIGMENT.warn, t); }
+    return t <= WARM_AT
+      ? mixLCH(PIGMENT.danger, PIGMENT.warn, t / WARM_AT)
+      : mixLCH(PIGMENT.warn, PIGMENT[endKey], (t - WARM_AT) / (1 - WARM_AT));
   }
 
   /* A sign's colour. Finished outside signs read "complete"; unfinished ones
@@ -544,42 +592,73 @@
     var svg = svgEl("svg", {viewBox:"0 0 210 210", "aria-hidden":"true"});
     svg.setAttribute("class", "block size-full -rotate-90");
 
-    /* Red at the START of the arc, verdict colour at the CURRENT end.
-       objectBoundingBox units paint the gradient diagonally across the
-       circle's BOX with no relation to where the stroke begins or ends - at
-       56% that landed the red near the arc's end and read as "falling
-       behind", the exact opposite of the truth. Shipped that way once.
+    /* THE RAMP IS PAINTED ALONG THE ARC, IN SEGMENTS. It used to be one
+       stroked circle filled with an SVG linearGradient, and that could never
+       work here, for a reason worth writing down so it is not reintroduced.
 
-       userSpaceOnUse lets the gradient axis be aimed at real geometry: from
-       the point where the arc starts to the point it currently reaches. An
-       SVG circle's path begins at 3 o'clock and runs clockwise; the -rotate-90
-       on the <svg> spins the gradient with it, so this is all computed in the
-       unrotated frame and comes out right on screen. */
+       A linearGradient paints along a straight AXIS. The axis ran from the
+       arc's start point to its current end point - a CHORD across the circle.
+       Every point on the arc takes its colour from where it projects onto that
+       chord, and that projection is sinusoidal in angle, not linear. Past 180
+       degrees of sweep it is not even monotonic: the arc runs out along the
+       chord and comes back. Huge stretches of the circumference land past
+       either end of the axis and clamp to the first or last stop.
+
+       So the ring showed a big block of flat red, a violent transition squeezed
+       into a few degrees, and a big block of flat green - no matter how the
+       stops were spaced. Every previous attempt tuned the stops, which was
+       tuning the wrong thing. No stop arrangement can fix a bad axis.
+
+       Segments fix it properly: the arc is drawn as many short pieces, each a
+       solid colour sampled at its own angular position, so ramp position IS
+       arc position by construction. It also removes a latent bug - at 100%
+       the start and end points coincide, the gradient axis has zero length,
+       and SVG paints the whole ring in the last stop's colour. That was going
+       to land the day the interior package finished.
+
+       An SVG circle's path begins at 3 o'clock and runs clockwise; the
+       -rotate-90 on the <svg> spins it, so this is computed unrotated and
+       comes out right on screen. */
     var A0 = 0;                                   /* path start, 3 o'clock */
     var A1 = 2 * Math.PI * (done / total);        /* how far it sweeps now  */
-    var defs = svgEl("defs", {});
-    var grad = svgEl("linearGradient", {
-      id: "ringGrad",
-      gradientUnits: "userSpaceOnUse",
-      x1: (105 + R * Math.cos(A0)).toFixed(2),
-      y1: (105 + R * Math.sin(A0)).toFixed(2),
-      x2: (105 + R * Math.cos(A1)).toFixed(2),
-      y2: (105 + R * Math.sin(A1)).toFixed(2)
-    });
-    rampStops(VERDICT.key).forEach(function(st){
-      grad.appendChild(svgEl("stop", {
-        offset: (st.o * 100).toFixed(1) + "%", "stop-color": st.c }));
-    });
-    defs.appendChild(grad);
-    svg.appendChild(defs);
+    var SW = 15, SEGS = 120;
+    var PAD = (SW / 2) / R;   /* half a stroke-width, in radians, so the mask's
+                                 round caps have something to reveal at each end */
 
     svg.appendChild(svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
-      stroke:"var(--umm-line-soft)", "stroke-width":"15"}));
-    var arc = svgEl("circle", {cx:105, cy:105, r:R, fill:"none",
-      stroke:"url(#ringGrad)", "stroke-width":"15", "stroke-linecap":"round",
+      stroke:"var(--umm-line-soft)", "stroke-width":String(SW)}));
+
+    /* The reveal is unchanged: a white stroked circle carrying the same
+       dash-offset transition, used as a mask over the segments. Animating the
+       mask instead of the stroke keeps u-ring-fill and its easing exactly as
+       they were, and its round linecap still shapes both ends of the arc. */
+    var defs = svgEl("defs", {});
+    var mask = svgEl("mask", {id:"ringMask", maskUnits:"userSpaceOnUse",
+      x:"0", y:"0", width:"210", height:"210"});
+    var arc = svgEl("circle", {cx:105, cy:105, r:R, fill:"none", stroke:"#fff",
+      "stroke-width":String(SW), "stroke-linecap":"round",
       "stroke-dasharray": C.toFixed(2), "stroke-dashoffset": C.toFixed(2)});
     arc.setAttribute("class", "u-ring-fill");
-    svg.appendChild(arc);
+    mask.appendChild(arc);
+    defs.appendChild(mask);
+    svg.appendChild(defs);
+
+    if(A1 > 0){
+      var band = svgEl("g", {mask:"url(#ringMask)"});
+      var span = A1 - A0, step = (span + 2*PAD) / SEGS;
+      for(var i = 0; i < SEGS; i++){
+        var a = A0 - PAD + step * i;
+        var b = a + step * 1.06;               /* overlap, so no hairline seams */
+        var o = Math.max(0, Math.min(1, ((a + b) / 2 - A0) / span));
+        band.appendChild(svgEl("path", {
+          d: "M " + (105 + R*Math.cos(a)).toFixed(3) + " " + (105 + R*Math.sin(a)).toFixed(3) +
+             " A " + R + " " + R + " 0 0 1 " +
+             (105 + R*Math.cos(b)).toFixed(3) + " " + (105 + R*Math.sin(b)).toFixed(3),
+          fill:"none", stroke: rampColor(VERDICT.key, o), "stroke-width":String(SW)
+        }));
+      }
+      svg.appendChild(band);
+    }
 
     var num = document.createTextNode(REDUCE ? String(pct) : "0");
     var pctEl = h("div", {cls:"font-mono text-[44px] font-bold leading-none tracking-[-0.02em] tabular-nums"});
