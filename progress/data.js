@@ -187,7 +187,8 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
-    { date: "August 19", text: "The chalk lines are washed off. New photos of your finished storefront are below." },
+    { date: "August 19", text: "New photos of your finished storefront are on this page." },
+    { date: "August 19", text: "Some chalk guide lines are still on the wall. They wash off in the rain once the paint is fully dry." },
     { date: "August 19", text: "Everything outside is finished, one day before you open." },
     { date: "August 19", text: "Your name and the orange triangle are painted." },
     { date: "August 18", text: "The words above your name are painted, and your name is drawn on the wall ready for paint." },
@@ -259,7 +260,7 @@ window.HARU = {
       thumb: "../img/progress/thumb-2026-08-19-a.jpg",
       date: "August 19",
       caption: "Finished. Your storefront is ready for opening day.",
-      alt: "The finished storefront in afternoon sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below, and all the chalk is gone."
+      alt: "The finished storefront in late morning sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below."
     }
   ],
 
