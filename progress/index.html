@@ -46,7 +46,7 @@
 <!-- ?v is bumped on every deploy so a cached browser can never serve stale
      CSS or content. The HTML itself revalidates against GitHub Pages within
      its 10 minute max-age. -->
-<link rel="stylesheet" href="app.css?v=41">
+<link rel="stylesheet" href="app.css?v=42">
 </head>
 <body class="m-0 pb-16">
 <a href="#glanceH" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:border focus:border-line focus:bg-surface focus:px-5 focus:py-3 focus:text-label-16 focus:font-semibold focus:text-ink">Skip to your progress</a>
@@ -212,7 +212,7 @@
   </footer>
 </div>
 
-<script src="data.js?v=41"></script>
+<script src="data.js?v=42"></script>
 <script>
 (function(){
   "use strict";
@@ -1069,91 +1069,80 @@
     });
   })();
 
-  /* ---------- painting weather ----------
-     Plain words. The only thing that matters to them: does rain touch the
-     schedule. Fahrenheit and America/New_York are explicit because the API
-     defaults to Celsius and GMT. Any failure renders nothing at all. */
+  /* ---------- when the chalk lines wash off ----------
+     The pounce chalk is loose powder. It comes off in the rain once the paint
+     has cured. Kim can see the lines on her own wall, so this answers the one
+     question she actually has: when.
+
+     THIS TRIGGERS ON AMOUNT, NOT PROBABILITY, and that distinction is the
+     whole point. The painting-weather block this replaces fired on
+     precipitation_probability_max >= 40 - the chance of ANY measurable drop,
+     with no check on how much. On 2026-08-20 that read 44% against a forecast
+     of 0.00 mm falling over 0.0 hours, and told Kim to expect rain on her
+     opening day. Probability answers "will it drizzle". precipitation_sum
+     answers "will it wash". Only the second one is the question here.
+
+     WASH_MM is a judgement call, not a constant. 5 mm is a real soaking, 1 mm
+     is a trace that does nothing. Set it from what this stucco actually does.
+
+     IT NEVER CLAIMS THE CHALK IS GONE. A forecast cannot know that, and
+     asserting a physical state from a proxy is exactly the error that put
+     "The chalk lines are washed off" in front of a client while the chalk was
+     still on the wall. This reports rain and states the mechanism. No more.
+
+     Set chalkWatch to null in data.js once the chalk is gone and this whole
+     section stops rendering. Any failure renders nothing at all. */
   (function(){
-    var loc = D.location;
-    if(!loc || !window.fetch){ return; }
+    var loc = D.location, until = D.chalkWatch;
+    if(!loc || !until || !window.fetch){ return; }
+    if(new Date() > new Date(until + "T23:59:59")){ return; }
 
-    var today = new Date();
-    if(today > new Date(loc.deadline + "T23:59:59")){ return; }
+    var WASH_MM = 5;
+    var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-    function iso(d){
-      return d.getFullYear() + "-" +
-        String(d.getMonth() + 1).padStart(2, "0") + "-" +
-        String(d.getDate()).padStart(2, "0");
-    }
     var url = "https://api.open-meteo.com/v1/forecast" +
       "?latitude="  + encodeURIComponent(loc.lat) +
       "&longitude=" + encodeURIComponent(loc.lon) +
-      "&current=temperature_2m,weather_code" +
-      "&daily=precipitation_probability_max" +
-      "&temperature_unit=fahrenheit" +
+      "&daily=precipitation_sum" +
       "&timezone=America%2FNew_York" +
-      "&start_date=" + iso(today) +
-      "&end_date="   + encodeURIComponent(loc.deadline);
-
-    var WORD = {0:"clear",1:"mostly clear",2:"partly cloudy",3:"cloudy",
-      45:"foggy",48:"foggy",51:"drizzly",53:"drizzly",55:"drizzly",
-      56:"drizzly",57:"drizzly",61:"rainy",63:"rainy",65:"rainy",
-      66:"rainy",67:"rainy",71:"snowy",73:"snowy",75:"snowy",
-      77:"snowy",80:"showery",81:"showery",82:"showery",85:"snowy",
-      86:"snowy",95:"stormy",96:"stormy",99:"stormy"};
-    var RAINCODES = [51,53,55,56,57,61,63,65,66,67,80,81,82,95,96,99];
-    var DAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      "&forecast_days=7";
 
     fetch(url).then(function(r){
       if(!r.ok){ throw new Error("weather unavailable"); }
       return r.json();
     }).then(function(j){
-      if(!j || !j.current || !j.daily || !j.daily.time){ return; }
+      if(!j || !j.daily || !j.daily.time){ return; }
 
-      var temp = Math.round(j.current.temperature_2m);
-      var word = WORD[j.current.weather_code] || "";
-      var pops = j.daily.precipitation_probability_max || [];
-      var todayPop = typeof pops[0] === "number" ? pops[0] : 0;
-      var rainingNow = RAINCODES.indexOf(j.current.weather_code) >= 0;
-
-      var verdict;
-      if(rainingNow || todayPop >= 65){
-        verdict = "Rain today. I do pattern and prep work inside, so nothing stops.";
-      } else if(todayPop >= 35){
-        verdict = "Rain is possible today. I paint between the showers.";
-      } else {
-        verdict = "Good painting weather.";
-      }
-
+      var sums = j.daily.precipitation_sum || [];
       var wet = [];
       j.daily.time.forEach(function(dstr, i){
-        if(i === 0){ return; }
-        var pop = pops[i];
-        if(typeof pop === "number" && pop >= 40){
-          wet.push(DAYS[new Date(dstr + "T12:00:00").getDay()]);
+        if(typeof sums[i] === "number" && sums[i] >= WASH_MM){
+          wet.push(i === 0 ? "today" : DAYS[new Date(dstr + "T12:00:00").getDay()]);
         }
       });
-      var ahead;
+
+      var headline, how = " That usually washes the chalk lines off.";
       if(!wet.length){
-        ahead = "No rain expected before your opening.";
+        headline = "No heavy rain expected this week.";
+        how = " The chalk lines wash off when it rains.";
       } else if(wet.length === 1){
-        ahead = "Rain looks likely " + wet[0] + ". I plan around it. Your opening does not move.";
+        headline = "Rain is coming " + wet[0] + ".";
       } else if(wet.length === 2){
-        ahead = "Rain looks likely " + wet[0] + " and " + wet[1] + ". I plan around them. Your opening does not move.";
+        headline = "Rain is coming " + wet[0] + " and " + wet[1] + ".";
       } else {
-        ahead = "Rain is likely on a few days. I paint on the dry ones. Your opening does not move.";
+        headline = "Rain is coming on several days this week.";
       }
 
-      var now = h("p", {cls:"text-copy-18 m-0 max-w-[54ch]"});
-      now.appendChild(h("b", {cls:"font-semibold",
-        text: temp + "°" + (word ? " and " + word : "") + " at the store right now."}));
-      now.appendChild(document.createTextNode(" " + verdict));
+      var line = h("p", {cls:"text-copy-18 m-0 max-w-[54ch]"});
+      line.appendChild(h("b", {cls:"font-semibold", text: headline}));
+      line.appendChild(document.createTextNode(how));
 
       fill(el("weather"), [
         h("span", {cls:"text-label-12 mb-2 block font-bold tracking-[0.11em] text-muted uppercase",
-                   text:"Painting weather"}),
-        now,
-        h("p", {cls:"text-copy-17 mt-1.5 mb-0 max-w-[54ch] text-muted", text: ahead})
+                   text:"The chalk lines"}),
+        line,
+        h("p", {cls:"text-copy-17 mt-1.5 mb-0 max-w-[54ch] text-muted",
+                text:"You do not need to do anything."})
       ]);
     }).catch(function(){ /* silent by design */ });
   })();

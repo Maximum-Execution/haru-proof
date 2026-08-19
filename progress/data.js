@@ -71,6 +71,10 @@
    materials[]    Craft cards. Add one when a decision is worth showing.
    decisions[]    One line each.
    payment        One quiet sentence. Never amounts.
+   chalkWatch     Date. While it is still in the future the page shows a live
+                  line about when rain will wash the pounce chalk off the
+                  wall. Set it to null the day the chalk is gone and that
+                  whole section stops rendering.
    ========================================================================== */
 
 window.HARU = {
@@ -342,6 +346,14 @@ window.HARU = {
                     Leave it out to let the date do the work. Use it when you
                     KNOW something the arithmetic cannot see. */
   schedule: { stepsPerDay: 2 },
+
+  /* The pounce chalk guide lines are still on the wall. They come off in the
+     rain once the paint has cured. While this date is in the future the page
+     carries a live line saying when rain is coming, so Kim is not left
+     wondering about marks she can see on her own building. Set it to null
+     the day the chalk is gone. It is a date, not a boolean, so it cannot
+     quietly outlive the job if nobody remembers to clear it. */
+  chalkWatch: "2026-09-19",
 
   /* Haru, 3030 W Cary St, Richmond VA 23221 */
   location: { lat: 37.5537, lon: -77.4839, deadline: "2026-08-20" }
