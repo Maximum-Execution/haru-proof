@@ -85,8 +85,8 @@ window.HARU = {
       name: "The Haru sign",
       short: "Finished",
       where: "Front wall, West Cary Street",
-      thumb: "../img/progress/now-haru.jpg",
-      thumbLabel: "Painted",
+      thumb: "../img/progress/now-haru-b.jpg",
+      thumbLabel: "Painted",   /* refreshed 8/19 - finished sign in daylight */
       steps: [
         { label: "Design approved", done: true },
         { label: "Patterns made", done: true },
@@ -187,6 +187,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 19", text: "The chalk lines are washed off. New photos of your finished storefront are below." },
     { date: "August 19", text: "Everything outside is finished, one day before you open." },
     { date: "August 19", text: "Your name and the orange triangle are painted." },
     { date: "August 18", text: "The words above your name are painted, and your name is drawn on the wall ready for paint." },
@@ -252,6 +253,13 @@ window.HARU = {
       date: "August 18, night",
       caption: "The words above your name are painted. Your name is drawn and waiting.",
       alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
+    },
+    {
+      src:   "../img/progress/front-2026-08-19-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-19-a.jpg",
+      date: "August 19",
+      caption: "Finished. Your storefront is ready for opening day.",
+      alt: "The finished storefront in afternoon sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below, and all the chalk is gone."
     }
   ],
 
