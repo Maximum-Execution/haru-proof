@@ -82,7 +82,7 @@ window.HARU = {
   updated: "Wednesday, August 19",
 
   rightNow: "Every sign outside is painted and finished, one day early.",
-  next: "Enjoy your opening. When you are ready, text me a day. I will come and look at the store with you.",
+  next: "I see you next week. We look at everything together then.",
 
   signs: [
     {
@@ -144,31 +144,31 @@ window.HARU = {
     },
     {
       name: "Signs inside the store",
-      short: "Needs a day from you",
+      short: "We talk next week",
       where: "Planned after the outside is done",
       thumb: "../img/progress/inside-placeholder.jpg",
       thumbLabel: "Planned together",
       steps: [
         { label: "Outside finished", done: true },
-        { label: "You pick a day", done: false },
+        { label: "You pick a day", done: true },
         { label: "I bring the list", done: false },
         { label: "Made and installed", done: false }
       ],
-      status: "These signs are already included in your price. Tell me a day and I will come and look at your shelves and your products. I bring the list, and you only say yes or no. So customers find what they came for.",
+      status: "These signs are already included in your price. We talk about them at our visit next week. So customers find what they came for.",
       facts: [
         { label: "Cost",    value: "Already included in your price" },
         { label: "Choices", value: "Hand-painted, vinyl, or printed" },
-        { label: "Timing",  value: "We choose them by September 18" }
+        { label: "Timing",  value: "We talk at our visit next week" }
       ]
     }
   ],
 
   needs: [
     {
-      item: "A day to look at the store",
+      item: "A day to meet",
       owner: "Kim",
-      state: "needed",
-      note: "Any day that is good for you. I come and look at your shelves and your products. I bring a list of the signs I think each spot needs. You only say yes or no. We choose them by September 18."
+      state: "received",
+      note: "Booked. See you next week. Thank you, Kim."
     },
     {
       item: "Your font",
@@ -333,7 +333,7 @@ window.HARU = {
 
   /* This must always match Estimate #354 and the invoice. If they ever
      disagree, the paperwork wins, and the footer says so. */
-  payment: "Deposit received, and that is it for now. When everything is finished, outside and in, we look at it all together and the rest is due. We pick the inside signs by September 18, which is 30 days after the outside was finished. Nothing gets added along the way.",
+  payment: "Deposit received, and that is it for now. The outside signs are finished, so the last payment for the outside comes at our visit. Your inside signs are saved for you, included in your price. Nothing gets added along the way.",
 
   warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
