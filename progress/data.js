@@ -142,25 +142,6 @@ window.HARU = {
         { label: "Reads from", value: "120 feet, including the crosswalk" }
       ]
     },
-    {
-      name: "Signs inside the store",
-      short: "We talk next week",
-      where: "Planned after the outside is done",
-      thumb: "../img/progress/inside-placeholder.jpg",
-      thumbLabel: "Planned together",
-      steps: [
-        { label: "Outside finished", done: true },
-        { label: "You pick a day", done: true },
-        { label: "I bring the list", done: false },
-        { label: "Made and installed", done: false }
-      ],
-      status: "These signs are already included in your price. We talk about them at our visit next week. So customers find what they came for.",
-      facts: [
-        { label: "Cost",    value: "Already included in your price" },
-        { label: "Choices", value: "Hand-painted, vinyl, or printed" },
-        { label: "Timing",  value: "We talk at our visit next week" }
-      ]
-    }
   ],
 
   needs: [
@@ -170,12 +151,7 @@ window.HARU = {
       state: "received",
       note: "Booked. See you next week. Thank you, Kim."
     },
-    {
-      item: "Your font",
-      owner: "Lea",
-      state: "optional",
-      note: "Only if you want me to design the inside signs. If your designer is doing them, I do not need anything."
-    },
+
     {
       item: "The logo files",
       owner: "Lea",
@@ -327,13 +303,13 @@ window.HARU = {
     "The 3030 goes in the darker green.",
     "The green panel sits off to the side, not centered.",
     "The triangle stays orange, above the name.",
-    "Inside signs get chosen together after the outside is finished and you are moved in.",
+    "The inside signs are taken off the final bill. If you want them later, just ask.",
     "Nothing gets painted on a wall until you have seen the picture and said yes."
   ],
 
   /* This must always match Estimate #354 and the invoice. If they ever
      disagree, the paperwork wins, and the footer says so. */
-  payment: "Deposit received, and that is it for now. The outside signs are finished, so the last payment for the outside comes at our visit. Your inside signs are saved for you, included in your price. Nothing gets added along the way.",
+  payment: "Deposit received, and that is it for now. The outside signs are finished. The last bill comes at our visit. The inside signs are taken off that bill, so it is smaller. After that, we are all done. Nothing gets added along the way.",
 
   warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
