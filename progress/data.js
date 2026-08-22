@@ -250,8 +250,8 @@ window.HARU = {
       alt: "The finished storefront in late morning sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below."
     },
     {
-      src:   "../img/progress/front-2026-08-22-d.jpg",
-      thumb: "../img/progress/thumb-2026-08-22-d.jpg",
+      src:   "../img/progress/front-2026-08-22-e.jpg",
+      thumb: "../img/progress/thumb-2026-08-22-e.jpg",
       date: "August 22",
       caption: "Washed and finished. Your storefront is ready.",
       alt: "The finished storefront on a bright morning after washing. Every sign is painted, the walls are clean, and the chalk guide lines are gone."
