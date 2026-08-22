@@ -317,7 +317,7 @@ window.HARU = {
 
   /* This must always match Estimate #354 and the invoice. If they ever
      disagree, the paperwork wins, and the footer says so. */
-  payment: "Deposit received, and that is it for now. The outside signs are finished. The last bill comes at our visit. The inside signs are taken off that bill, so it is smaller. After that, we are all done. Nothing gets added along the way.",
+  payment: "Deposit received. The outside signs are finished, so the last bill is for the outside. The inside signs are taken off that bill, so it is smaller. When your designer's drawings are ready, I will give you a price to make those signs. Nothing gets added along the way.",
 
   warranty: "If anything I painted lifts, peels, or fades in the first year, I come back and fix it free. One text is all it takes.",
 
