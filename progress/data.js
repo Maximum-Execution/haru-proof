@@ -208,50 +208,50 @@ window.HARU = {
 
   photos: [
     {
-      src:   "../img/progress/front-2026-05-06-b.jpg",
+      src:   "../img/progress/front-2026-05-06-c.jpg",
       thumb: "../img/progress/thumb-2026-05-06-a.jpg",
       date: "May 6",
       caption: "The first day I saw your building.",
       alt: "The same corner storefront before the renovation. The upper wall is mustard yellow, the lower storefront is white with a yellow door, and the window still carries the previous shop's lettering."
     },
     {
-      src:   "../img/progress/front-2026-08-14-d.jpg",
+      src:   "../img/progress/front-2026-08-14-e.jpg",
       thumb: "../img/progress/thumb-2026-08-14-c.jpg",
       date: "August 14",
       caption: "Your green is on. The walls are ready for me.",
       alt: "The storefront after your painters finished. The upper wall is plain white, the lower wall is green, and no signs are painted yet."
     },
     {
-      src:   "../img/progress/front-2026-08-16-c.jpg",
+      src:   "../img/progress/front-2026-08-16-d.jpg",
       thumb: "../img/progress/thumb-2026-08-16-b.jpg",
       date: "August 16",
       caption: "Your Japanese and Korean letters are up, and the green panel is painted.",
       alt: "The same storefront with white Japanese and Korean characters painted on the green wall beside the front window, and a large green rectangle painted on the upper white wall where the main sign will go."
     },
     {
-      src:   "../img/progress/front-2026-08-18-c.jpg",
+      src:   "../img/progress/front-2026-08-18-d.jpg",
       thumb: "../img/progress/thumb-2026-08-18-b.jpg",
       date: "August 18",
       caption: "Your address is up. Two of your three outside signs are finished.",
       alt: "The storefront on a clear morning, photographed straight on from across the street. The address numbers are painted in dark green on the white upper wall, the Japanese and Korean characters are on the green wall by the window, and the large green panel above is still empty."
     },
     {
-      src:   "../img/progress/front-2026-08-18-night-d.jpg",
+      src:   "../img/progress/front-2026-08-18-night-e.jpg",
       thumb: "../img/progress/thumb-2026-08-18-night-c.jpg",
       date: "August 18, night",
       caption: "The words above your name are painted. Your name is drawn and waiting.",
       alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
     },
     {
-      src:   "../img/progress/front-2026-08-19-d.jpg",
+      src:   "../img/progress/front-2026-08-19-e.jpg",
       thumb: "../img/progress/thumb-2026-08-19-c.jpg",
       date: "August 19",
       caption: "Finished. Your storefront is ready for opening day.",
       alt: "The finished storefront in late morning sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below."
     },
     {
-      src:   "../img/progress/front-2026-08-22-c.jpg",
-      thumb: "../img/progress/thumb-2026-08-22-b.jpg",
+      src:   "../img/progress/front-2026-08-22-d.jpg",
+      thumb: "../img/progress/thumb-2026-08-22-d.jpg",
       date: "August 22",
       caption: "Washed and finished. Your storefront is ready.",
       alt: "The finished storefront on a bright morning after washing. Every sign is painted, the walls are clean, and the chalk guide lines are gone."
