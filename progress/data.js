@@ -82,7 +82,7 @@ window.HARU = {
   updated: "Wednesday, August 19",
 
   rightNow: "Every sign outside is painted and finished, one day early.",
-  next: "I see you next week. We look at everything together then.",
+  next: "The inside signs come later, after you open. Your designer makes the designs. I make the signs and put them up.",
 
   signs: [
     {
@@ -173,6 +173,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 22", text: "Plan for the inside signs: we make the list together, your designer draws them, I make them and put them up. No rush." },
     { date: "August 22", text: "The chalk is gone. I washed the whole front of your store." },
     { date: "August 19", text: "New photos of your finished storefront are on this page." },
     { date: "August 19", text: "Some chalk guide lines are still on the wall. Rain usually takes them off. I come by and clean what is left once the paint is fully dry." },
@@ -264,10 +265,9 @@ window.HARU = {
     {
       title: "Readable in every light",
       body: [
-        "People see your sign from across Cary Street, from the sidewalk, and from passing cars. And the sun moves all day.",
-        "If it were all glossy, sun would flare off the whole thing at once and your name would vanish into the shine. If it were all flat, the only thing separating white from green is the color, and that difference is weaker than it looks.",
-        "So the green goes flat and the letters go glossy. The green never glares. The white brightens when light hits it. They never behave the same way, so your name stays separate from the background in any light.",
-        "Most shops use one finish for everything. Doing it right costs nothing but knowing."
+        "The green is flat. The letters are glossy.",
+        "Flat green never glares. Glossy white brightens when light hits it. So your name stays separate from the background all day, in any light.",
+        "Most shops use one finish for everything."
       ]
     },
     {
@@ -289,18 +289,17 @@ window.HARU = {
     {
       title: "Chalk lines first, then paint",
       body: [
-        "I print your letters full size on paper, then punch tiny holes along every edge.",
-        "I tape it to your wall and pat chalk dust through the holes. That leaves a dotted outline.",
-        "Nothing is painted yet. The chalk is only a guide, and it brushes off.",
-        "Then I paint over the dots. This is called pouncing, and it is why letters land exactly right."
+        "I print your letters full size, then punch tiny holes along every edge.",
+        "I tape the paper to the wall and pat chalk through the holes. That leaves a dotted outline to paint over.",
+        "This is called pouncing. It is why the letters land exactly right."
       ]
     },
     {
       title: "No ladder in your doorway",
       body: [
-        "You are moving a store in. The messy part happens late at night, when Cary Street is empty.",
-        "Your windows, your paint, and the sidewalk get covered before I start. It all leaves with me.",
-        "I carry general liability insurance. The certificate comes with your invoice."
+        "The messy part happened late at night, when Cary Street was empty.",
+        "Your windows, your paint, and the sidewalk were covered before I started. It all left with me.",
+        "I carry general liability insurance."
       ]
     }
   ],
@@ -311,7 +310,8 @@ window.HARU = {
     "The 3030 goes in the darker green.",
     "The green panel sits off to the side, not centered.",
     "The triangle stays orange, above the name.",
-    "The inside signs are taken off the final bill. If you want them later, just ask.",
+    "The inside signs come after you open. No rush.",
+    "Your designer draws the inside signs. I make them and put them up.",
     "Nothing gets painted on a wall until you have seen the picture and said yes."
   ],
 
