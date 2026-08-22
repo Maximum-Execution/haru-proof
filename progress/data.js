@@ -173,6 +173,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
+    { date: "August 22", text: "The chalk is gone. I washed the whole front of your store." },
     { date: "August 19", text: "New photos of your finished storefront are on this page." },
     { date: "August 19", text: "Some chalk guide lines are still on the wall. Rain usually takes them off. I come by and clean what is left once the paint is fully dry." },
     { date: "August 19", text: "Everything outside is finished, one day before you open." },
@@ -242,11 +243,18 @@ window.HARU = {
       alt: "The storefront at night with the wall lights on. The green panel now carries a painted white line reading Curated Japanese and Korean Market, and below it the outline of the Haru name is drawn in chalk, not yet painted."
     },
     {
-      src:   "../img/progress/front-2026-08-19-b.jpg",
-      thumb: "../img/progress/thumb-2026-08-19-b.jpg",
+      src:   "../img/progress/front-2026-08-19-c.jpg",
+      thumb: "../img/progress/thumb-2026-08-19-c.jpg",
       date: "August 19",
       caption: "Finished. Your storefront is ready for opening day.",
       alt: "The finished storefront in late morning sun. The Haru name, the tagline, and the orange triangle fill the green panel on the upper wall. The address numbers and the Japanese and Korean characters are painted below."
+    },
+    {
+      src:   "../img/progress/front-2026-08-22-a.jpg",
+      thumb: "../img/progress/thumb-2026-08-22-a.jpg",
+      date: "August 22",
+      caption: "Washed and finished. Your storefront is ready.",
+      alt: "The finished storefront on a bright morning after washing. Every sign is painted, the walls are clean, and the chalk guide lines are gone."
     }
   ],
 
@@ -335,7 +343,7 @@ window.HARU = {
      wondering about marks she can see on her own building. Set it to null
      the day the chalk is gone. It is a date, not a boolean, so it cannot
      quietly outlive the job if nobody remembers to clear it. */
-  chalkWatch: "2026-09-19",
+  chalkWatch: null,   /* chalk cleaned and washed off 2026-08-22 - section retired */
 
   /* Haru, 3030 W Cary St, Richmond VA 23221 */
   location: { lat: 37.5537, lon: -77.4839, deadline: "2026-08-20" }
