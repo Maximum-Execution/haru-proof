@@ -82,7 +82,7 @@ window.HARU = {
   updated: "Wednesday, August 19",
 
   rightNow: "Every sign outside is painted and finished, one day early.",
-  next: "The inside signs come later, after you open. Your designer makes the designs. I make the signs and put them up.",
+  next: "The inside signs are on hold for now. When you are ready, just tell me. I am here.",
 
   signs: [
     {
@@ -173,7 +173,7 @@ window.HARU = {
      about who was or was not on an email thread. Progress only. */
   logShown: 4,
   log: [
-    { date: "August 22", text: "Plan for the inside signs: we make the list together, your designer draws them, I make them and put them up. No rush." },
+    { date: "August 22", text: "The inside signs are on hold for now. When you are ready, your designer draws them and I make them. No rush." },
     { date: "August 22", text: "The chalk is gone. I washed the whole front of your store." },
     { date: "August 19", text: "New photos of your finished storefront are on this page." },
     { date: "August 19", text: "Some chalk guide lines are still on the wall. Rain usually takes them off. I come by and clean what is left once the paint is fully dry." },
@@ -310,7 +310,7 @@ window.HARU = {
     "The 3030 goes in the darker green.",
     "The green panel sits off to the side, not centered.",
     "The triangle stays orange, above the name.",
-    "The inside signs come after you open. No rush.",
+    "The inside signs are on hold. No date, no rush.",
     "Your designer draws the inside signs. I make them and put them up.",
     "Nothing gets painted on a wall until you have seen the picture and said yes."
   ],
